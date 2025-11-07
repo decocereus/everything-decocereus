@@ -94,10 +94,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased dark",
+          "min-h-screen bg-background font-sans antialiased",
           inter.variable
         )}
       >
