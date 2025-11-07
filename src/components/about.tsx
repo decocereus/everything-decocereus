@@ -1,7 +1,72 @@
 import Link from "next/link";
-import { SOCIALS } from "@/lib/constants";
-import dynamic from "next/dynamic";
-const Skills = dynamic(() => import("./skills"));
+import { SKILL_TREE_ELEMENTS, SOCIALS } from "@/lib/constants";
+import { Tree, Folder, File, type TreeViewElement } from "./ui/file-tree";
+
+const collectExpandableIds = (elements: TreeViewElement[]): string[] => {
+  const ids: string[] = [];
+
+  const traverse = (nodes: TreeViewElement[]) => {
+    for (const node of nodes) {
+      if (node.children?.length) {
+        ids.push(node.id);
+        traverse(node.children);
+      }
+    }
+  };
+
+  traverse(elements);
+  return ids;
+};
+
+const findFirstSelectableId = (
+  elements: TreeViewElement[]
+): string | undefined => {
+  for (const node of elements) {
+    const isSelectable = node.isSelectable ?? true;
+    if (isSelectable && !node.children?.length) {
+      return node.id;
+    }
+
+    if (node.children?.length) {
+      const childSelectableId = findFirstSelectableId(node.children);
+      if (childSelectableId) {
+        return childSelectableId;
+      }
+
+      if (isSelectable) {
+        return node.id;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+const SKILL_TREE_EXPANDED_IDS = collectExpandableIds(SKILL_TREE_ELEMENTS);
+const SKILL_TREE_DEFAULT_SELECTED_ID =
+  findFirstSelectableId(SKILL_TREE_ELEMENTS);
+
+const renderTreeNodes = (nodes: TreeViewElement[]) =>
+  nodes.map((node) => {
+    if (node.children?.length) {
+      return (
+        <Folder
+          key={node.id}
+          value={node.id}
+          element={node.name}
+          isSelectable={node.isSelectable}
+        >
+          {renderTreeNodes(node.children)}
+        </Folder>
+      );
+    }
+
+    return (
+      <File key={node.id} value={node.id} isSelectable={node.isSelectable}>
+        <p>{node.name}</p>
+      </File>
+    );
+  });
 
 const About = () => {
   return (
@@ -44,7 +109,14 @@ const About = () => {
             </div>
           </div>
         </div>
-        <Skills />
+        <Tree
+          className="bg-background overflow-hidden rounded-md p-2"
+          initialSelectedId={SKILL_TREE_DEFAULT_SELECTED_ID}
+          initialExpandedItems={SKILL_TREE_EXPANDED_IDS}
+          elements={SKILL_TREE_ELEMENTS}
+        >
+          {renderTreeNodes(SKILL_TREE_ELEMENTS)}
+        </Tree>
       </div>
     </section>
   );
