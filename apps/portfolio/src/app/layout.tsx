@@ -1,10 +1,10 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn } from "@everything/ui";
 import "./globals.css";
 import Link from "next/link";
-import { RESUME_URL } from "@/lib/constants";
+import { RESUME_URL } from "@everything/constants";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,9 +19,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://decocereus.dev"),
-  title: "Amartya Singh | Full Stack Engineer",
+  title: "Amartya Singh | Full Stack Engineer & Indie Hacker",
   description:
-    "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
+    "Personal Portfolio of Amartya Singh - Full Stack Engineer building at Avail and shipping indie products on the side",
   keywords: [
     "Full Stack Engineer",
     "Next.js",
@@ -102,16 +102,26 @@ export default function RootLayout({
         )}
       >
         <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm px-6 updated">
-          <div className="max-w-3xl mx-auto h-16 flex items-center justify-between">
+          <div className="max-w-3xl mx-auto h-16 flex items-center justify-between gap-4">
             <p className="font-medium text-foreground py-2 select-none">AS</p>
-            <Link
-              href={RESUME_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm py-2 rounded-lg text-foreground hover:bg-accent px-4 transition-colors duration-200"
-            >
-              View Resume
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="https://blog.decocereus.dev"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm py-2 rounded-lg text-foreground hover:bg-accent px-4 transition-colors duration-200"
+              >
+                Blog
+              </Link>
+              <Link
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm py-2 rounded-lg text-foreground hover:bg-accent px-4 transition-colors duration-200"
+              >
+                Resume
+              </Link>
+            </div>
           </div>
         </header>
         {children}

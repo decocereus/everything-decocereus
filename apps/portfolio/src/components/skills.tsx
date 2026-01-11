@@ -1,5 +1,5 @@
 "use client";
-import { SKILL_TREE } from "@/lib/constants";
+import { SKILL_TREE } from "@everything/constants";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type Skill = {

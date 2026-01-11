@@ -1,0 +1,9 @@
+{
+  "extends": "@everything/config/tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": ["src", "*.ts", "*.tsx"],
+  "exclude": ["node_modules"]
+}

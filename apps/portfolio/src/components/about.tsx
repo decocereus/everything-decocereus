@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { SKILL_TREE_ELEMENTS, SOCIALS } from "@/lib/constants";
-import { Tree, Folder, File, type TreeViewElement } from "./ui/file-tree";
+import { SKILL_TREE_ELEMENTS, SOCIALS } from "@everything/constants";
+import { Tree, Folder, File, type TreeViewElement } from "@everything/ui";
 
 const collectExpandableIds = (elements: TreeViewElement[]): string[] => {
   const ids: string[] = [];
@@ -81,7 +81,7 @@ const About = () => {
               Amartya Singh
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Full Stack Engineer proficient in Next.js, Node.js and Web3
+              Full Stack Engineer & Indie Hacker building at Avail and shipping products on the side
             </p>
           </div>
           <div className="space-y-2 w-full">

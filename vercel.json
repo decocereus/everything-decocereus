@@ -1,0 +1,23 @@
+{
+  "buildCommand": "turbo run build",
+  "devCommand": "turbo run dev",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "outputDirectory": "never",
+  "projects": [
+    {
+      "name": "portfolio",
+      "root": "apps/portfolio",
+      "framework": "nextjs",
+      "buildCommand": "pnpm build",
+      "outputDirectory": ".next"
+    },
+    {
+      "name": "blog",
+      "root": "apps/blog",
+      "framework": "nextjs",
+      "buildCommand": "pnpm build",
+      "outputDirectory": ".next"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@everything/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "typescript": "^5.9.3"
+  }
+}

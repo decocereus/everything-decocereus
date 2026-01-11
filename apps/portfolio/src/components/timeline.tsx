@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@everything/ui";
 import type React from "react";
 
 interface TimelineProps {
