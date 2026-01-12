@@ -5,10 +5,9 @@
   "main": "index.ts",
   "types": "index.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "oxlint"
   },
   "devDependencies": {
-    "eslint": "^8.57.1",
     "typescript": "^5.9.3"
   }
 }

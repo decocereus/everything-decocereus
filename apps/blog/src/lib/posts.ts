@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-interface Post {
+export interface Post {
   slug: string;
   frontmatter: Record<string, any>;
   content: string;

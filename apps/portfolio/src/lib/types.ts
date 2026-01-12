@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export interface Skills {
   [key: string]: string;
@@ -16,5 +16,5 @@ export interface SkillCardProps {
 }
 
 export type IconMap = {
-  [key: string]: JSX.Element;
+  [key: string]: ReactElement;
 };
