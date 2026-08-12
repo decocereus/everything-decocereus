@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import type React from "react";
+import { cn } from "@/lib/utils.ts";
 
 interface TimelineProps {
   children: React.ReactNode;
@@ -32,12 +32,12 @@ export function TimelineItem({
 }: Readonly<TimelineItemProps>) {
   return (
     <div className={cn("relative flex gap-6", className)}>
-      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-background border border-border">
-        <div className="h-2 w-2 rounded-full bg-highlight"></div>
+      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border bg-background">
+        <div className="h-2 w-2 rounded-full bg-highlight" />
       </div>
       <div className="flex-1">
-        {date && (
-          <div className="text-sm text-muted-foreground lg:absolute lg:left-0 lg:top-0.5 lg:whitespace-nowrap  lg:-translate-x-[calc(100%+1rem)]">
+        {Boolean(date) && (
+          <div className="text-muted-foreground text-sm lg:absolute lg:top-0.5 lg:left-0 lg:-translate-x-[calc(100%+1rem)] lg:whitespace-nowrap">
             {date}
           </div>
         )}

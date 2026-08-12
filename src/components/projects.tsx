@@ -1,48 +1,46 @@
-import { PROJECTS } from "@/lib/constants";
-import { Timeline, TimelineItem } from "./timeline";
 import Link from "next/link";
+import { PROJECTS } from "@/lib/constants.ts";
+import { Timeline, TimelineItem } from "./timeline.tsx";
 
-const Projects = () => {
-  return (
-    <section id="projects" className="w-full max-w-3xl mx-auto py-20">
-      <h2 className="text-2xl font-medium mb-12 text-foreground">Projects</h2>
+const Projects = () => (
+  <section className="mx-auto w-full max-w-3xl py-20" id="projects">
+    <h2 className="mb-12 font-medium text-2xl text-foreground">Projects</h2>
 
-      <Timeline>
-        {Object.entries(PROJECTS).map(([id, project], idx) => (
-          <TimelineItem key={id}>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-medium text-foreground">
-                  {project.name}
-                </h3>
-                <Link
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  View
-                </Link>
-              </div>
-
-              <p className="text-sm text-muted-foreground">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2 pt-2">
-                {project.tech.map((tech, idx) => (
-                  <span key={tech} className="text-xs text-muted-foreground">
-                    {tech}
-                    {idx < project.tech.length - 1 ? " · " : ""}
-                  </span>
-                ))}
-              </div>
+    <Timeline>
+      {Object.entries(PROJECTS).map(([id, project]) => (
+        <TimelineItem key={id}>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium text-foreground text-lg">
+                {project.name}
+              </h3>
+              <Link
+                className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+                href={project.link}
+                rel="noreferrer"
+                target="_blank"
+              >
+                View
+              </Link>
             </div>
-          </TimelineItem>
-        ))}
-      </Timeline>
-    </section>
-  );
-};
+
+            <p className="text-muted-foreground text-sm">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-2">
+              {project.tech.map((tech, idx) => (
+                <span className="text-muted-foreground text-xs" key={tech}>
+                  {tech}
+                  {idx < project.tech.length - 1 ? " · " : ""}
+                </span>
+              ))}
+            </div>
+          </div>
+        </TimelineItem>
+      ))}
+    </Timeline>
+  </section>
+);
 
 export default Projects;

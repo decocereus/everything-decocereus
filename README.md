@@ -1,84 +1,40 @@
-# Portfolio 2.0
+# Decocereus
 
-A modern, minimalist portfolio website built with Next.js 14, TypeScript, and Tailwind CSS. View live at [your-portfolio-url].
+The source for [decocereus.com](https://decocereus.com), built with Next.js 16,
+React 19, TypeScript, Tailwind CSS 4, and Base UI.
 
-## 🚀 Features
+## Development
 
-- **Modern Stack**: Built with Next.js 14, TypeScript, and Tailwind CSS
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Dark Mode**: Sleek dark theme for better viewing experience
-- **Performance Optimized**: Fast loading times and optimal performance
-- **Clean UI**: Minimalist and professional design
-- **SEO Friendly**: Optimized for search engines
-
-## 🛠️ Tech Stack
-
-- [Next.js 14](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Lucide Icons](https://lucide.dev/) - Icons
-
-## 🚦 Getting Started
-
-1. Clone the repository:
+This repository uses pnpm 11 and requires Node.js 22.13 or newer.
 
 ```bash
-git clone https://github.com/decocereus/portfolio2.0.git
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-# or
-yarn install
-# or
 pnpm install
-```
-
-3. Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-## 📁 Project Structure
+## Checks
 
-```
-├── src/
-│   ├── app/             # App router pages
-│   ├── components/      # React components
-│   ├── lib/            # Utilities and constants
-│   └── styles/         # Global styles
-├── public/             # Static assets
-└── tailwind.config.js  # Tailwind configuration
+```bash
+pnpm typecheck
+pnpm check
+pnpm react:doctor
+pnpm build
 ```
 
-## 🎨 Customization
+`pnpm check` runs Ultracite with its type-aware Biome, React, and Next.js
+presets. Use `pnpm fix` for safe autofixes and `pnpm ultracite:doctor` to verify
+the tooling setup. `pnpm react:doctor` runs React Doctor without telemetry or
+supply-chain scanning.
 
-1. Update the constants in `src/lib/constants.ts` with your information
-2. Modify the components in `src/components/` to match your needs
-3. Add your own projects and experience
-4. Customize the styling by modifying Tailwind classes
+## Structure
 
-## 📝 License
+```text
+src/app/          App Router pages, metadata, and global styles
+src/components/   Site sections and Base UI-backed primitives
+src/lib/          Content, types, and shared utilities
+public/           Static images and assets
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/decocereus/portfolio2.0/issues).
-
-## 👨‍💻 Author
-
-Amartya Singh
-
-- GitHub: [@decocereus](https://github.com/decocereus)
-- LinkedIn: [Amartya Singh](https://www.linkedin.com/in/amartyasingh07/)
-- Twitter: [@decocereus](https://x.com/decocereus)
+Read [AGENTS.md](./AGENTS.md) before making structural or design changes.

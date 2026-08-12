@@ -1,27 +1,43 @@
-import type React from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
+import type React from "react";
+import { cn } from "@/lib/utils.ts";
 import "./globals.css";
 import Link from "next/link";
-import { RESUME_URL } from "@/lib/constants";
+import { RESUME_URL } from "@/lib/constants.ts";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
 });
 
 export const viewport: Viewport = {
-  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  width: "device-width",
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://decocereus.dev"),
-  title: "Amartya Singh | Full Stack Engineer",
+  alternates: {
+    canonical: "https://decocereus.com",
+  },
+  authors: [{ name: "Amartya Singh" }],
+  creator: "Amartya Singh",
   description:
     "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
+  icons: {
+    icon: [
+      {
+        href: "/logo.png",
+        media: "(prefers-color-scheme: light)",
+        url: "/logo.png",
+      },
+      {
+        href: "/logo.png",
+        media: "(prefers-color-scheme: dark)",
+        url: "/logo.png",
+      },
+    ],
+  },
   keywords: [
     "Full Stack Engineer",
     "Next.js",
@@ -31,60 +47,43 @@ export const metadata: Metadata = {
     "TypeScript",
     "Portfolio",
   ],
-  authors: [{ name: "Amartya Singh" }],
-  creator: "Amartya Singh",
-  publisher: "Amartya Singh",
-  alternates: {
-    canonical: "https://decocereus.dev",
-  },
+  metadataBase: new URL("https://decocereus.com"),
   openGraph: {
-    title: "Amartya Singh | Full Stack Engineer",
     description:
       "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
-    url: "/",
-    siteName: "Amartya Singh Portfolio",
-    locale: "en_US",
-    type: "website",
     images: [
       {
+        alt: "Amartya Singh Portfolio",
+        height: 630,
         url: "/logo.png",
         width: 1200,
-        height: 630,
-        alt: "Amartya Singh Portfolio",
       },
     ],
+    locale: "en_US",
+    siteName: "Amartya Singh Portfolio",
+    title: "Amartya Singh | Full Stack Engineer",
+    type: "website",
+    url: "https://decocereus.com",
   },
+  publisher: "Amartya Singh",
+  robots: {
+    follow: true,
+    googleBot: {
+      follow: true,
+      index: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+    index: true,
+  },
+  title: "Amartya Singh | Full Stack Engineer",
   twitter: {
     card: "summary_large_image",
-    title: "Amartya Singh | Full Stack Engineer",
     description:
       "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
     images: ["/logo.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: "/logo.png",
-        href: "/logo.png",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/logo.png",
-        href: "/logo.png",
-      },
-    ],
+    title: "Amartya Singh | Full Stack Engineer",
   },
 };
 
@@ -94,30 +93,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html className="dark scroll-smooth" lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          inter.variable
+          inter.className
         )}
       >
-        <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm px-6 updated">
-          <div className="max-w-3xl mx-auto h-16 flex items-center justify-between">
-            <p className="font-medium text-foreground py-2 select-none">AS</p>
+        <header className="updated sticky top-0 z-50 w-full bg-background/80 px-6 backdrop-blur-sm">
+          <div className="mx-auto flex h-16 max-w-3xl items-center justify-between">
+            <p className="select-none py-2 font-medium text-foreground">AS</p>
             <Link
+              className="rounded-lg px-4 py-2 text-foreground text-sm transition-colors duration-200 hover:bg-accent"
               href={RESUME_URL}
-              target="_blank"
               rel="noreferrer"
-              className="text-sm py-2 rounded-lg text-foreground hover:bg-accent px-4 transition-colors duration-200"
+              target="_blank"
             >
               View Resume
             </Link>
           </div>
         </header>
         {children}
-        <footer className="w-full border-t border-border py-8 updated">
-          <div className="max-w-3xl mx-auto px-4 flex items-center justify-center">
-            <p className="text-xs text-muted-foreground text-center">
+        <footer className="updated w-full border-border border-t py-8">
+          <div className="mx-auto flex max-w-3xl items-center justify-center px-4">
+            <p className="text-center text-muted-foreground text-xs">
               © {new Date().getFullYear()} Amartya Singh
             </p>
           </div>

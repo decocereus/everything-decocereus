@@ -1,0 +1,22 @@
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - "@biomejs/biome@2.5.8"
+  - "@biomejs/cli-darwin-arm64@2.5.8"
+  - "@biomejs/cli-darwin-x64@2.5.8"
+  - "@biomejs/cli-linux-arm64-musl@2.5.8"
+  - "@biomejs/cli-linux-arm64@2.5.8"
+  - "@biomejs/cli-linux-x64-musl@2.5.8"
+  - "@biomejs/cli-linux-x64@2.5.8"
+  - "@biomejs/cli-win32-arm64@2.5.8"
+  - "@biomejs/cli-win32-x64@2.5.8"
+  - "@types/node@26.2.0"
+  - baseline-browser-mapping@2.11.13
+  - deslop-js@0.9.11
+  - lucide-react@1.31.0
+  - oxlint-plugin-react-doctor@0.9.11
+  - react-doctor@0.9.11
+  - typescript@7.0.2
+  - ultracite@7.10.3
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - semver@6.3.1
