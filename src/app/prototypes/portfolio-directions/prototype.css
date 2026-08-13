@@ -1,0 +1,4 @@
+body:has([data-portfolio-prototype]) > header,
+body:has([data-portfolio-prototype]) > footer {
+  display: none;
+}
