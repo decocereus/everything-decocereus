@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./integrated.module.css";
+import styles from "./portfolio.module.css";
 
 const SCRAMBLE_FRAMES = [
   "codesecure",

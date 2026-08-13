@@ -26,13 +26,14 @@
 
 .shell {
   width: min(100% - 48px, 720px);
-  padding-block: 80px max(112px, env(safe-area-inset-bottom));
+  padding-block: 0 max(112px, env(safe-area-inset-bottom));
   margin-inline: auto;
 }
 
 .introduction {
   display: grid;
   gap: 24px;
+  padding-block-start: 72px;
 }
 
 .identity {
@@ -49,7 +50,6 @@
   letter-spacing: -0.035em;
 }
 
-.identity p,
 .current,
 .smallDescription,
 .footer {
@@ -62,14 +62,9 @@
   align-items: center;
 }
 
-.identity p,
 .current,
 .links {
   font-size: 0.9375rem;
-}
-
-.identity p {
-  white-space: nowrap;
 }
 
 .lede {
@@ -160,11 +155,6 @@
   text-wrap: pretty;
 }
 
-.handle {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.9375em;
-}
-
 .footer {
   display: flex;
   gap: 24px;
@@ -191,12 +181,9 @@
 @media (max-width: 680px) {
   .shell {
     width: min(100% - 40px, 720px);
-    padding-block-start: 48px;
   }
 
   .identity {
-    flex-direction: column;
-    gap: 4px;
     align-items: flex-start;
   }
 

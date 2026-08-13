@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import type React from "react";
 import { cn } from "@/lib/utils.ts";
 import "./globals.css";
-import Link from "next/link";
-import { RESUME_URL } from "@/lib/constants.ts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,7 +10,6 @@ const inter = Inter({
 
 export const viewport: Viewport = {
   initialScale: 1,
-  maximumScale: 1,
   width: "device-width",
 };
 
@@ -23,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Amartya Singh" }],
   creator: "Amartya Singh",
   description:
-    "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
+    "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
   icons: {
     icon: [
       {
@@ -39,10 +36,10 @@ export const metadata: Metadata = {
     ],
   },
   keywords: [
-    "Full Stack Engineer",
+    "Product Engineer",
     "Next.js",
     "Node.js",
-    "Web3",
+    "AI",
     "React",
     "TypeScript",
     "Portfolio",
@@ -50,7 +47,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://decocereus.com"),
   openGraph: {
     description:
-      "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
+      "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
     images: [
       {
         alt: "Amartya Singh Portfolio",
@@ -61,7 +58,7 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     siteName: "Amartya Singh Portfolio",
-    title: "Amartya Singh | Full Stack Engineer",
+    title: "Amartya Singh",
     type: "website",
     url: "https://decocereus.com",
   },
@@ -77,13 +74,13 @@ export const metadata: Metadata = {
     },
     index: true,
   },
-  title: "Amartya Singh | Full Stack Engineer",
+  title: "Amartya Singh",
   twitter: {
     card: "summary_large_image",
     description:
-      "Personal Portfolio of Amartya Singh - Full Stack Engineer proficient in Next.js, Node.js and Web3",
+      "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
     images: ["/logo.png"],
-    title: "Amartya Singh | Full Stack Engineer",
+    title: "Amartya Singh",
   },
 };
 
@@ -93,34 +90,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="dark scroll-smooth" lang="en">
+    <html className="scroll-smooth" lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.className
         )}
       >
-        <header className="updated sticky top-0 z-50 w-full bg-background/80 px-6 backdrop-blur-sm">
-          <div className="mx-auto flex h-16 max-w-3xl items-center justify-between">
-            <p className="select-none py-2 font-medium text-foreground">AS</p>
-            <Link
-              className="rounded-lg px-4 py-2 text-foreground text-sm transition-colors duration-200 hover:bg-accent"
-              href={RESUME_URL}
-              rel="noreferrer"
-              target="_blank"
-            >
-              View Resume
-            </Link>
-          </div>
-        </header>
         {children}
-        <footer className="updated w-full border-border border-t py-8">
-          <div className="mx-auto flex max-w-3xl items-center justify-center px-4">
-            <p className="text-center text-muted-foreground text-xs">
-              © {new Date().getFullYear()} Amartya Singh
-            </p>
-          </div>
-        </footer>
       </body>
     </html>
   );
