@@ -1,7 +1,43 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { PORTFOLIO_SOCIALS } from "@/lib/constants.ts";
+import { PORTFOLIO_BIO, PORTFOLIO_CONTACT } from "@/lib/constants.ts";
+import { InterestPopover } from "./interest-popover.tsx";
+import { LinkPreviewPopover } from "./link-preview-popover.tsx";
 import styles from "./portfolio-shell.module.css";
+
+type BiographySegment = (typeof PORTFOLIO_BIO)[number]["segments"][number];
+type Theme = "dark" | "light";
+
+function BiographySegment({
+  segment,
+  theme,
+}: {
+  segment: BiographySegment;
+  theme: Theme;
+}) {
+  if ("href" in segment) {
+    return (
+      <LinkPreviewPopover
+        href={segment.href}
+        previewKey={segment.preview}
+        theme={theme}
+      >
+        {segment.text}
+      </LinkPreviewPopover>
+    );
+  }
+
+  if ("interest" in segment) {
+    return (
+      <InterestPopover interest={segment.interest} theme={theme}>
+        {segment.text}
+      </InterestPopover>
+    );
+  }
+
+  return segment.text;
+}
 
 export function PortfolioShell({
   children,
@@ -17,43 +53,33 @@ export function PortfolioShell({
   );
 }
 
-export function Introduction() {
+export function Introduction({ theme }: { theme: Theme }) {
   return (
-    <section aria-labelledby="page-title" className={styles.introduction}>
-      <div className={styles.identity}>
-        <h1 id="page-title">Amartya Singh</h1>
-      </div>
-      <p className={styles.lede}>
-        I build products across backend systems, interfaces, and developer
-        tools. Sometimes I build things of my own too.
-      </p>
-      <nav aria-label="Elsewhere" className={styles.links}>
-        {PORTFOLIO_SOCIALS.map((social) => (
-          <Link
-            href={social.href}
-            key={social.label}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {social.label}
-          </Link>
+    <header className={styles.introduction}>
+      <Image
+        alt="A hand-drawn sketchbook of a cat, games, music, gadgets, and connected ideas"
+        className={styles.sketchbook}
+        height={1024}
+        preload
+        sizes="(max-width: 768px) calc(100vw - 40px), 720px"
+        src="/prototypes/portfolio-directions/sketchbook-world-football-guitar.png"
+        width={1536}
+      />
+      <h1 id="page-title">Amartya Singh</h1>
+      <div className={styles.biography}>
+        {PORTFOLIO_BIO.map((paragraph) => (
+          <p key={paragraph.id}>
+            {paragraph.segments.map((segment) => (
+              <BiographySegment
+                key={`${paragraph.id}-${segment.text}`}
+                segment={segment}
+                theme={theme}
+              />
+            ))}
+          </p>
         ))}
-      </nav>
-    </section>
-  );
-}
-
-export function Interests() {
-  return (
-    <section aria-labelledby="interests-title" className={styles.section}>
-      <h2 id="interests-title">Away from work</h2>
-      <div className={styles.aboutCopy}>
-        <p>
-          I’m usually with my cat, playing games, watching anime, or following
-          football. Hala Madrid.
-        </p>
       </div>
-    </section>
+    </header>
   );
 }
 
@@ -64,11 +90,15 @@ export function PortfolioFooter({
 }) {
   return (
     <footer className={styles.footer}>
-      <p>Amartya Singh</p>
-      <div className={styles.footerActions}>
-        {footerAction}
-        <Link href="mailto:amartyasinghkings07@gmail.com">Get in touch</Link>
-      </div>
+      <nav aria-label="Contact" className={styles.contact}>
+        {PORTFOLIO_CONTACT.links.map((social) => (
+          <Link href={social.href} key={social.label}>
+            {social.label}
+          </Link>
+        ))}
+        <Link href={PORTFOLIO_CONTACT.mailHref}>Email</Link>
+      </nav>
+      {footerAction}
     </footer>
   );
 }

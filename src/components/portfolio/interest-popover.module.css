@@ -1,0 +1,436 @@
+.trigger {
+  --interest-underline-active: currentColor;
+  position: relative;
+  display: inline;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+}
+
+.trigger::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 12px);
+  min-width: 44px;
+  height: 44px;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.label {
+  position: relative;
+  display: inline-block;
+}
+
+.label::before,
+.label::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.06em;
+  left: 0;
+  height: 0.12em;
+  pointer-events: none;
+  content: "";
+  border-radius: 999px;
+}
+
+.label::before {
+  background: var(--interest-underline);
+  transform: scaleX(1);
+  transform-origin: right center;
+  transition: transform 120ms cubic-bezier(0.4, 0, 1, 1);
+  transition-delay: 100ms;
+}
+
+.label::after {
+  background: var(--interest-underline-active);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.trigger[data-interest="cat"] {
+  --interest-underline: oklch(0.74 0.19 48 / 72%);
+  --interest-underline-active: oklch(0.74 0.19 48);
+}
+
+.trigger[data-interest="music"] {
+  --interest-underline: oklch(0.72 0.2 326 / 70%);
+  --interest-underline-active: oklch(0.72 0.2 326);
+}
+
+.trigger[data-interest="anime"] {
+  --interest-underline: oklch(0.76 0.17 215 / 72%);
+  --interest-underline-active: oklch(0.76 0.17 215);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.trigger:focus-visible .label::before {
+  transform: scaleX(0);
+  transition: none;
+}
+
+.trigger:focus-visible .label::after {
+  transform: scaleX(1);
+  transition: none;
+}
+
+.positioner {
+  z-index: 20;
+}
+
+.popup {
+  --popover-bg: oklch(0.99 0.006 80);
+  --popover-text: oklch(0.22 0.01 65);
+  --popover-muted: oklch(0.5 0.012 65);
+  --popover-line: oklch(0.22 0.01 65 / 11%);
+  width: min(390px, calc(100vw - 24px));
+  max-height: min(70svh, var(--available-height), 560px);
+  padding: 12px;
+  overflow-y: auto;
+  color: var(--popover-text);
+  outline: 1px solid oklch(0 0 0 / 8%);
+  background: var(--popover-bg);
+  border-radius: 18px;
+  box-shadow:
+    0 2px 5px oklch(0.16 0.01 65 / 8%),
+    0 12px 30px oklch(0.16 0.01 65 / 12%);
+  transform: scale(1) translateY(0);
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity 140ms cubic-bezier(0.2, 0, 0, 1),
+    transform 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.popup[data-theme="dark"] {
+  --popover-bg: oklch(0.23 0.01 67);
+  --popover-text: oklch(0.92 0.008 82);
+  --popover-muted: oklch(0.69 0.012 75);
+  --popover-line: oklch(0.92 0.008 82 / 13%);
+  outline-color: oklch(1 0 0 / 11%);
+  box-shadow:
+    0 2px 5px oklch(0 0 0 / 18%),
+    0 14px 34px oklch(0 0 0 / 28%);
+}
+
+.popup[data-interest="cat"] {
+  width: min(252px, calc(100vw - 24px));
+}
+
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.97) translateY(4px);
+}
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding-inline-start: 8px;
+}
+
+.popup[data-interest="cat"] .header {
+  min-height: 32px;
+  padding: 0 4px 4px;
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.close {
+  display: inline-grid;
+  flex: 0 0 44px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--popover-muted);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    transform 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.close:active {
+  transform: scale(0.96);
+}
+
+.close:focus-visible,
+.musicList a:focus-visible,
+.animeList a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.catFigure {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.catImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  outline: 1px solid oklch(0 0 0 / 10%);
+  object-fit: cover;
+  object-position: 58% 47%;
+  border-radius: 10px;
+}
+
+.popup[data-theme="dark"] .catImage {
+  outline-color: oklch(1 0 0 / 10%);
+}
+
+.catFigure figcaption {
+  padding: 0 4px 4px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--popover-muted);
+}
+
+.musicList,
+.animeList {
+  padding: 0;
+  margin: 2px 0 0;
+  list-style: none;
+}
+
+.musicList {
+  display: grid;
+}
+
+.musicItem + .musicItem {
+  border-block-start: 1px solid var(--popover-line);
+}
+
+.musicList a {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 24px;
+  gap: 8px;
+  align-items: center;
+  min-height: 52px;
+  padding: 6px 8px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 140ms ease;
+}
+
+.trackNumber,
+.trackArrow,
+.animeNumber,
+.animeArrow {
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--popover-muted);
+}
+
+.trackCopy {
+  display: grid;
+  min-width: 0;
+}
+
+.trackCopy strong,
+.animeList strong {
+  font-size: 0.8125rem;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -0.008em;
+}
+
+.trackArtist {
+  margin-block-start: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--popover-muted);
+  white-space: nowrap;
+}
+
+.trackArrow {
+  justify-self: end;
+  transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.animeList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-block-start: 4px;
+}
+
+.animeItem:last-child {
+  grid-column: 1 / -1;
+}
+
+.animeItem a {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px;
+  gap: 5px;
+  height: 100%;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+}
+
+.animeArtwork {
+  position: relative;
+  display: grid;
+  grid-column: 1 / -1;
+  place-items: center;
+  min-height: 84px;
+  overflow: hidden;
+  background: oklch(0.9 0.04 80);
+  border-radius: 6px;
+}
+
+.animeArtwork img {
+  display: block;
+  width: 100%;
+  height: 84px;
+  object-fit: cover;
+}
+
+.animeArtwork[data-anime="haikyu"] {
+  background:
+    radial-gradient(circle at 78% 20%, oklch(0.82 0.16 75), transparent 25%),
+    linear-gradient(145deg, oklch(0.29 0.015 65), oklch(0.16 0.01 65));
+}
+
+.animeArtwork[data-anime="haikyu"] img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px oklch(0 0 0 / 25%));
+}
+
+.animeArtwork[data-anime="attack-on-titan"] img {
+  object-position: 50% 26%;
+}
+
+.animeNumber {
+  position: absolute;
+  inset-block-start: 6px;
+  inset-inline-start: 6px;
+  padding: 4px 5px;
+  color: white;
+  background: oklch(0 0 0 / 55%);
+  border-radius: 5px;
+  backdrop-filter: blur(4px);
+}
+
+.animeList strong {
+  align-self: center;
+  padding: 3px 2px 2px;
+  text-wrap: balance;
+}
+
+.animeArrow {
+  align-self: center;
+  justify-self: end;
+  padding-inline-end: 2px;
+  transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover .label::before {
+    transform: scaleX(0);
+    transition-delay: 0ms;
+  }
+
+  .trigger:hover .label::after {
+    transform: scaleX(1);
+    transition-delay: 70ms;
+  }
+
+  .close:hover,
+  .musicList a:hover {
+    background: var(--popover-line);
+  }
+
+  .close:hover {
+    color: var(--popover-text);
+  }
+
+  .musicList a:hover .trackArrow {
+    transform: translate(2px, -2px);
+  }
+
+  .animeList a:hover .animeArrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 480px) {
+  .popup {
+    padding: 10px;
+    border-radius: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label::before,
+  .label::after,
+  .popup,
+  .close,
+  .musicList a,
+  .trackArrow,
+  .animeList a,
+  .animeArrow {
+    transition-duration: 0.01ms;
+  }
+
+  .popup[data-starting-style],
+  .popup[data-ending-style] {
+    transform: none;
+  }
+
+  .close:active {
+    transform: none;
+  }
+
+  .animeList a:hover .animeArrow {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .trigger {
+    text-decoration: underline;
+  }
+
+  .label::before,
+  .label::after {
+    display: none;
+  }
+}
