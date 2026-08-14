@@ -48,14 +48,6 @@ export const metadata: Metadata = {
   openGraph: {
     description:
       "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
-    images: [
-      {
-        alt: "Amartya Singh Portfolio",
-        height: 630,
-        url: "/logo.png",
-        width: 1200,
-      },
-    ],
     locale: "en_US",
     siteName: "Amartya Singh Portfolio",
     title: "Amartya Singh",
@@ -79,7 +71,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     description:
       "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
-    images: ["/logo.png"],
     title: "Amartya Singh",
   },
 };
@@ -90,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="scroll-smooth" lang="en">
+    <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

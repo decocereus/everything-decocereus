@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { PORTFOLIO_LORE } from "@/lib/constants.ts";
 import styles from "./portfolio.module.css";
+import sharedStyles from "./portfolio-shell.module.css";
 
 const SCRAMBLE_FRAMES = [
   "codesecure",
@@ -50,55 +52,63 @@ export function ThemeToggle({
   );
 }
 
-export function AnagramSignature() {
+export function AnagramStory() {
   const [word, setWord] = useState("code + secure");
   const timers = useRef<number[]>([]);
 
-  useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (reduceMotion) {
+  const clearTimers = useCallback(() => {
+    for (const timer of timers.current) {
+      window.clearTimeout(timer);
+    }
+    timers.current = [];
+  }, []);
+
+  const play = useCallback(() => {
+    clearTimers();
+    setWord("code + secure");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setWord("decocereus");
       return;
     }
 
-    const play = () => {
-      for (const timer of timers.current) {
-        window.clearTimeout(timer);
-      }
-      timers.current = [];
-      setWord("code + secure");
-      for (const [index, frame] of SCRAMBLE_FRAMES.entries()) {
-        timers.current.push(
-          window.setTimeout(() => setWord(frame), 1200 + index * 90)
-        );
-      }
-    };
+    for (const [index, frame] of SCRAMBLE_FRAMES.entries()) {
+      timers.current.push(
+        window.setTimeout(() => setWord(frame), 100 + index * 75)
+      );
+    }
+  }, [clearTimers]);
 
-    play();
-    const cycle = window.setInterval(play, 3600);
-    return () => {
-      window.clearInterval(cycle);
-      for (const timer of timers.current) {
-        window.clearTimeout(timer);
-      }
-      timers.current = [];
-    };
-  }, []);
+  const reset = useCallback(() => {
+    clearTimers();
+    setWord("code + secure");
+  }, [clearTimers]);
+
+  useEffect(() => clearTimers, [clearTimers]);
 
   return (
-    <div className={styles.anagramBlock}>
-      <p className={styles.anagramLabel}>
-        My first Python project gave me a name
-      </p>
-      <div
-        aria-label="Code plus secure becomes decocereus"
-        className={styles.anagram}
-        role="img"
-      >
-        <span aria-hidden="true">{word}</span>
+    <section
+      aria-labelledby="lore-title"
+      className={`${sharedStyles.section} ${styles.loreSection}`}
+    >
+      <h2 id="lore-title">{PORTFOLIO_LORE.title}</h2>
+      <div className={styles.loreContent}>
+        <p className={styles.loreCopy}>{PORTFOLIO_LORE.story}</p>
+        <button
+          aria-label={PORTFOLIO_LORE.label}
+          className={styles.anagramStory}
+          onBlur={reset}
+          onClick={play}
+          onFocus={play}
+          onMouseEnter={play}
+          onMouseLeave={reset}
+          type="button"
+        >
+          <span aria-hidden="true" className={styles.anagramStage}>
+            <span className={styles.animatedAnagram}>{word}</span>
+          </span>
+        </button>
       </div>
-    </div>
+    </section>
   );
 }

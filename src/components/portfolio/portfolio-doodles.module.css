@@ -1,0 +1,253 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.connections {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1280px;
+  height: 1120px;
+  overflow: visible;
+  transform: translateX(-50%);
+}
+
+.connections path {
+  opacity: 0.2;
+  fill: none;
+  stroke: var(--prototype-muted);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-dasharray: 1 1.08;
+  stroke-dashoffset: 1;
+  animation: draw-connection 1400ms cubic-bezier(0.19, 1, 0.22, 1);
+  animation-fill-mode: both;
+}
+
+.connectionTop {
+  animation-delay: 80ms;
+}
+
+.connectionLeft {
+  animation-delay: 180ms;
+}
+
+.connectionRight {
+  animation-delay: 300ms;
+}
+
+.doodle {
+  position: absolute;
+  opacity: 0.86;
+  transform: rotate(var(--doodle-rotation, 0deg));
+}
+
+.response {
+  transition: transform 180ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.cat {
+  --doodle-rotation: -5deg;
+  top: 18px;
+  left: calc(50% - 600px);
+  width: 198px;
+}
+
+.football {
+  --doodle-rotation: 7deg;
+  top: 86px;
+  right: calc(50% - 586px);
+  width: 172px;
+}
+
+.controller {
+  --doodle-rotation: 5deg;
+  top: 336px;
+  left: calc(50% - 554px);
+  width: 174px;
+}
+
+.headphones {
+  --doodle-rotation: -6deg;
+  top: 410px;
+  right: calc(50% - 572px);
+  width: 180px;
+}
+
+.laptop {
+  --doodle-rotation: -4deg;
+  top: 654px;
+  left: calc(50% - 588px);
+  width: 210px;
+}
+
+.guitar {
+  --doodle-rotation: 6deg;
+  top: 726px;
+  right: calc(50% - 590px);
+  width: 204px;
+}
+
+.gadgets {
+  --doodle-rotation: 4deg;
+  top: 914px;
+  left: calc(50% - 560px);
+  width: 194px;
+}
+
+.cat .art {
+  animation: float-cat 8s cubic-bezier(0.645, 0.045, 0.355, 1) infinite
+    alternate;
+}
+
+.guitar .art {
+  animation: float-guitar 10s cubic-bezier(0.645, 0.045, 0.355, 1) infinite
+    alternate;
+}
+
+@keyframes float-cat {
+  from {
+    transform: translate3d(0, -2px, 0) rotate(-0.6deg);
+  }
+
+  to {
+    transform: translate3d(0, 5px, 0) rotate(0.8deg);
+  }
+}
+
+@keyframes float-guitar {
+  from {
+    transform: translate3d(0, 3px, 0) rotate(0.5deg);
+  }
+
+  to {
+    transform: translate3d(0, -4px, 0) rotate(-0.7deg);
+  }
+}
+
+@keyframes draw-connection {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.layer[data-theme="dark"] .art {
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  filter: invert(1) hue-rotate(180deg) saturate(0.9);
+}
+
+@media (max-width: 1100px) {
+  .connections {
+    display: none;
+  }
+
+  .doodle {
+    opacity: 0.14;
+  }
+
+  .cat {
+    top: 12px;
+    left: -24px;
+    width: 132px;
+  }
+
+  .football {
+    top: 48px;
+    right: -20px;
+    width: 118px;
+  }
+
+  .controller {
+    top: 360px;
+    left: -26px;
+    width: 126px;
+  }
+
+  .headphones {
+    top: 476px;
+    right: -28px;
+    width: 126px;
+  }
+
+  .laptop {
+    top: 650px;
+    left: -34px;
+    width: 142px;
+  }
+
+  .guitar {
+    top: 740px;
+    right: -34px;
+    width: 140px;
+  }
+
+  .gadgets {
+    top: 930px;
+    left: -30px;
+    width: 142px;
+  }
+}
+
+@media (max-width: 680px) {
+  .doodle {
+    opacity: 0.1;
+  }
+
+  .cat {
+    top: 18px;
+    left: -30px;
+    width: 112px;
+  }
+
+  .football {
+    top: 78px;
+    right: -24px;
+    width: 92px;
+  }
+
+  .controller {
+    top: 474px;
+    left: -28px;
+    width: 96px;
+  }
+
+  .guitar {
+    top: 790px;
+    right: -26px;
+    width: 104px;
+  }
+
+  .headphones,
+  .laptop,
+  .gadgets {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connections path {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .response {
+    transition: none;
+  }
+
+  .cat .art,
+  .guitar .art {
+    animation: none;
+  }
+}

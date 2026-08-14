@@ -2,22 +2,23 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import {
-  PORTFOLIO_CURRENT_WORK,
-  PORTFOLIO_PLACES,
-  PORTFOLIO_SIDE_PROJECTS,
-} from "@/lib/constants.ts";
+import { PORTFOLIO_WORK } from "@/lib/constants.ts";
+import type { GitHubContributions } from "@/lib/github-contributions.ts";
+import { GitHubContributionGraph } from "./github-contributions.tsx";
 import styles from "./portfolio.module.css";
-import { AnagramSignature, ThemeToggle } from "./portfolio-interactions.tsx";
+import { AnagramStory, ThemeToggle } from "./portfolio-interactions.tsx";
 import sharedStyles from "./portfolio-shell.module.css";
 import {
-  Interests,
   Introduction,
   PortfolioFooter,
   PortfolioShell,
 } from "./portfolio-shell.tsx";
 
-export function Portfolio() {
+export function Portfolio({
+  contributions,
+}: {
+  contributions: GitHubContributions;
+}) {
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
@@ -35,110 +36,39 @@ export function Portfolio() {
 
   return (
     <PortfolioShell theme={theme}>
-      <section
-        aria-label="The decocereus story"
-        className={styles.anagramSection}
-      >
-        <AnagramSignature />
-      </section>
-      <Introduction />
-      <section aria-labelledby="current-title" className={sharedStyles.section}>
-        <h2 id="current-title">Current</h2>
-        <div>
-          <div className={styles.currentRole}>
-            <span className={styles.company}>
-              <span>{PORTFOLIO_CURRENT_WORK.company}</span>
-              <span>{PORTFOLIO_CURRENT_WORK.role}</span>
-            </span>
-            <time>{PORTFOLIO_CURRENT_WORK.dates}</time>
-          </div>
-          <div className={styles.embeddedProjects}>
-            {PORTFOLIO_CURRENT_WORK.projects.map((project) => (
-              <article key={project.name}>
-                <div className={styles.projectHeading}>
-                  <h3>{project.name}</h3>
-                  {"href" in project && project.href ? (
-                    <Link href={project.href} rel="noreferrer" target="_blank">
-                      Open ↗
-                    </Link>
-                  ) : null}
-                </div>
-                <p>{project.summary}</p>
-                <p>{project.detail}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section aria-labelledby="places-title" className={sharedStyles.section}>
-        <h2 id="places-title">Previously</h2>
-        <div className={styles.history}>
-          {PORTFOLIO_PLACES.map((item) => (
-            <details key={item.company}>
-              <summary>
-                <span className={styles.company}>
-                  <span>{item.company}</span>
-                  <span>{item.role}</span>
-                </span>
-                <time>{item.dates}</time>
-                <span aria-hidden="true" className={styles.disclosure}>
-                  +
-                </span>
-              </summary>
-              <div className={styles.companyDetail}>
-                <p>{item.summary}</p>
-              </div>
-            </details>
-          ))}
-        </div>
-      </section>
-      <Interests />
-      <section
-        aria-labelledby="independent-title"
-        className={sharedStyles.section}
-      >
-        <h2 id="independent-title">After hours</h2>
-        <article className={styles.independent}>
-          <div className={styles.independentHeading}>
-            <h3>{PORTFOLIO_SIDE_PROJECTS.highlight.name}</h3>
-            <Link
-              href={PORTFOLIO_SIDE_PROJECTS.highlight.href}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Website ↗
-            </Link>
-          </div>
-          <p className={styles.independentSummary}>
-            {PORTFOLIO_SIDE_PROJECTS.highlight.summary}
-          </p>
-          <p className={styles.independentDetail}>
-            {PORTFOLIO_SIDE_PROJECTS.highlight.detail}
-          </p>
-        </article>
-        <ul aria-label="Smaller projects" className={styles.smallProjects}>
-          {PORTFOLIO_SIDE_PROJECTS.smaller.map((project) => (
+      <Introduction theme={theme} />
+      <AnagramStory />
+      <section aria-labelledby="work-title" className={sharedStyles.section}>
+        <h2 id="work-title">Things I’ve built</h2>
+        <ol className={styles.workList}>
+          {PORTFOLIO_WORK.map((project) => (
             <li key={project.name}>
-              <div>
-                <span>{project.name}</span>
-                <span>{project.description}</span>
-              </div>
-              <span className={styles.projectLinks}>
-                <Link href={project.href} rel="noreferrer" target="_blank">
-                  Open ↗
-                </Link>
-                <Link
-                  href={project.sourceHref}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Source ↗
-                </Link>
-              </span>
+              <article>
+                <h3>
+                  <Link href={project.href} rel="noreferrer" target="_blank">
+                    <span>{project.name}</span>
+                    <span aria-hidden="true" className={styles.arrow}>
+                      ↗
+                    </span>
+                  </Link>
+                </h3>
+                <p>{project.summary}</p>
+                {"sourceHref" in project ? (
+                  <Link
+                    className={styles.sourceLink}
+                    href={project.sourceHref}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    View source ↗
+                  </Link>
+                ) : null}
+              </article>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
+      <GitHubContributionGraph contributions={contributions} />
       <PortfolioFooter
         footerAction={<ThemeToggle onChange={toggleTheme} theme={theme} />}
       />
