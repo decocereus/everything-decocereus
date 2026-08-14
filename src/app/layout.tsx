@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import type React from "react";
+import { SITE } from "@/lib/site.ts";
 import { cn } from "@/lib/utils.ts";
 import "./globals.css";
 
@@ -15,46 +16,53 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://decocereus.com",
+    canonical: "/",
   },
-  authors: [{ name: "Amartya Singh" }],
-  creator: "Amartya Singh",
-  description:
-    "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  category: "technology",
+  creator: SITE.name,
+  description: SITE.description,
   icons: {
-    icon: [
+    apple: [
       {
-        href: "/logo.png",
-        media: "(prefers-color-scheme: light)",
-        url: "/logo.png",
-      },
-      {
-        href: "/logo.png",
-        media: "(prefers-color-scheme: dark)",
-        url: "/logo.png",
+        sizes: "180x180",
+        type: "image/png",
+        url: "/apple-touch-icon.png",
       },
     ],
+    icon: [
+      {
+        sizes: "any",
+        type: "image/x-icon",
+        url: "/favicon.ico",
+      },
+      {
+        sizes: "any",
+        type: "image/svg+xml",
+        url: "/logo.svg",
+      },
+    ],
+    shortcut: "/favicon.ico",
   },
-  keywords: [
-    "Product Engineer",
-    "Next.js",
-    "Node.js",
-    "AI",
-    "React",
-    "TypeScript",
-    "Portfolio",
-  ],
-  metadataBase: new URL("https://decocereus.com"),
+  metadataBase: new URL(SITE.url),
   openGraph: {
-    description:
-      "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
+    description: SITE.description,
+    images: [
+      {
+        alt: "Amartya Singh's sketchbook with a cat, game controller, football, devices, headphones, and guitar.",
+        height: 630,
+        url: "/opengraph-image.png",
+        width: 1200,
+      },
+    ],
     locale: "en_US",
-    siteName: "Amartya Singh Portfolio",
-    title: "Amartya Singh",
+    siteName: SITE.name,
+    title: SITE.title,
     type: "website",
-    url: "https://decocereus.com",
+    url: "/",
   },
-  publisher: "Amartya Singh",
+  publisher: SITE.name,
   robots: {
     follow: true,
     googleBot: {
@@ -66,12 +74,20 @@ export const metadata: Metadata = {
     },
     index: true,
   },
-  title: "Amartya Singh",
+  title: SITE.title,
   twitter: {
     card: "summary_large_image",
-    description:
-      "Amartya Singh builds products across backend systems, interfaces, and developer tools.",
-    title: "Amartya Singh",
+    creator: "@decocereus",
+    description: SITE.description,
+    images: [
+      {
+        alt: "Amartya Singh's sketchbook with a cat, game controller, football, devices, headphones, and guitar.",
+        height: 630,
+        url: "/twitter-image.png",
+        width: 1200,
+      },
+    ],
+    title: SITE.title,
   },
 };
 

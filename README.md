@@ -1,6 +1,6 @@
 # Decocereus
 
-The source for [decocereus.com](https://decocereus.com), built with Next.js 16,
+The source for [decocereus.com](https://www.decocereus.com), built with Next.js 16,
 React 19, TypeScript, and Tailwind CSS 4.
 
 The factual source behind the portfolio is maintained in
