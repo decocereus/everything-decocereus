@@ -1,0 +1,17 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <title>Decocereus</title>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M48 18h-5c-8 0-12 4-12 12v15c0 8-4 12-12 12 8 0 12 4 12 12v15c0 8 4 12 12 12h5"
+      stroke="#f2762e"
+      stroke-width="10"
+    />
+    <path
+      d="M80 18h5c8 0 12 4 12 12v15c0 8 4 12 12 12-8 0-12 4-12 12v15c0 8-4 12-12 12h-5"
+      stroke="#2f6df6"
+      stroke-width="10"
+    />
+    <path d="M64 43v28" stroke="#f2762e" stroke-width="9" />
+    <path d="M50 57h28" stroke="#2f6df6" stroke-width="9" />
+  </g>
+</svg>
