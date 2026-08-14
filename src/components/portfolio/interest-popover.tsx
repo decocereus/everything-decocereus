@@ -4,12 +4,9 @@ import { Popover } from "@base-ui/react/popover";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import {
-  PORTFOLIO_ANIME,
-  PORTFOLIO_CAT,
-  PORTFOLIO_MUSIC,
-} from "@/lib/constants.ts";
+import { PORTFOLIO_ANIME, PORTFOLIO_CAT } from "@/lib/constants.ts";
 import styles from "./interest-popover.module.css";
+import { MusicPlayer } from "./music-player.tsx";
 
 type Interest = "anime" | "cat" | "music";
 type Theme = "dark" | "light";
@@ -38,29 +35,6 @@ function CatContent() {
       />
       <figcaption>Professional napper. Occasional code reviewer.</figcaption>
     </figure>
-  );
-}
-
-function MusicContent() {
-  return (
-    <ol className={styles.musicList}>
-      {PORTFOLIO_MUSIC.map((track, index) => (
-        <li className={styles.musicItem} key={track.href}>
-          <Link href={track.href} rel="noreferrer" target="_blank">
-            <span aria-hidden="true" className={styles.trackNumber}>
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <span className={styles.trackCopy}>
-              <strong>{track.title}</strong>
-              <span className={styles.trackArtist}>{track.artist}</span>
-            </span>
-            <span aria-hidden="true" className={styles.trackArrow}>
-              ↗
-            </span>
-          </Link>
-        </li>
-      ))}
-    </ol>
   );
 }
 
@@ -100,7 +74,7 @@ function InterestContent({ interest }: { interest: Interest }) {
   }
 
   if (interest === "music") {
-    return <MusicContent />;
+    return <MusicPlayer />;
   }
 
   return <AnimeContent />;

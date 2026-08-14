@@ -81,46 +81,55 @@ export const PORTFOLIO_MUSIC = [
     artist: "Doja Cat",
     href: "https://music.youtube.com/watch?v=v0SJwiFPqF0",
     title: "AAAHH MEN!",
+    videoId: "w6VZ4qm-e0w",
   },
   {
     artist: "Shashwat Sachdev",
     href: "https://music.youtube.com/watch?v=qoVARB96kuM",
     title: 'Destiny - Mann Atkeya (From "Dhurandhar The Revenge")',
+    videoId: "C0Uvo4lm_aw",
   },
   {
     artist: "Shashwat Sachdev",
     href: "https://music.youtube.com/watch?v=f0i95p5l67Y",
     title: "Dhurandhar The Revenge - Aari Aari",
+    videoId: "dESIGVxSSCE",
   },
   {
     artist: "Raftaar",
     href: "https://music.youtube.com/watch?v=Vq68hYSvMiw",
     title: "TRAP PRAA",
+    videoId: "QqyuVF1u7_Y",
   },
   {
     artist: "IKKA",
     href: "https://music.youtube.com/watch?v=ig0IqOuWD90",
     title: "WOH",
+    videoId: "EbyAoYaUcVo",
   },
   {
     artist: "Rawme Hooda",
     href: "https://music.youtube.com/watch?v=KmzXCSyfQQo",
     title: "Total",
+    videoId: "jwl2BsZ_g08",
   },
   {
     artist: "Prabh Singh",
     href: "https://music.youtube.com/watch?v=-BzQVu8EuQ4",
     title: "9:45",
+    videoId: "bzSn6AKLkMI",
   },
   {
     artist: "Afusic",
     href: "https://music.youtube.com/watch?v=rOCe2i7fOCQ",
     title: "Pal Pal (with Talwiinder)",
+    videoId: "AbkEmIgJMcU",
   },
   {
     artist: "Honey Singh",
     href: "https://music.youtube.com/watch?v=Rz-7uqy8bFs",
     title: "Payal",
+    videoId: "a-PAcmi5Kas",
   },
 ] as const;
 

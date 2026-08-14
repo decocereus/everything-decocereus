@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "aot-portal.com", protocol: "https" },
       { hostname: "haikyu.jp", protocol: "https" },
+      { hostname: "i.ytimg.com", protocol: "https" },
       { hostname: "naruto-official.com", protocol: "https" },
       { hostname: "one-piece.com", protocol: "https" },
       { hostname: "publish.realmadrid.com", protocol: "https" },
