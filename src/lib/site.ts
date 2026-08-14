@@ -1,7 +1,7 @@
 export const SITE = {
   description:
-    "Product engineer building backend systems, interfaces, and developer tools. Currently working on Nightshade and Nexus at Avail.",
+    "building and shipping everyday",
   name: "Amartya Singh",
-  title: "Amartya Singh | Product Engineer",
+  title: "decocereus",
   url: "https://www.decocereus.com",
 } as const;
