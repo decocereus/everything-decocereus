@@ -2,15 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ChangeEvent, CSSProperties, MouseEvent } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import type {
+  ChangeEvent,
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+  RefObject,
+} from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { PORTFOLIO_MUSIC } from "@/lib/constants.ts";
-import styles from "./interest-popover.module.css";
+import styles from "./music-player.module.css";
+import sharedStyles from "./portfolio-shell.module.css";
 
 const PLAYER_STATES = {
-  ended: 0,
+  cued: 5,
   playing: 1,
 } as const;
+
+const PLAYLIST_VIDEO_IDS = PORTFOLIO_MUSIC.map((track) => track.videoId);
+
+const TOTAL_RUNTIME = PORTFOLIO_MUSIC.reduce(
+  (total, track) => total + track.durationSeconds,
+  0
+);
 
 interface PlayerEvent {
   data: number;
@@ -18,15 +40,21 @@ interface PlayerEvent {
 }
 
 interface YouTubePlayer {
-  cueVideoById: (videoId: string) => void;
+  cuePlaylist: (
+    playlist: string[],
+    index?: number,
+    startSeconds?: number
+  ) => void;
   destroy: () => void;
   getCurrentTime: () => number;
   getDuration: () => number;
   getIframe: () => HTMLIFrameElement;
-  loadVideoById: (videoId: string) => void;
+  getPlaylistIndex: () => number;
   pauseVideo: () => void;
   playVideo: () => void;
+  playVideoAt: (index: number) => void;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  setLoop: (loopPlaylists: boolean) => void;
 }
 
 interface YouTubeNamespace {
@@ -52,6 +80,22 @@ interface YouTubeNamespace {
   ) => YouTubePlayer;
 }
 
+interface MusicPlayerContextValue {
+  activeIndex: number;
+  currentTime: number;
+  duration: number;
+  hasRequestedPlayback: boolean;
+  isPlaying: boolean;
+  isReady: boolean;
+  playerError: number | null;
+  playerHostRef: RefObject<HTMLDivElement | null>;
+  playNext: () => void;
+  playPrevious: () => void;
+  playTrack: (index: number) => void;
+  seek: (seconds: number) => void;
+  togglePlayback: () => void;
+}
+
 declare global {
   interface Window {
     onYouTubeIframeAPIReady?: () => void;
@@ -59,6 +103,7 @@ declare global {
   }
 }
 
+const MusicPlayerContext = createContext<MusicPlayerContextValue | null>(null);
 let youtubeApiPromise: Promise<YouTubeNamespace> | undefined;
 
 function loadYouTubeApi() {
@@ -104,12 +149,14 @@ function formatTime(seconds: number) {
   return `${minutes}:${String(remainder).padStart(2, "0")}`;
 }
 
-function queueState(isActive: boolean, isPlaying: boolean) {
-  if (!isActive) {
-    return "";
+function useMusicPlayer() {
+  const context = useContext(MusicPlayerContext);
+  if (!context) {
+    throw new Error(
+      "Music controls must be rendered inside MusicPlayerProvider"
+    );
   }
-
-  return isPlaying ? "•••" : "•";
+  return context;
 }
 
 function PreviousIcon() {
@@ -144,35 +191,49 @@ function PlayIcon({ playing }: { playing: boolean }) {
   );
 }
 
-export function MusicPlayer() {
+export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   const playerHostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState<number>(
+    PORTFOLIO_MUSIC[0].durationSeconds
+  );
   const [hasRequestedPlayback, setHasRequestedPlayback] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [playerError, setPlayerError] = useState<number | null>(null);
-  const activeTrack = PORTFOLIO_MUSIC[activeIndex];
 
   const syncTime = useCallback(() => {
-    const player = playerRef.current as YouTubePlayer;
+    const player = playerRef.current as YouTubePlayer | null;
+    if (!player) {
+      return;
+    }
 
-    setCurrentTime(player.getCurrentTime());
-    setDuration(player.getDuration());
+    const nextCurrentTime = player.getCurrentTime();
+    const nextDuration = player.getDuration();
+
+    if (Number.isFinite(nextCurrentTime) && nextCurrentTime >= 0) {
+      setCurrentTime(nextCurrentTime);
+    }
+
+    setDuration(
+      Number.isFinite(nextDuration) && nextDuration > 0
+        ? nextDuration
+        : PORTFOLIO_MUSIC[activeIndexRef.current].durationSeconds
+    );
   }, []);
 
   const selectTrack = useCallback(
-    (nextIndex: number, shouldPlay = isPlaying) => {
+    (nextIndex: number, shouldPlay: boolean) => {
       const normalizedIndex =
         (nextIndex + PORTFOLIO_MUSIC.length) % PORTFOLIO_MUSIC.length;
       const nextTrack = PORTFOLIO_MUSIC[normalizedIndex];
       activeIndexRef.current = normalizedIndex;
       setActiveIndex(normalizedIndex);
       setCurrentTime(0);
-      setDuration(0);
+      setDuration(nextTrack.durationSeconds);
       setPlayerError(null);
 
       if (!isReady) {
@@ -183,16 +244,19 @@ export function MusicPlayer() {
 
       if (shouldPlay) {
         setHasRequestedPlayback(true);
-        player.loadVideoById(nextTrack.videoId);
+        player.playVideoAt(normalizedIndex);
       } else {
-        player.cueVideoById(nextTrack.videoId);
+        player.cuePlaylist(PLAYLIST_VIDEO_IDS, normalizedIndex, 0);
       }
     },
-    [isPlaying, isReady]
+    [isReady]
   );
 
   useEffect(() => {
-    const host = playerHostRef.current as HTMLDivElement;
+    const host = playerHostRef.current as HTMLDivElement | null;
+    if (!host) {
+      return;
+    }
 
     let cancelled = false;
 
@@ -211,22 +275,33 @@ export function MusicPlayer() {
             const iframe = target.getIframe();
             iframe.setAttribute("aria-hidden", "true");
             iframe.tabIndex = -1;
-            setIsReady(true);
+            target.setLoop(true);
+            target.cuePlaylist(PLAYLIST_VIDEO_IDS, 0, 0);
           },
-          onStateChange: ({ data }) => {
-            setIsPlaying(data === PLAYER_STATES.playing);
-            syncTime();
-
-            if (data === PLAYER_STATES.ended) {
-              const nextIndex =
-                (activeIndexRef.current + 1) % PORTFOLIO_MUSIC.length;
-              activeIndexRef.current = nextIndex;
-              setActiveIndex(nextIndex);
+          onStateChange: ({ data, target }) => {
+            const playlistIndex = target.getPlaylistIndex();
+            if (
+              playlistIndex >= 0 &&
+              playlistIndex < PORTFOLIO_MUSIC.length &&
+              playlistIndex !== activeIndexRef.current
+            ) {
+              const playlistTrack = PORTFOLIO_MUSIC[playlistIndex];
+              activeIndexRef.current = playlistIndex;
+              setActiveIndex(playlistIndex);
               setCurrentTime(0);
-              playerRef.current?.loadVideoById(
-                PORTFOLIO_MUSIC[nextIndex].videoId
-              );
+              setDuration(playlistTrack.durationSeconds);
             }
+
+            if (data === PLAYER_STATES.cued) {
+              setIsReady(true);
+            }
+
+            const playing = data === PLAYER_STATES.playing;
+            setIsPlaying(playing);
+            if (playing) {
+              setPlayerError(null);
+            }
+            syncTime();
           },
         },
         height: 200,
@@ -258,160 +333,327 @@ export function MusicPlayer() {
     return () => window.clearInterval(timer);
   }, [isPlaying, syncTime]);
 
-  const handleSeek = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const nextTime = Number(event.currentTarget.value);
-    setCurrentTime(nextTime);
-    (playerRef.current as YouTubePlayer).seekTo(nextTime, true);
-  }, []);
-
   const togglePlayback = useCallback(() => {
     setHasRequestedPlayback(true);
 
-    if (!isReady || playerError !== null) {
+    if (!isReady || playerError !== null || !playerRef.current) {
       return;
     }
 
-    const player = playerRef.current as YouTubePlayer;
     if (isPlaying) {
-      player.pauseVideo();
+      playerRef.current.pauseVideo();
     } else {
-      player.playVideo();
+      playerRef.current.playVideo();
     }
   }, [isPlaying, isReady, playerError]);
 
   const playPrevious = useCallback(() => {
-    selectTrack(activeIndex - 1);
-  }, [activeIndex, selectTrack]);
+    selectTrack(activeIndex - 1, isPlaying);
+  }, [activeIndex, isPlaying, selectTrack]);
 
   const playNext = useCallback(() => {
-    selectTrack(activeIndex + 1);
-  }, [activeIndex, selectTrack]);
+    selectTrack(activeIndex + 1, isPlaying);
+  }, [activeIndex, isPlaying, selectTrack]);
 
-  const playQueuedTrack = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      selectTrack(Number(event.currentTarget.dataset.trackIndex), true);
+  const playTrack = useCallback(
+    (index: number) => {
+      selectTrack(index, true);
     },
     [selectTrack]
   );
 
+  const seek = useCallback((seconds: number) => {
+    setCurrentTime(seconds);
+    playerRef.current?.seekTo(seconds, true);
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      activeIndex,
+      currentTime,
+      duration,
+      hasRequestedPlayback,
+      isPlaying,
+      isReady,
+      playerError,
+      playerHostRef,
+      playNext,
+      playPrevious,
+      playTrack,
+      seek,
+      togglePlayback,
+    }),
+    [
+      activeIndex,
+      currentTime,
+      duration,
+      hasRequestedPlayback,
+      isPlaying,
+      isReady,
+      playNext,
+      playPrevious,
+      playTrack,
+      playerError,
+      seek,
+      togglePlayback,
+    ]
+  );
+
   return (
-    <div className={styles.musicExperience}>
-      <div className={styles.hiddenPlayer} ref={playerHostRef} />
-      <section
-        aria-label={`Now playing ${activeTrack.title} by ${activeTrack.artist}`}
-        className={styles.musicPlayer}
+    <MusicPlayerContext.Provider value={value}>
+      {children}
+    </MusicPlayerContext.Provider>
+  );
+}
+
+function RecordArtwork({ size }: { size: number }) {
+  const { activeIndex, isPlaying } = useMusicPlayer();
+  const track = PORTFOLIO_MUSIC[activeIndex];
+
+  return (
+    <span
+      aria-hidden="true"
+      className={styles.record}
+      data-playing={isPlaying ? "true" : "false"}
+      style={{ "--record-size": `${size}px` } as CSSProperties}
+    >
+      <Image
+        alt=""
+        className={styles.recordArtwork}
+        height={120}
+        sizes={`${size}px`}
+        src={`https://i.ytimg.com/vi/${track.videoId}/hqdefault.jpg`}
+        unoptimized
+        width={120}
+      />
+      <span className={styles.recordLabel} />
+    </span>
+  );
+}
+
+function TransportControls({ compact = false }: { compact?: boolean }) {
+  const {
+    activeIndex,
+    isPlaying,
+    isReady,
+    playNext,
+    playPrevious,
+    togglePlayback,
+  } = useMusicPlayer();
+  const track = PORTFOLIO_MUSIC[activeIndex];
+
+  return (
+    <div className={styles.transport} data-compact={compact ? "true" : "false"}>
+      <button
+        aria-label="Previous track"
+        disabled={!isReady}
+        onClick={playPrevious}
+        type="button"
+      >
+        <PreviousIcon />
+      </button>
+      <button
+        aria-label={isPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
+        className={styles.playButton}
+        disabled={!isReady}
+        onClick={togglePlayback}
+        type="button"
+      >
+        <PlayIcon playing={isPlaying} />
+      </button>
+      <button
+        aria-label="Next track"
+        disabled={!isReady}
+        onClick={playNext}
+        type="button"
+      >
+        <NextIcon />
+      </button>
+    </div>
+  );
+}
+
+function Progress({ compact = false }: { compact?: boolean }) {
+  const { activeIndex, currentTime, duration, isReady, seek } =
+    useMusicPlayer();
+  const track = PORTFOLIO_MUSIC[activeIndex];
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      seek(Number(event.currentTarget.value));
+    },
+    [seek]
+  );
+
+  return (
+    <div className={styles.progress} data-compact={compact ? "true" : "false"}>
+      <label>
+        <span className={styles.srOnly}>Seek through {track.title}</span>
+        <input
+          aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
+          disabled={!isReady}
+          max={duration || track.durationSeconds}
+          min="0"
+          onChange={handleChange}
+          step="0.1"
+          style={
+            {
+              "--music-progress": `${duration > 0 ? (currentTime / duration) * 100 : 0}%`,
+            } as CSSProperties
+          }
+          type="range"
+          value={Math.min(currentTime, duration || track.durationSeconds)}
+        />
+      </label>
+      <div className={styles.timeRow}>
+        <span>{formatTime(currentTime)}</span>
+        <span>{formatTime(duration || track.durationSeconds)}</span>
+      </div>
+    </div>
+  );
+}
+
+function PlayerError() {
+  const { activeIndex, hasRequestedPlayback, playerError } = useMusicPlayer();
+  const track = PORTFOLIO_MUSIC[activeIndex];
+
+  if (playerError === null || !hasRequestedPlayback) {
+    return null;
+  }
+
+  return (
+    <p className={styles.playerError} role="status">
+      YouTube would not play this one here.{" "}
+      <Link href={track.href} rel="noreferrer" target="_blank">
+        Open it in YouTube Music ↗
+      </Link>
+    </p>
+  );
+}
+
+export function MusicPopoverPlayer() {
+  const { activeIndex, isPlaying } = useMusicPlayer();
+  const track = PORTFOLIO_MUSIC[activeIndex];
+
+  return (
+    <div
+      className={styles.popoverPlayer}
+      data-playing={isPlaying ? "true" : "false"}
+    >
+      <div className={styles.popoverMain}>
+        <RecordArtwork size={64} />
+        <div className={styles.popoverBody}>
+          <div className={styles.trackCopy}>
+            <strong title={track.title}>{track.title}</strong>
+            <span>{track.artist}</span>
+          </div>
+          <Progress compact />
+        </div>
+        <TransportControls compact />
+      </div>
+      <PlayerError />
+    </div>
+  );
+}
+
+export function MusicSection() {
+  const { activeIndex, isPlaying, isReady, playTrack, playerHostRef } =
+    useMusicPlayer();
+  const activeTrack = PORTFOLIO_MUSIC[activeIndex];
+
+  const handleTrackClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      playTrack(Number(event.currentTarget.dataset.trackIndex));
+    },
+    [playTrack]
+  );
+
+  return (
+    <section
+      aria-labelledby="music-title"
+      className={`${sharedStyles.section} ${styles.musicSection}`}
+    >
+      <div className={styles.sectionHeading}>
+        <div>
+          <h2 id="music-title">Music</h2>
+          <p>
+            {PORTFOLIO_MUSIC.length} tracks · {formatTime(TOTAL_RUNTIME)} total
+          </p>
+        </div>
+        <TransportControls />
+      </div>
+
+      <div
+        className={styles.nowPlaying}
         data-playing={isPlaying ? "true" : "false"}
       >
-        <div className={styles.record}>
-          <Image
-            alt=""
-            aria-hidden="true"
-            className={styles.recordArtwork}
-            height={120}
-            sizes="72px"
-            src={`https://i.ytimg.com/vi/${activeTrack.videoId}/hqdefault.jpg`}
-            unoptimized
-            width={120}
-          />
-          <span aria-hidden="true" className={styles.recordLabel} />
+        <Image
+          alt=""
+          aria-hidden="true"
+          className={styles.nowPlayingArtwork}
+          height={112}
+          loading="eager"
+          sizes="56px"
+          src={`https://i.ytimg.com/vi/${activeTrack.videoId}/hqdefault.jpg`}
+          unoptimized
+          width={112}
+        />
+        <div className={styles.nowPlayingCopy}>
+          {isPlaying ? (
+            <span className={styles.playingLabel}>Playing</span>
+          ) : null}
+          <strong>{activeTrack.title}</strong>
+          <span>{activeTrack.artist}</span>
         </div>
+        <Progress />
+      </div>
 
-        <div className={styles.playerBody}>
-          <div className={styles.nowPlayingCopy}>
-            <strong title={activeTrack.title}>{activeTrack.title}</strong>
-            <span>{activeTrack.artist}</span>
-          </div>
-
-          <label className={styles.progressControl}>
-            <span className={styles.srOnly}>
-              Seek through {activeTrack.title}
-            </span>
-            <input
-              aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
-              disabled={!isReady || duration === 0}
-              max={duration || 1}
-              min="0"
-              onChange={handleSeek}
-              step="0.1"
-              style={
-                {
-                  "--player-progress": `${duration > 0 ? (currentTime / duration) * 100 : 0}%`,
-                } as CSSProperties
-              }
-              type="range"
-              value={Math.min(currentTime, duration || 1)}
-            />
-          </label>
-          <div className={styles.timeRow}>
-            <span>{formatTime(currentTime)}</span>
-            <span>{duration > 0 ? formatTime(duration) : "–:––"}</span>
-          </div>
-        </div>
-
-        <div className={styles.playerControls}>
-          <button
-            aria-label="Previous track"
-            className={styles.skipButton}
-            disabled={!isReady}
-            onClick={playPrevious}
-            type="button"
-          >
-            <PreviousIcon />
-          </button>
-          <button
-            aria-label={isPlaying ? "Pause" : `Play ${activeTrack.title}`}
-            className={styles.playButton}
-            disabled={!isReady}
-            onClick={togglePlayback}
-            type="button"
-          >
-            <PlayIcon playing={isPlaying} />
-          </button>
-          <button
-            aria-label="Next track"
-            className={styles.skipButton}
-            disabled={!isReady}
-            onClick={playNext}
-            type="button"
-          >
-            <NextIcon />
-          </button>
-        </div>
-      </section>
-
-      {playerError === null || !hasRequestedPlayback ? null : (
-        <p className={styles.playerError} role="status">
-          YouTube would not play this one here.{" "}
-          <Link href={activeTrack.href} rel="noreferrer" target="_blank">
-            Open it in YouTube Music ↗
-          </Link>
-        </p>
-      )}
-
-      <ol aria-label="Music queue" className={styles.musicQueue}>
-        {PORTFOLIO_MUSIC.map((track, index) => (
-          <li key={track.videoId}>
-            <button
-              aria-current={index === activeIndex ? "true" : undefined}
-              data-track-index={index}
-              disabled={!isReady}
-              onClick={playQueuedTrack}
-              type="button"
-            >
-              <span aria-hidden="true" className={styles.trackNumber}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className={styles.trackCopy}>
-                <strong>{track.title}</strong>
-                <span className={styles.trackArtist}>{track.artist}</span>
-              </span>
-              <span aria-hidden="true" className={styles.queueState}>
-                {queueState(index === activeIndex, isPlaying)}
-              </span>
-            </button>
-          </li>
-        ))}
+      <ol aria-label="Music queue" className={styles.trackList}>
+        {PORTFOLIO_MUSIC.map((track, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <li key={track.videoId}>
+              <button
+                aria-current={isActive ? "true" : undefined}
+                aria-label={`Play ${track.title} by ${track.artist}`}
+                data-playing={isActive && isPlaying ? "true" : undefined}
+                data-track-index={index}
+                disabled={!isReady}
+                onClick={handleTrackClick}
+                type="button"
+              >
+                <Image
+                  alt=""
+                  aria-hidden="true"
+                  className={styles.trackArtwork}
+                  height={88}
+                  loading="eager"
+                  sizes="44px"
+                  src={`https://i.ytimg.com/vi/${track.videoId}/hqdefault.jpg`}
+                  unoptimized
+                  width={88}
+                />
+                <span className={styles.trackNumber}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className={styles.trackCopy}>
+                  <strong>{track.title}</strong>
+                  <span>{track.artist}</span>
+                </span>
+                <span className={styles.trackDuration}>
+                  {isActive && isPlaying ? (
+                    <span className={styles.trackState}>Playing</span>
+                  ) : null}
+                  {formatTime(track.durationSeconds)}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ol>
-    </div>
+
+      <div className={styles.hiddenPlayer} ref={playerHostRef} />
+      <PlayerError />
+    </section>
   );
 }

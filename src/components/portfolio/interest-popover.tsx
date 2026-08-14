@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { PORTFOLIO_ANIME, PORTFOLIO_CAT } from "@/lib/constants.ts";
 import styles from "./interest-popover.module.css";
-import { MusicPlayer } from "./music-player.tsx";
+import { MusicPopoverPlayer } from "./music-player.tsx";
 
 type Interest = "anime" | "cat" | "music";
 type Theme = "dark" | "light";
@@ -74,7 +74,7 @@ function InterestContent({ interest }: { interest: Interest }) {
   }
 
   if (interest === "music") {
-    return <MusicPlayer />;
+    return <MusicPopoverPlayer />;
   }
 
   return <AnimeContent />;

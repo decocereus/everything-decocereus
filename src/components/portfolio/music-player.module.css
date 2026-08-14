@@ -1,0 +1,530 @@
+.musicSection {
+  --music-text: var(--prototype-text);
+  --music-muted: var(--prototype-muted);
+  --music-line: var(--prototype-line);
+  --music-hover: color-mix(in oklch, var(--music-text) 4%, transparent);
+  --music-playing: color-mix(in oklch, var(--prototype-accent) 7%, transparent);
+  color: var(--music-text);
+}
+
+.sectionHeading {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  justify-content: space-between;
+  margin-block-end: 10px;
+}
+
+.sectionHeading h2 {
+  margin-block-end: 3px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.sectionHeading p,
+.playingLabel,
+.trackNumber,
+.trackDuration,
+.timeRow,
+.playerError {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--music-muted);
+}
+
+.nowPlaying {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) minmax(180px, 0.72fr);
+  gap: 14px;
+  align-items: center;
+  padding-block: 8px 14px;
+  border-block-end: 1px solid var(--music-line);
+}
+
+.nowPlayingArtwork,
+.trackArtwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: 1px solid oklch(0 0 0 / 10%);
+  object-fit: cover;
+}
+
+.nowPlayingArtwork {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+}
+
+.nowPlayingCopy,
+.trackCopy {
+  display: grid;
+  min-width: 0;
+}
+
+.nowPlayingCopy strong,
+.trackCopy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+  font-weight: 550;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.nowPlayingCopy > span:last-child,
+.trackCopy > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--music-muted);
+  white-space: nowrap;
+}
+
+.playingLabel {
+  color: var(--music-muted);
+}
+
+.nowPlaying[data-playing="true"] .playingLabel,
+.trackState {
+  color: oklch(0.56 0.15 146);
+}
+
+.trackList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.trackList li + li {
+  border-block-start: 1px solid var(--music-line);
+}
+
+.trackList button {
+  display: grid;
+  grid-template-columns: 40px 28px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 60px;
+  padding: 7px 6px;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  touch-action: manipulation;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  transition:
+    background-color 150ms ease,
+    transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.trackList button[aria-current="true"][data-playing="true"] {
+  background: var(--music-playing);
+}
+
+.trackList button:active {
+  transform: scale(0.96);
+}
+
+.trackList button:disabled,
+.transport button:disabled,
+.progress input:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.trackArtwork {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.trackNumber,
+.trackDuration,
+.timeRow {
+  font-variant-numeric: tabular-nums;
+}
+
+.trackDuration {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-self: end;
+  min-width: 5ch;
+  text-align: end;
+}
+
+.trackState {
+  font-size: 0.6875rem;
+  font-weight: 550;
+  line-height: 1;
+}
+
+.transport {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.transport button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--music-muted);
+  touch-action: manipulation;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transport button:active {
+  transform: scale(0.96);
+}
+
+.transport svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.transport .playButton {
+  color: var(--prototype-bg);
+  background: var(--music-text);
+}
+
+.playButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.playButton svg path:last-child {
+  transform: translateX(0.5px);
+}
+
+.progress {
+  display: grid;
+  min-width: 0;
+}
+
+.progress label {
+  display: grid;
+}
+
+.progress input {
+  width: 100%;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.progress input::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--music-text) var(--music-progress),
+    var(--music-line) var(--music-progress)
+  );
+  border-radius: 999px;
+}
+
+.progress input::-webkit-slider-thumb {
+  width: 10px;
+  height: 10px;
+  margin-block-start: -3.5px;
+  appearance: none;
+  background: var(--music-text);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 18%);
+}
+
+.progress input::-moz-range-track {
+  height: 3px;
+  background: var(--music-line);
+  border-radius: 999px;
+}
+
+.progress input::-moz-range-progress {
+  height: 3px;
+  background: var(--music-text);
+  border-radius: 999px;
+}
+
+.progress input::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: var(--music-text);
+  border: 0;
+  border-radius: 50%;
+}
+
+.timeRow {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: -1px;
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+.hiddenPlayer {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  clip-path: inset(50%);
+}
+
+.hiddenPlayer iframe {
+  width: 200px;
+  height: 200px;
+}
+
+.playerError {
+  margin-block-start: 8px;
+}
+
+.playerError a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.2em;
+}
+
+.popoverPlayer {
+  --music-text: var(--popover-text);
+  --music-muted: var(--popover-muted);
+  --music-line: var(--popover-line);
+  display: grid;
+  gap: 8px;
+  padding: 2px 4px 6px;
+  color: var(--music-text);
+}
+
+.popoverMain {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.record {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--record-size);
+  height: var(--record-size);
+  overflow: hidden;
+  outline: 1px solid oklch(0 0 0 / 12%);
+  background: oklch(0.15 0.01 45);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px oklch(0 0 0 / 14%);
+  animation: record-spin 9s linear infinite;
+  animation-play-state: paused;
+}
+
+.record[data-playing="true"] {
+  animation-play-state: running;
+}
+
+.recordArtwork {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.recordLabel {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background: oklch(0.18 0.02 42);
+  border: 5px solid oklch(0.92 0.02 75 / 86%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 35%);
+}
+
+.popoverBody {
+  display: grid;
+  min-width: 0;
+}
+
+.popoverBody .trackCopy strong {
+  font-size: 0.8125rem;
+}
+
+.popoverBody .progress {
+  margin-block-start: 5px;
+}
+
+.transport[data-compact="true"] button {
+  width: 44px;
+  height: 44px;
+}
+
+.transport[data-compact="true"] .playButton {
+  width: 44px;
+  height: 44px;
+  color: var(--popover-bg);
+  background: var(--music-text);
+}
+
+.progress[data-compact="true"] input {
+  height: 12px;
+}
+
+.progress[data-compact="true"] .timeRow {
+  font-size: 0.625rem;
+}
+
+.popoverPlayer .playerError {
+  padding-inline-start: 76px;
+  margin: 0;
+}
+
+.transport button:focus-visible,
+.trackList button:focus-visible,
+.progress input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
+}
+
+@keyframes record-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+[data-theme="dark"] .nowPlayingArtwork,
+[data-theme="dark"] .trackArtwork,
+[data-theme="dark"] .record {
+  outline-color: oklch(1 0 0 / 12%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trackList button:hover {
+    background: var(--music-hover);
+  }
+
+  .trackList button[aria-current="true"][data-playing="true"]:hover {
+    background: color-mix(in oklch, var(--prototype-accent) 10%, transparent);
+  }
+
+  .transport button:hover {
+    color: var(--music-text);
+    background: var(--music-line);
+  }
+
+  .transport .playButton:hover {
+    color: var(--prototype-bg);
+    background: var(--music-text);
+  }
+}
+
+@media (max-width: 680px) {
+  .sectionHeading {
+    align-items: start;
+  }
+
+  .nowPlaying {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .nowPlayingArtwork {
+    width: 48px;
+    height: 48px;
+  }
+
+  .nowPlaying .progress {
+    grid-column: 1 / -1;
+  }
+
+  .trackList button {
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    gap: 10px;
+    min-height: 60px;
+    padding-inline: 4px;
+  }
+
+  .trackArtwork {
+    width: 40px;
+    height: 40px;
+  }
+
+  .trackNumber {
+    display: none;
+  }
+
+  .trackState {
+    display: none;
+  }
+
+  .popoverMain {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .popoverMain .record {
+    width: 56px;
+    height: 56px;
+  }
+
+  .popoverMain .transport {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+
+  .popoverPlayer .playerError {
+    padding-inline-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record {
+    animation: none;
+  }
+
+  .trackList button,
+  .transport button {
+    transition: none;
+  }
+
+  .trackList button:active,
+  .transport button:active {
+    transform: none;
+  }
+}
