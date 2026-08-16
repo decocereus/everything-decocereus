@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
       { hostname: "yanisuu.com", protocol: "https" },
     ],
   },
+  rewrites() {
+    return [
+      {
+        destination: "/resume.pdf",
+        source: "/resume",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
