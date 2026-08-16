@@ -275,4 +275,5 @@ export const PORTFOLIO_CONTACT = {
     },
   ],
   mailHref: "mailto:amartyasinghkings07@gmail.com",
+  resumeHref: "/resume",
 } as const;

@@ -97,6 +97,7 @@ export function PortfolioFooter({
           </Link>
         ))}
         <Link href={PORTFOLIO_CONTACT.mailHref}>Email</Link>
+        <Link href={PORTFOLIO_CONTACT.resumeHref}>Resume</Link>
       </nav>
       {footerAction}
     </footer>
