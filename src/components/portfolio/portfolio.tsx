@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { PORTFOLIO_WORK } from "@/lib/constants.ts";
 import type { GitHubContributions } from "@/lib/github-contributions.ts";
 import { GitHubContributionGraph } from "./github-contributions.tsx";
-import { MusicPlayerProvider, MusicSection } from "./music-player.tsx";
+import { MusicPlayerProvider } from "./music-player.tsx";
 import styles from "./portfolio.module.css";
 import { AnagramStory, ThemeToggle } from "./portfolio-interactions.tsx";
 import sharedStyles from "./portfolio-shell.module.css";
@@ -39,7 +39,6 @@ export function Portfolio({
     <MusicPlayerProvider>
       <PortfolioShell theme={theme}>
         <Introduction theme={theme} />
-        <AnagramStory />
         <section aria-labelledby="work-title" className={sharedStyles.section}>
           <h2 id="work-title">Things I’ve built</h2>
           <ol className={styles.workList}>
@@ -71,7 +70,7 @@ export function Portfolio({
           </ol>
         </section>
         <GitHubContributionGraph contributions={contributions} />
-        <MusicSection />
+        <AnagramStory />
         <PortfolioFooter
           footerAction={<ThemeToggle onChange={toggleTheme} theme={theme} />}
         />

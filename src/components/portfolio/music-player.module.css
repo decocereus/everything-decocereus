@@ -1,32 +1,3 @@
-.musicSection {
-  --music-text: var(--prototype-text);
-  --music-muted: var(--prototype-muted);
-  --music-line: var(--prototype-line);
-  --music-hover: color-mix(in oklch, var(--music-text) 4%, transparent);
-  --music-playing: color-mix(in oklch, var(--prototype-accent) 7%, transparent);
-  color: var(--music-text);
-}
-
-.sectionHeading {
-  display: flex;
-  gap: 24px;
-  align-items: end;
-  justify-content: space-between;
-  margin-block-end: 10px;
-}
-
-.sectionHeading h2 {
-  margin-block-end: 3px;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-}
-
-.sectionHeading p,
-.playingLabel,
-.trackNumber,
-.trackDuration,
 .timeRow,
 .playerError {
   font-size: 0.75rem;
@@ -34,37 +5,11 @@
   color: var(--music-muted);
 }
 
-.nowPlaying {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) minmax(180px, 0.72fr);
-  gap: 14px;
-  align-items: center;
-  padding-block: 8px 14px;
-  border-block-end: 1px solid var(--music-line);
-}
-
-.nowPlayingArtwork,
-.trackArtwork {
-  display: block;
-  width: 100%;
-  height: 100%;
-  outline: 1px solid oklch(0 0 0 / 10%);
-  object-fit: cover;
-}
-
-.nowPlayingArtwork {
-  width: 56px;
-  height: 56px;
-  border-radius: 8px;
-}
-
-.nowPlayingCopy,
 .trackCopy {
   display: grid;
   min-width: 0;
 }
 
-.nowPlayingCopy strong,
 .trackCopy strong {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -75,7 +20,6 @@
   white-space: nowrap;
 }
 
-.nowPlayingCopy > span:last-child,
 .trackCopy > span {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -85,86 +29,14 @@
   white-space: nowrap;
 }
 
-.playingLabel {
-  color: var(--music-muted);
-}
-
-.nowPlaying[data-playing="true"] .playingLabel,
-.trackState {
-  color: oklch(0.56 0.15 146);
-}
-
-.trackList {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.trackList li + li {
-  border-block-start: 1px solid var(--music-line);
-}
-
-.trackList button {
-  display: grid;
-  grid-template-columns: 40px 28px minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: center;
-  width: 100%;
-  min-height: 60px;
-  padding: 7px 6px;
-  font: inherit;
-  color: inherit;
-  text-align: start;
-  touch-action: manipulation;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  border-radius: 8px;
-  transition:
-    background-color 150ms ease,
-    transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.trackList button[aria-current="true"][data-playing="true"] {
-  background: var(--music-playing);
-}
-
-.trackList button:active {
-  transform: scale(0.96);
-}
-
-.trackList button:disabled,
 .transport button:disabled,
 .progress input:disabled {
   cursor: wait;
   opacity: 0.55;
 }
 
-.trackArtwork {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-}
-
-.trackNumber,
-.trackDuration,
 .timeRow {
   font-variant-numeric: tabular-nums;
-}
-
-.trackDuration {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-self: end;
-  min-width: 5ch;
-  text-align: end;
-}
-
-.trackState {
-  font-size: 0.6875rem;
-  font-weight: 550;
-  line-height: 1;
 }
 
 .transport {
@@ -405,7 +277,6 @@
 }
 
 .transport button:focus-visible,
-.trackList button:focus-visible,
 .progress input:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
@@ -429,21 +300,11 @@
   }
 }
 
-[data-theme="dark"] .nowPlayingArtwork,
-[data-theme="dark"] .trackArtwork,
 [data-theme="dark"] .record {
   outline-color: oklch(1 0 0 / 12%);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .trackList button:hover {
-    background: var(--music-hover);
-  }
-
-  .trackList button[aria-current="true"][data-playing="true"]:hover {
-    background: color-mix(in oklch, var(--prototype-accent) 10%, transparent);
-  }
-
   .transport button:hover {
     color: var(--music-text);
     background: var(--music-line);
@@ -456,44 +317,6 @@
 }
 
 @media (max-width: 680px) {
-  .sectionHeading {
-    align-items: start;
-  }
-
-  .nowPlaying {
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .nowPlayingArtwork {
-    width: 48px;
-    height: 48px;
-  }
-
-  .nowPlaying .progress {
-    grid-column: 1 / -1;
-  }
-
-  .trackList button {
-    grid-template-columns: 40px minmax(0, 1fr) auto;
-    gap: 10px;
-    min-height: 60px;
-    padding-inline: 4px;
-  }
-
-  .trackArtwork {
-    width: 40px;
-    height: 40px;
-  }
-
-  .trackNumber {
-    display: none;
-  }
-
-  .trackState {
-    display: none;
-  }
-
   .popoverMain {
     grid-template-columns: 56px minmax(0, 1fr);
   }
@@ -518,12 +341,10 @@
     animation: none;
   }
 
-  .trackList button,
   .transport button {
     transition: none;
   }
 
-  .trackList button:active,
   .transport button:active {
     transform: none;
   }

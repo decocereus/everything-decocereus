@@ -2,13 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type {
-  ChangeEvent,
-  CSSProperties,
-  MouseEvent,
-  ReactNode,
-  RefObject,
-} from "react";
+import type { ChangeEvent, CSSProperties, ReactNode } from "react";
 import {
   createContext,
   useCallback,
@@ -20,7 +14,6 @@ import {
 } from "react";
 import { PORTFOLIO_MUSIC } from "@/lib/constants.ts";
 import styles from "./music-player.module.css";
-import sharedStyles from "./portfolio-shell.module.css";
 
 const PLAYER_STATES = {
   cued: 5,
@@ -28,11 +21,6 @@ const PLAYER_STATES = {
 } as const;
 
 const PLAYLIST_VIDEO_IDS = PORTFOLIO_MUSIC.map((track) => track.videoId);
-
-const TOTAL_RUNTIME = PORTFOLIO_MUSIC.reduce(
-  (total, track) => total + track.durationSeconds,
-  0
-);
 
 interface PlayerEvent {
   data: number;
@@ -88,10 +76,8 @@ interface MusicPlayerContextValue {
   isPlaying: boolean;
   isReady: boolean;
   playerError: number | null;
-  playerHostRef: RefObject<HTMLDivElement | null>;
   playNext: () => void;
   playPrevious: () => void;
-  playTrack: (index: number) => void;
   seek: (seconds: number) => void;
   togglePlayback: () => void;
 }
@@ -355,13 +341,6 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
     selectTrack(activeIndex + 1, isPlaying);
   }, [activeIndex, isPlaying, selectTrack]);
 
-  const playTrack = useCallback(
-    (index: number) => {
-      selectTrack(index, true);
-    },
-    [selectTrack]
-  );
-
   const seek = useCallback((seconds: number) => {
     setCurrentTime(seconds);
     playerRef.current?.seekTo(seconds, true);
@@ -376,10 +355,8 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       isPlaying,
       isReady,
       playerError,
-      playerHostRef,
       playNext,
       playPrevious,
-      playTrack,
       seek,
       togglePlayback,
     }),
@@ -392,7 +369,6 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       isReady,
       playNext,
       playPrevious,
-      playTrack,
       playerError,
       seek,
       togglePlayback,
@@ -402,6 +378,7 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   return (
     <MusicPlayerContext.Provider value={value}>
       {children}
+      <div className={styles.hiddenPlayer} ref={playerHostRef} />
     </MusicPlayerContext.Provider>
   );
 }
@@ -553,107 +530,5 @@ export function MusicPopoverPlayer() {
       </div>
       <PlayerError />
     </div>
-  );
-}
-
-export function MusicSection() {
-  const { activeIndex, isPlaying, isReady, playTrack, playerHostRef } =
-    useMusicPlayer();
-  const activeTrack = PORTFOLIO_MUSIC[activeIndex];
-
-  const handleTrackClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      playTrack(Number(event.currentTarget.dataset.trackIndex));
-    },
-    [playTrack]
-  );
-
-  return (
-    <section
-      aria-labelledby="music-title"
-      className={`${sharedStyles.section} ${styles.musicSection}`}
-    >
-      <div className={styles.sectionHeading}>
-        <div>
-          <h2 id="music-title">Music</h2>
-          <p>
-            {PORTFOLIO_MUSIC.length} tracks · {formatTime(TOTAL_RUNTIME)} total
-          </p>
-        </div>
-        <TransportControls />
-      </div>
-
-      <div
-        className={styles.nowPlaying}
-        data-playing={isPlaying ? "true" : "false"}
-      >
-        <Image
-          alt=""
-          aria-hidden="true"
-          className={styles.nowPlayingArtwork}
-          height={112}
-          loading="eager"
-          sizes="56px"
-          src={`https://i.ytimg.com/vi/${activeTrack.videoId}/hqdefault.jpg`}
-          unoptimized
-          width={112}
-        />
-        <div className={styles.nowPlayingCopy}>
-          {isPlaying ? (
-            <span className={styles.playingLabel}>Playing</span>
-          ) : null}
-          <strong>{activeTrack.title}</strong>
-          <span>{activeTrack.artist}</span>
-        </div>
-        <Progress />
-      </div>
-
-      <ol aria-label="Music queue" className={styles.trackList}>
-        {PORTFOLIO_MUSIC.map((track, index) => {
-          const isActive = index === activeIndex;
-          return (
-            <li key={track.videoId}>
-              <button
-                aria-current={isActive ? "true" : undefined}
-                aria-label={`Play ${track.title} by ${track.artist}`}
-                data-playing={isActive && isPlaying ? "true" : undefined}
-                data-track-index={index}
-                disabled={!isReady}
-                onClick={handleTrackClick}
-                type="button"
-              >
-                <Image
-                  alt=""
-                  aria-hidden="true"
-                  className={styles.trackArtwork}
-                  height={88}
-                  loading="eager"
-                  sizes="44px"
-                  src={`https://i.ytimg.com/vi/${track.videoId}/hqdefault.jpg`}
-                  unoptimized
-                  width={88}
-                />
-                <span className={styles.trackNumber}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className={styles.trackCopy}>
-                  <strong>{track.title}</strong>
-                  <span>{track.artist}</span>
-                </span>
-                <span className={styles.trackDuration}>
-                  {isActive && isPlaying ? (
-                    <span className={styles.trackState}>Playing</span>
-                  ) : null}
-                  {formatTime(track.durationSeconds)}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ol>
-
-      <div className={styles.hiddenPlayer} ref={playerHostRef} />
-      <PlayerError />
-    </section>
   );
 }
