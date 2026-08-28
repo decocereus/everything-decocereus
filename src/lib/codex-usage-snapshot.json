@@ -1,0 +1,1489 @@
+{
+  "version": 2,
+  "generatedAt": "2026-08-28T10:26:55.586488Z",
+  "timezone": "Asia/Kolkata",
+  "since": "2026-02-02",
+  "totals": {
+    "cachedInputTokens": 153214757248,
+    "directRuns": 708,
+    "outputTokens": 357906454,
+    "processedTokens": 158310520685,
+    "runs": 2673,
+    "subagentProcessedTokens": 135647637808,
+    "subagentRuns": 1965
+  },
+  "last30Days": {
+    "cachedInputTokens": 11874732544,
+    "directRuns": 145,
+    "outputTokens": 45067155,
+    "processedTokens": 12414851704,
+    "runs": 625,
+    "subagentProcessedTokens": 8608530780,
+    "subagentRuns": 480
+  },
+  "insights": {
+    "activeDays": 125,
+    "currentStreakDays": 1,
+    "longestStreakDays": 19,
+    "peakDailyDate": "2026-07-18",
+    "peakDailyTokens": 38054066433
+  },
+  "daily": [
+    {
+      "date": "2026-02-02",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 387786546,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-03",
+      "directRuns": 15,
+      "subagentRuns": 0,
+      "directTokens": 410207633,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-04",
+      "directRuns": 3,
+      "subagentRuns": 0,
+      "directTokens": 29386061,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-05",
+      "directRuns": 5,
+      "subagentRuns": 0,
+      "directTokens": 178272233,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-06",
+      "directRuns": 6,
+      "subagentRuns": 7,
+      "directTokens": 200497176,
+      "subagentTokens": 7722751
+    },
+    {
+      "date": "2026-02-07",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-08",
+      "directRuns": 5,
+      "subagentRuns": 5,
+      "directTokens": 166038308,
+      "subagentTokens": 18079112
+    },
+    {
+      "date": "2026-02-09",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-10",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 56844583,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-11",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 101173648,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-12",
+      "directRuns": 3,
+      "subagentRuns": 0,
+      "directTokens": 69262571,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-13",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 4190311,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-14",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-15",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-16",
+      "directRuns": 11,
+      "subagentRuns": 3,
+      "directTokens": 78895847,
+      "subagentTokens": 6734247
+    },
+    {
+      "date": "2026-02-17",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-18",
+      "directRuns": 5,
+      "subagentRuns": 9,
+      "directTokens": 64665100,
+      "subagentTokens": 10730198
+    },
+    {
+      "date": "2026-02-19",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 5461616,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-20",
+      "directRuns": 8,
+      "subagentRuns": 3,
+      "directTokens": 54507283,
+      "subagentTokens": 7051952
+    },
+    {
+      "date": "2026-02-21",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-22",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-23",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-24",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 6970105,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-25",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-27",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-02-28",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-01",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 12548122,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-02",
+      "directRuns": 14,
+      "subagentRuns": 0,
+      "directTokens": 206740331,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-03",
+      "directRuns": 8,
+      "subagentRuns": 0,
+      "directTokens": 247313142,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-04",
+      "directRuns": 8,
+      "subagentRuns": 0,
+      "directTokens": 43212953,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-05",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 7952274,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-06",
+      "directRuns": 4,
+      "subagentRuns": 3,
+      "directTokens": 1092969573,
+      "subagentTokens": 2158108
+    },
+    {
+      "date": "2026-03-07",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-08",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-09",
+      "directRuns": 5,
+      "subagentRuns": 6,
+      "directTokens": 50429381,
+      "subagentTokens": 11931456
+    },
+    {
+      "date": "2026-03-10",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-11",
+      "directRuns": 3,
+      "subagentRuns": 4,
+      "directTokens": 272357141,
+      "subagentTokens": 1726103
+    },
+    {
+      "date": "2026-03-12",
+      "directRuns": 2,
+      "subagentRuns": 5,
+      "directTokens": 205077713,
+      "subagentTokens": 227728813
+    },
+    {
+      "date": "2026-03-13",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 37091939,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-14",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-15",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-16",
+      "directRuns": 3,
+      "subagentRuns": 0,
+      "directTokens": 62360284,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-17",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-18",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-19",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-20",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 21892121,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-21",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-22",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-23",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-24",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-25",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-26",
+      "directRuns": 3,
+      "subagentRuns": 0,
+      "directTokens": 641427748,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-27",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 5938905,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-28",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-29",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-30",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 174756222,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-03-31",
+      "directRuns": 5,
+      "subagentRuns": 0,
+      "directTokens": 689243058,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-01",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 27873315,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-02",
+      "directRuns": 3,
+      "subagentRuns": 2,
+      "directTokens": 109264136,
+      "subagentTokens": 800541464
+    },
+    {
+      "date": "2026-04-03",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 73762314,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-04",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-05",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-06",
+      "directRuns": 8,
+      "subagentRuns": 1,
+      "directTokens": 779119429,
+      "subagentTokens": 950000
+    },
+    {
+      "date": "2026-04-07",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 1668130,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-08",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 17675164,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-09",
+      "directRuns": 13,
+      "subagentRuns": 0,
+      "directTokens": 877580948,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-10",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 297910,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-11",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 326576380,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-12",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 63112449,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-13",
+      "directRuns": 10,
+      "subagentRuns": 0,
+      "directTokens": 1241589001,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-14",
+      "directRuns": 10,
+      "subagentRuns": 0,
+      "directTokens": 892718518,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-15",
+      "directRuns": 11,
+      "subagentRuns": 0,
+      "directTokens": 479441383,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-16",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-17",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 243940113,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-18",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-19",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-20",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-21",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 89799553,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-22",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-23",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-24",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-25",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 401964698,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-27",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-28",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 164235846,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-29",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 158337591,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-04-30",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 89690034,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-01",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 722711,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-02",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-03",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-04",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-05",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-06",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-07",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 108478501,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-08",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-09",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-10",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-11",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-12",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-13",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-14",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-15",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-16",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-17",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-18",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 1208308,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-19",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-20",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 20397799,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-21",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-22",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 672611,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-23",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-24",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-25",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-27",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-28",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 1942561,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-29",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 995192,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-30",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 524442,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-05-31",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-01",
+      "directRuns": 15,
+      "subagentRuns": 2,
+      "directTokens": 8120129,
+      "subagentTokens": 2117614
+    },
+    {
+      "date": "2026-06-02",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 3099619,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-03",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 7385395,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-04",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 7956528,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-05",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 4621346,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-06",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 4050866,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-07",
+      "directRuns": 8,
+      "subagentRuns": 0,
+      "directTokens": 7523156,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-08",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 5111140,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-09",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 7127435,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-10",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 4422275,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-11",
+      "directRuns": 11,
+      "subagentRuns": 0,
+      "directTokens": 32794769,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-12",
+      "directRuns": 9,
+      "subagentRuns": 0,
+      "directTokens": 34540419,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-13",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 3631674,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-14",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 7064108,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-15",
+      "directRuns": 6,
+      "subagentRuns": 0,
+      "directTokens": 3816077,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-16",
+      "directRuns": 7,
+      "subagentRuns": 1,
+      "directTokens": 16693838,
+      "subagentTokens": 7486365
+    },
+    {
+      "date": "2026-06-17",
+      "directRuns": 3,
+      "subagentRuns": 0,
+      "directTokens": 1958898,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-18",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-19",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-20",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-21",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-22",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 181277,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-23",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 17311206,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-24",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-25",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-27",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-28",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-29",
+      "directRuns": 7,
+      "subagentRuns": 0,
+      "directTokens": 51711558,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-06-30",
+      "directRuns": 4,
+      "subagentRuns": 0,
+      "directTokens": 33239254,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-01",
+      "directRuns": 1,
+      "subagentRuns": 0,
+      "directTokens": 281718086,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-02",
+      "directRuns": 4,
+      "subagentRuns": 1,
+      "directTokens": 47395984,
+      "subagentTokens": 45982904
+    },
+    {
+      "date": "2026-07-03",
+      "directRuns": 8,
+      "subagentRuns": 6,
+      "directTokens": 115186603,
+      "subagentTokens": 23836382
+    },
+    {
+      "date": "2026-07-04",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-05",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-06",
+      "directRuns": 4,
+      "subagentRuns": 5,
+      "directTokens": 265425843,
+      "subagentTokens": 124642133
+    },
+    {
+      "date": "2026-07-07",
+      "directRuns": 5,
+      "subagentRuns": 7,
+      "directTokens": 176229310,
+      "subagentTokens": 30437948
+    },
+    {
+      "date": "2026-07-08",
+      "directRuns": 11,
+      "subagentRuns": 5,
+      "directTokens": 76444369,
+      "subagentTokens": 29000520
+    },
+    {
+      "date": "2026-07-09",
+      "directRuns": 10,
+      "subagentRuns": 0,
+      "directTokens": 55512292,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-10",
+      "directRuns": 9,
+      "subagentRuns": 63,
+      "directTokens": 308224986,
+      "subagentTokens": 2338341620
+    },
+    {
+      "date": "2026-07-11",
+      "directRuns": 6,
+      "subagentRuns": 117,
+      "directTokens": 209098540,
+      "subagentTokens": 4983655802
+    },
+    {
+      "date": "2026-07-12",
+      "directRuns": 5,
+      "subagentRuns": 191,
+      "directTokens": 649391584,
+      "subagentTokens": 12341141812
+    },
+    {
+      "date": "2026-07-13",
+      "directRuns": 7,
+      "subagentRuns": 47,
+      "directTokens": 79207030,
+      "subagentTokens": 5338860818
+    },
+    {
+      "date": "2026-07-14",
+      "directRuns": 5,
+      "subagentRuns": 124,
+      "directTokens": 295798629,
+      "subagentTokens": 9457725608
+    },
+    {
+      "date": "2026-07-15",
+      "directRuns": 8,
+      "subagentRuns": 58,
+      "directTokens": 182705890,
+      "subagentTokens": 4166851149
+    },
+    {
+      "date": "2026-07-16",
+      "directRuns": 2,
+      "subagentRuns": 92,
+      "directTokens": 338558056,
+      "subagentTokens": 12027095229
+    },
+    {
+      "date": "2026-07-17",
+      "directRuns": 8,
+      "subagentRuns": 182,
+      "directTokens": 984273323,
+      "subagentTokens": 22513003628
+    },
+    {
+      "date": "2026-07-18",
+      "directRuns": 12,
+      "subagentRuns": 257,
+      "directTokens": 333103933,
+      "subagentTokens": 37720962500
+    },
+    {
+      "date": "2026-07-19",
+      "directRuns": 13,
+      "subagentRuns": 86,
+      "directTokens": 681597840,
+      "subagentTokens": 8933548795
+    },
+    {
+      "date": "2026-07-20",
+      "directRuns": 10,
+      "subagentRuns": 13,
+      "directTokens": 226495831,
+      "subagentTokens": 609221856
+    },
+    {
+      "date": "2026-07-21",
+      "directRuns": 9,
+      "subagentRuns": 11,
+      "directTokens": 417234397,
+      "subagentTokens": 395145796
+    },
+    {
+      "date": "2026-07-22",
+      "directRuns": 5,
+      "subagentRuns": 28,
+      "directTokens": 49287594,
+      "subagentTokens": 1441956733
+    },
+    {
+      "date": "2026-07-23",
+      "directRuns": 4,
+      "subagentRuns": 11,
+      "directTokens": 219545654,
+      "subagentTokens": 354703563
+    },
+    {
+      "date": "2026-07-24",
+      "directRuns": 7,
+      "subagentRuns": 15,
+      "directTokens": 110256561,
+      "subagentTokens": 369303047
+    },
+    {
+      "date": "2026-07-25",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-07-27",
+      "directRuns": 11,
+      "subagentRuns": 27,
+      "directTokens": 149510582,
+      "subagentTokens": 217170496
+    },
+    {
+      "date": "2026-07-28",
+      "directRuns": 6,
+      "subagentRuns": 26,
+      "directTokens": 184592278,
+      "subagentTokens": 624327920
+    },
+    {
+      "date": "2026-07-29",
+      "directRuns": 2,
+      "subagentRuns": 62,
+      "directTokens": 398346826,
+      "subagentTokens": 1847232586
+    },
+    {
+      "date": "2026-07-30",
+      "directRuns": 2,
+      "subagentRuns": 16,
+      "directTokens": 26114405,
+      "subagentTokens": 244935645
+    },
+    {
+      "date": "2026-07-31",
+      "directRuns": 4,
+      "subagentRuns": 12,
+      "directTokens": 52137117,
+      "subagentTokens": 321335566
+    },
+    {
+      "date": "2026-08-01",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-02",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-03",
+      "directRuns": 8,
+      "subagentRuns": 11,
+      "directTokens": 147128647,
+      "subagentTokens": 45455784
+    },
+    {
+      "date": "2026-08-04",
+      "directRuns": 8,
+      "subagentRuns": 47,
+      "directTokens": 141337672,
+      "subagentTokens": 712789934
+    },
+    {
+      "date": "2026-08-05",
+      "directRuns": 10,
+      "subagentRuns": 44,
+      "directTokens": 415362723,
+      "subagentTokens": 688719159
+    },
+    {
+      "date": "2026-08-06",
+      "directRuns": 7,
+      "subagentRuns": 53,
+      "directTokens": 96896049,
+      "subagentTokens": 806080955
+    },
+    {
+      "date": "2026-08-07",
+      "directRuns": 8,
+      "subagentRuns": 11,
+      "directTokens": 184561700,
+      "subagentTokens": 264716741
+    },
+    {
+      "date": "2026-08-08",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-09",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-10",
+      "directRuns": 4,
+      "subagentRuns": 23,
+      "directTokens": 25698553,
+      "subagentTokens": 401106147
+    },
+    {
+      "date": "2026-08-11",
+      "directRuns": 14,
+      "subagentRuns": 17,
+      "directTokens": 289295394,
+      "subagentTokens": 248895978
+    },
+    {
+      "date": "2026-08-12",
+      "directRuns": 6,
+      "subagentRuns": 4,
+      "directTokens": 134494914,
+      "subagentTokens": 86316770
+    },
+    {
+      "date": "2026-08-13",
+      "directRuns": 3,
+      "subagentRuns": 93,
+      "directTokens": 174184513,
+      "subagentTokens": 1268720714
+    },
+    {
+      "date": "2026-08-14",
+      "directRuns": 13,
+      "subagentRuns": 24,
+      "directTokens": 370366841,
+      "subagentTokens": 187293610
+    },
+    {
+      "date": "2026-08-15",
+      "directRuns": 5,
+      "subagentRuns": 1,
+      "directTokens": 134327212,
+      "subagentTokens": 3764380
+    },
+    {
+      "date": "2026-08-16",
+      "directRuns": 1,
+      "subagentRuns": 1,
+      "directTokens": 4210654,
+      "subagentTokens": 1627495
+    },
+    {
+      "date": "2026-08-17",
+      "directRuns": 11,
+      "subagentRuns": 19,
+      "directTokens": 439716881,
+      "subagentTokens": 187108571
+    },
+    {
+      "date": "2026-08-18",
+      "directRuns": 4,
+      "subagentRuns": 50,
+      "directTokens": 56918558,
+      "subagentTokens": 1484201408
+    },
+    {
+      "date": "2026-08-19",
+      "directRuns": 10,
+      "subagentRuns": 6,
+      "directTokens": 432887982,
+      "subagentTokens": 107922183
+    },
+    {
+      "date": "2026-08-20",
+      "directRuns": 12,
+      "subagentRuns": 11,
+      "directTokens": 396308956,
+      "subagentTokens": 268915127
+    },
+    {
+      "date": "2026-08-21",
+      "directRuns": 8,
+      "subagentRuns": 37,
+      "directTokens": 196935084,
+      "subagentTokens": 1278624613
+    },
+    {
+      "date": "2026-08-22",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-23",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-24",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-25",
+      "directRuns": 5,
+      "subagentRuns": 0,
+      "directTokens": 83281340,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-26",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-27",
+      "directRuns": 0,
+      "subagentRuns": 0,
+      "directTokens": 0,
+      "subagentTokens": 0
+    },
+    {
+      "date": "2026-08-28",
+      "directRuns": 2,
+      "subagentRuns": 0,
+      "directTokens": 4155729,
+      "subagentTokens": 0
+    }
+  ]
+}

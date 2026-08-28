@@ -239,6 +239,10 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
+    if (!hasRequestedPlayback) {
+      return;
+    }
+
     const host = playerHostRef.current as HTMLDivElement | null;
     if (!host) {
       return;
@@ -308,7 +312,13 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
       playerRef.current?.destroy();
       playerRef.current = null;
     };
-  }, [syncTime]);
+  }, [hasRequestedPlayback, syncTime]);
+
+  useEffect(() => {
+    if (hasRequestedPlayback && isReady) {
+      playerRef.current?.playVideo();
+    }
+  }, [hasRequestedPlayback, isReady]);
 
   useEffect(() => {
     if (!isPlaying) {
@@ -322,7 +332,11 @@ export function MusicPlayerProvider({ children }: { children: ReactNode }) {
   const togglePlayback = useCallback(() => {
     setHasRequestedPlayback(true);
 
-    if (!isReady || playerError !== null || !playerRef.current) {
+    if (!(isReady && playerRef.current)) {
+      return;
+    }
+
+    if (playerError !== null) {
       return;
     }
 
@@ -432,7 +446,6 @@ function TransportControls({ compact = false }: { compact?: boolean }) {
       <button
         aria-label={isPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
         className={styles.playButton}
-        disabled={!isReady}
         onClick={togglePlayback}
         type="button"
       >

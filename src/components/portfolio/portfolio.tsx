@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import type { CodexUsage } from "@/lib/codex-usage.ts";
 import { PORTFOLIO_WORK } from "@/lib/constants.ts";
 import type { GitHubContributions } from "@/lib/github-contributions.ts";
+import { CodexActivity } from "./codex-activity.tsx";
 import { GitHubContributionGraph } from "./github-contributions.tsx";
 import { MusicPlayerProvider } from "./music-player.tsx";
 import styles from "./portfolio.module.css";
@@ -16,8 +18,10 @@ import {
 } from "./portfolio-shell.tsx";
 
 export function Portfolio({
+  codexUsage,
   contributions,
 }: {
+  codexUsage: CodexUsage;
   contributions: GitHubContributions;
 }) {
   const [theme, setTheme] = useState<"dark" | "light">("light");
@@ -69,6 +73,7 @@ export function Portfolio({
             ))}
           </ol>
         </section>
+        <CodexActivity usage={codexUsage} />
         <GitHubContributionGraph contributions={contributions} />
         <AnagramStory />
         <PortfolioFooter

@@ -1,4 +1,5 @@
 import { Portfolio } from "@/components/portfolio/portfolio.tsx";
+import { getCodexUsage } from "@/lib/codex-usage.ts";
 import { PORTFOLIO_CONTACT } from "@/lib/constants.ts";
 import { getGithubContributions } from "@/lib/github-contributions.ts";
 import { SITE } from "@/lib/site.ts";
@@ -34,13 +35,16 @@ const structuredData = {
 };
 
 export default async function Home() {
-  const contributions = await getGithubContributions();
+  const [codexUsage, contributions] = await Promise.all([
+    getCodexUsage(),
+    getGithubContributions(),
+  ]);
   return (
     <>
       <script type="application/ld+json">
         {JSON.stringify(structuredData).replace(/</g, "\\u003c")}
       </script>
-      <Portfolio contributions={contributions} />
+      <Portfolio codexUsage={codexUsage} contributions={contributions} />
     </>
   );
 }
