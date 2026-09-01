@@ -11,6 +11,7 @@ The rest of this document is meant to help you navigate the codebase and make ch
 - Keep changes small and preserve unrelated work.
 - Use the Next.js App Router and React Server Components by default. Add `"use client"` only when browser APIs or interactivity require it.
 - Keep portfolio content in `src/lib/constants.ts`.
+- Keep the application tracker at `/applications` current. After every confirmed submission or explicit hiring outcome, update `src/lib/job-applications.ts` in the same task. Use first-party confirmation or recent email evidence, and never infer rejection from silence.
 - Use shadcn source components backed by Base UI (`@base-ui/react`). Do not add Radix dependencies or imports.
 - Reuse the theme tokens in `src/app/globals.css`.
 - Do not invent or rewrite portfolio claims, and do not redesign the site unless explicitly asked.
