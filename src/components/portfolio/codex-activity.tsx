@@ -3,6 +3,7 @@
 import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
 import type { CodexUsage, CodexUsageDay } from "@/lib/codex-usage.ts";
+import { PORTFOLIO_CODEX } from "@/lib/constants.ts";
 import styles from "./codex-activity.module.css";
 
 type ActivityMetric = "runs" | "tokens";
@@ -217,11 +218,8 @@ export function CodexActivity({ usage }: { usage: CodexUsage }) {
     <section aria-labelledby="codex-title" className={styles.section}>
       <div className={styles.heading}>
         <div>
-          <h2 id="codex-title">With agents</h2>
-          <p>
-            A public record of my Codex activity—direct sessions and work
-            delegated to subagents.
-          </p>
+          <h2 id="codex-title">{PORTFOLIO_CODEX.title}</h2>
+          <p>{PORTFOLIO_CODEX.description}</p>
         </div>
         <p className={styles.updated}>Updated {updated}</p>
       </div>
@@ -243,16 +241,12 @@ export function CodexActivity({ usage }: { usage: CodexUsage }) {
           <dt>Active days</dt>
           <dd>{usage.insights.activeDays.toLocaleString("en-US")}</dd>
         </div>
-        <div>
-          <dt>Longest streak</dt>
-          <dd>{usage.insights.longestStreakDays} days</dd>
-        </div>
       </dl>
 
       <p className={styles.summary}>
-        {subagentShare.toFixed(1)}% of processing was delegated ·{" "}
-        {compactNumber(usage.last30Days.processedTokens)} processed in the last
-        30 days
+        {subagentShare.toFixed(1)}% ran through subagents ·{" "}
+        {compactNumber(usage.last30Days.processedTokens)} tokens in the last 30
+        days
       </p>
 
       <figure className={styles.figure}>

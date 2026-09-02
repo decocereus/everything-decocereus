@@ -13,7 +13,7 @@ import { AnagramStory, ThemeToggle } from "./portfolio-interactions.tsx";
 import sharedStyles from "./portfolio-shell.module.css";
 import {
   Introduction,
-  PortfolioFooter,
+  PortfolioHeaderActions,
   PortfolioShell,
 } from "./portfolio-shell.tsx";
 
@@ -42,9 +42,22 @@ export function Portfolio({
   return (
     <MusicPlayerProvider>
       <PortfolioShell theme={theme}>
-        <Introduction theme={theme} />
+        <Introduction
+          actions={
+            <PortfolioHeaderActions
+              action={<ThemeToggle onChange={toggleTheme} theme={theme} />}
+            />
+          }
+          theme={theme}
+        />
         <section aria-labelledby="work-title" className={sharedStyles.section}>
-          <h2 id="work-title">Things I’ve built</h2>
+          <div className={styles.workHeading}>
+            <h2 id="work-title">Selected work</h2>
+            <p>
+              A few products and systems I’ve built, from solo tools to privacy
+              infrastructure.
+            </p>
+          </div>
           <ol className={styles.workList}>
             {PORTFOLIO_WORK.map((project) => (
               <li key={project.name}>
@@ -57,17 +70,36 @@ export function Portfolio({
                       </span>
                     </Link>
                   </h3>
-                  <p>{project.summary}</p>
-                  {"sourceHref" in project ? (
-                    <Link
-                      className={styles.sourceLink}
-                      href={project.sourceHref}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      View source ↗
-                    </Link>
-                  ) : null}
+                  <div className={styles.workDetails}>
+                    <p className={styles.workScope}>{project.scope}</p>
+                    <p>
+                      {project.summary}
+                      {"storeHref" in project ? (
+                        <>
+                          {" Verified on "}
+                          <Link
+                            className={styles.summaryLink}
+                            href={project.storeHref}
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            chrome store
+                          </Link>
+                          .
+                        </>
+                      ) : null}
+                    </p>
+                    {"sourceHref" in project ? (
+                      <Link
+                        className={styles.sourceLink}
+                        href={project.sourceHref}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        View source ↗
+                      </Link>
+                    ) : null}
+                  </div>
                 </article>
               </li>
             ))}
@@ -75,10 +107,7 @@ export function Portfolio({
         </section>
         <CodexActivity usage={codexUsage} />
         <GitHubContributionGraph contributions={contributions} />
-        <AnagramStory />
-        <PortfolioFooter
-          footerAction={<ThemeToggle onChange={toggleTheme} theme={theme} />}
-        />
+        <AnagramStory theme={theme} />
       </PortfolioShell>
     </MusicPlayerProvider>
   );

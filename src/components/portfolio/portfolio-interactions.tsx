@@ -1,7 +1,8 @@
 "use client";
 
+import { Menu } from "@base-ui/react/menu";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PORTFOLIO_LORE } from "@/lib/constants.ts";
+import { PORTFOLIO_CONTACT, PORTFOLIO_LORE } from "@/lib/constants.ts";
 import styles from "./portfolio.module.css";
 import sharedStyles from "./portfolio-shell.module.css";
 
@@ -52,7 +53,55 @@ export function ThemeToggle({
   );
 }
 
-export function AnagramStory() {
+function ChevronDownIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 16 16">
+      <path d="m4 6 4 4 4-4" />
+    </svg>
+  );
+}
+
+function ContactMenu({ theme }: { theme: "dark" | "light" }) {
+  return (
+    <Menu.Root>
+      <Menu.Trigger className={styles.contactMenuTrigger}>
+        {PORTFOLIO_CONTACT.cta.button}
+        <ChevronDownIcon />
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Positioner
+          align="end"
+          className={styles.contactMenuPositioner}
+          side="top"
+          sideOffset={8}
+        >
+          <Menu.Popup className={styles.contactMenuPopup} data-theme={theme}>
+            <Menu.LinkItem
+              className={styles.contactMenuItem}
+              closeOnClick
+              href={PORTFOLIO_CONTACT.links[1].href}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {PORTFOLIO_CONTACT.cta.xLabel}
+              <span aria-hidden="true">↗</span>
+            </Menu.LinkItem>
+            <Menu.LinkItem
+              className={styles.contactMenuItem}
+              closeOnClick
+              href={PORTFOLIO_CONTACT.mailHref}
+            >
+              {PORTFOLIO_CONTACT.cta.emailLabel}
+              <span aria-hidden="true">↗</span>
+            </Menu.LinkItem>
+          </Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+
+export function AnagramStory({ theme }: { theme: "dark" | "light" }) {
   const [word, setWord] = useState("code + secure");
   const timers = useRef<number[]>([]);
 
@@ -109,6 +158,13 @@ export function AnagramStory() {
           </span>
         </button>
       </div>
+      <footer className={styles.contactFooter}>
+        <div className={styles.contactFooterCopy}>
+          <h3>{PORTFOLIO_CONTACT.cta.title}</h3>
+          <p>{PORTFOLIO_CONTACT.cta.body}</p>
+        </div>
+        <ContactMenu theme={theme} />
+      </footer>
     </section>
   );
 }

@@ -234,24 +234,30 @@ export const PORTFOLIO_WORK = [
   {
     href: "https://www.usevolt.app/",
     name: "Volt",
+    scope: "Product, design, engineering",
+    storeHref:
+      "https://chromewebstore.google.com/detail/volt/mccjgabeopbafjehgbhmjoipddgakafl",
     summary:
-      "An AI ghostwriter for X that learned how you write. I designed, built, and launched the whole product, and tried marketing it but it didn't work out.",
+      "An AI ghostwriter for X that learned how you write. I designed, built, and launched the whole product.",
   },
   {
     href: "https://www.shieldtx.xyz/",
     name: "ShieldTX",
+    scope: "Backend systems",
     summary:
       "Privacy-preserving perpetuals trading on Hyperliquid. I own the backend that coordinates trading workflows, live market connections, third-party services, and the frontend API.",
   },
   {
     href: "https://widgets.availproject.org/",
     name: "Nexus",
+    scope: "SDK and UI",
     summary:
       "Brings balances held across chains together. I built the first SDK and later the installable UI for bridge, swap, and transaction flows.",
   },
   {
     href: "https://xtract.decocereus.com/",
     name: "xtract",
+    scope: "Open source",
     sourceHref: "https://github.com/decocereus/xtract",
     summary:
       "An open-source tool that turns public X posts and articles into clean Markdown, text, or JSON for people and agents.",
@@ -259,13 +265,27 @@ export const PORTFOLIO_WORK = [
   {
     href: "https://github.com/decocereus/dex-notch",
     name: "dex-notch",
+    scope: "macOS app",
     sourceHref: "https://github.com/decocereus/dex-notch",
     summary:
       "A native macOS companion for T3 Code that shows agent activity and context usage around the notch. It is still in active development.",
   },
 ] as const;
 
+export const PORTFOLIO_CODEX = {
+  description:
+    "I use Codex every day and hand most of the heavy lifting to subagents. Here’s the running tally.",
+  title: "Working with agents",
+} as const;
+
 export const PORTFOLIO_CONTACT = {
+  cta: {
+    body: "Got something worth talking about? DM me on X or send an email.",
+    button: "Get in touch",
+    emailLabel: "Send me an email",
+    title: "Let's talk",
+    xLabel: "DM me on X",
+  },
   links: [
     { href: "https://github.com/decocereus", label: "GitHub" },
     { href: "https://x.com/decocereus", label: "X" },
