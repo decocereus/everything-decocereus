@@ -63,20 +63,12 @@ export function Portfolio({
               <li key={project.name}>
                 <article>
                   <h3>
-                    {"href" in project ? (
-                      <Link
-                        href={project.href}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        <span>{project.name}</span>
-                        <span aria-hidden="true" className={styles.arrow}>
-                          ↗
-                        </span>
-                      </Link>
-                    ) : (
-                      project.name
-                    )}
+                    <Link href={project.href} rel="noreferrer" target="_blank">
+                      <span>{project.name}</span>
+                      <span aria-hidden="true" className={styles.arrow}>
+                        ↗
+                      </span>
+                    </Link>
                   </h3>
                   <div className={styles.workDetails}>
                     <p className={styles.workScope}>{project.scope}</p>

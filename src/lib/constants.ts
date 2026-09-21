@@ -232,6 +232,7 @@ export const PORTFOLIO_GITHUB = {
 
 export const PORTFOLIO_WORK = [
   {
+    href: "https://usevolt.app",
     name: "Volt",
     scope: "Product, design, engineering · Archived",
     storeHref:
