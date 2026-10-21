@@ -1,6 +1,6 @@
 # Amartya Singh: canonical profile and career source
 
-Last updated: 2026-08-14
+Last updated: 2026-10-21
 
 This is the factual source behind Amartya's portfolio, future résumé, professional bios, social profiles, and interview preparation. It is deliberately more complete than the public site and is not intended to be pasted into any one surface verbatim.
 
@@ -25,7 +25,7 @@ Each material claim has one of these states:
 - Indie-hacker and solo-founder behavior should be demonstrated through products and decisions, not used as inflated titles.
 - Crypto is meaningful experience, but it should not define the top-level brand.
 - Volt and future AI or open-source work should demonstrate broader product range.
-- Use **4+ years of experience** only after the counting convention and start date are finalized. Needs verification.
+- **4+ years of experience**, counting full-time work from Amadeus (July 2022). Used on the October 2026 résumé.
 
 ### Target work
 
@@ -90,8 +90,8 @@ Work discussed:
 Scale:
 
 - GAMP publicly reported almost **200,000 registered gamers** and more than **110 million gameplay events** in December 2024. These are company and product scale figures, not outcomes attributable solely to Amartya.
-- A remembered peak of **100,000 monthly active users** needs its original source and reporting period before publication.
-- The existing portfolio previously mentioned **10,000 smart wallets**. Its source and definition need verification before reuse.
+- **100,000 users** and **10,000+ wallets created**. Confirmed by Amartya on 2026-10-21. Platform scale, not personal acquisition.
+- Wallet provisioning time fell from **about 60 seconds to about 15 seconds** through Puppeteer automation. Confirmed by Amartya on 2026-10-21. Earlier copy described this as roughly 60%; the confirmed figures are a 75% reduction.
 - GAMP has since closed.
 
 ### Mojoboxx
@@ -106,13 +106,13 @@ Scale:
 - Dates: **July 2022 to May 2023.** Self-reported and consistent with the previous portfolio.
 - Joined after graduating and worked in London for almost eleven months.
 - Remembered official title: **Software Engineering Graduate**, or similar. Verify the exact employer title before a formal résumé.
-- Primary product: an iOS application used by airport teams for check-ins, baggage, flight schedules, and day-to-day airport operations.
+- Primary product: one airport-operations iOS application used by **20+ airlines** for check-ins, baggage, flight schedules, and day-to-day airport operations. Confirmed by Amartya on 2026-10-21; earlier copy incorrectly said "20+ airline apps".
 - Contributed features to that iOS application.
 - The previous portfolio also referenced Swift, Objective-C, UIKit, MVVM, feature flags, and networking work. Recheck source evidence before turning these into detailed résumé bullets.
 
 ### CSRN
 
-- Dates shown on the previous portfolio: **June 2021 to August 2021.** Needs formal verification.
+- Dates: **June 2021 to August 2021.** Confirmed by Amartya on 2026-10-21; the August 2026 résumé wrongly said 2020.
 - Role shown on the previous portfolio: **Software Engineer Intern.** Needs formal verification.
 - Work described on the previous portfolio: a project-management platform prototype for coordinating the organisation's upcoming work.
 
@@ -123,7 +123,7 @@ Scale:
 #### Product
 
 - A privacy-preserving trading product built on Hyperliquid.
-- In private beta and onboarding more users for feedback at the time of this research.
+- Launched on mainnet with gated access. Confirmed by Amartya on 2026-10-21.
 - Public descriptions should stay at the product and ownership level. Do not expose private architecture or internal service names.
 
 #### Ownership and decisions
@@ -137,13 +137,27 @@ Scale:
 - Works across user feedback, implementation, deployment, testing, and subsequent iteration, with selective work on adjacent frontend and operational surfaces.
 - The strongest story is not that the first version was built. It is the continuing ownership of a large, evolving failure surface and the work to make lifecycle handling, external evidence, recovery, and operational feedback more reliable.
 
-#### Private-beta evidence captured on 2026-08-12
+#### Production evidence captured on 2026-10-21
 
-- **$939,505.90** in 30-day executed notional volume.
-- **628** completed trade actions: 317 opened and 311 closed.
-- **14** internal-team traders generated the activity.
+Read-only queries against the mainnet database (which retains old-canary history from 2026-06-09) and PostHog. All accounts are included; Amartya asked that no internal-account exclusion be applied.
 
-These figures are confirmed with context. They are internal-team private-beta testing evidence, not customer adoption. If used publicly, wording must keep that qualifier attached. Fees were waived during beta, so do not present fee revenue as a monetization result.
+- **$2.34M+ executed notional** from recorded exchange fills, 2026-06-09 to 2026-10-21. A lower bound: 24 early filled orders have no fill rows.
+- **596 completed market opens** and **706 completed closes**, excluding 112 recovery or refund operations.
+- **132 completed retry or recovery workflows** with **19,165 USDC** in linked return credits. 118 were user-initiated retries, so do not call them fully automatic.
+- Accepted-open failure rate by month: **18.9% in July, 6.9% in August, 2.8% in September**, 8.7% in October with 6 still pending. Includes limit orders.
+- Market-close latency median fell from **7.5s** (week of 2026-08-19) to **2.7s** (mainnet, week of 2026-10-14), about 25 samples a week.
+- Market-open latency in the week of 2026-08-05: **13.3s median, 22.7s p95** (17 samples). Telemetry stopped recording open latency after that week. QA rounds recorded opens of about 15 to 20s on 2026-08-11 and 8 to 10s on 2026-08-17. Amartya states opens are now about 5s; the closest measurement is a 4.7s Canary median from 2 opens on 2026-10-10.
+- 60 registered users, 148 completed deposits, 105 completed withdrawals at the time of the query. Accurate, but small next to volume and trades.
+
+The August private-beta figures ($939,505.90 over 30 days, 628 trade actions, 14 internal-team traders) are superseded and should no longer be used.
+
+#### Amartya-attributable engineering evidence
+
+- 148 merged backend PRs (2026-04-29 to 2026-10-15) and 101 merged frontend PRs (2026-03-06 to 2026-10-15). Useful context, not a résumé metric.
+- Open-latency work: stream-driven open confirmation, stream-first funding with read caches, parallel preflight reads, and consolidated database checkpoints. A teammate's solver funding change landed the same week, so the speedup is shared.
+- Database statements per market open fell from 378 to 172 (54.5%) and transactions from 73 to 21 (71.2%) in a controlled local benchmark. Delivered on Canary through an open PR stack, not merged mainline as of 2026-10-21.
+- Frontend: automatic withdrawal claiming; coalesced portfolio refreshes cut upstream reads from 26 to 3 (88%) in a reproduced settlement burst.
+- Internal operations tooling: Amartya built the ShieldTX operations console, health monitoring, refunds and recovery actions, user funding, and automatic claims inside an admin platform that a teammate created. Describe it as "internal ops tooling" and never claim he built the platform itself.
 
 #### Disclosure boundaries
 
@@ -174,8 +188,11 @@ Nexus is a broader product, not merely a “developer product.” The SDK and in
 
 #### Evidence and scale
 
-- The early combined package was roughly 8 MB unpacked when source maps and dependencies were bundled, later falling to roughly 1 MB after dependencies were externalized and source maps removed. These are self-reported rounded figures.
-- A verified public package comparison found a reduction from **14.9 MB to 1.6 MB npm unpacked size**, approximately **89%**. Name the package versions when finalizing any public claim.
+- The package-size drop (14.9 MB to 1.6 MB unpacked) mostly came from removing source maps that early releases shipped by mistake. Amartya confirmed this on 2026-10-21. Do not present it as an optimization.
+- **60K+ npm downloads** across the five Nexus packages Amartya published to (`avail-nexus-sdk`, `@avail-project/nexus`, `nexus-core`, `nexus-widgets`, `nexus-elements`), through 2026-10-20. Amartya chose to use this figure. Most `nexus-core` downloads come from versions teammates published later.
+- **165 npm versions** published under Amartya's npm identity across those packages.
+- Release scripts (nexus-sdk PR #50) automate versioning, builds, npm publishing, and Git tags for two packages. They do not generate changelogs, so drop "changelogs" from any claim.
+- Amartya authored 16 agent skills for the Nexus SDK and Elements.
 - “25+ Nexus integrations” can describe the broader ecosystem only. Do not imply that every integration was directly attributable to Amartya.
 - Public artifacts can include the SDK repository, Elements repository and site, npm package history, and relevant commits or pull requests.
 
@@ -213,6 +230,17 @@ Volt's strongest story is a candid solo-founder loop from a personal problem to 
 GAMP works best as professional experience and, if useful, a shorter supporting case study. It demonstrates team product delivery, consumer scale, and cross-stack ownership without displacing Volt's independent AI-product signal.
 
 ## Independent and supporting projects
+
+### dex-notch
+
+- Native Swift 6, SwiftUI, and AppKit macOS companion for T3 Code that shows agent activity and context usage around the notch.
+- First commit 2026-08-13; `v0.1.0` released 2026-08-25 as a signed, notarized universal DMG with Sparkle automatic updates.
+- 0 stars and a handful of release downloads. Use it as proof of native work, not adoption.
+
+### xtract
+
+- Open-source Next.js web tool and checkout-local CLI that converts public X posts and articles into Markdown, text, or JSON for coding agents.
+- First commit 2026-03-31; the CLI and a guest-session fix landed 2026-08-14. No adoption numbers.
 
 ### Git Receipts
 
@@ -255,15 +283,20 @@ This order demonstrates product-engineering range rather than grouping the work 
 
 | Claim | Status | Required qualifier |
 | --- | --- | --- |
-| ShieldTX executed about $939K in 30 days | Confirmed with context | Internal-team private-beta testing, not customer traction |
-| ShieldTX completed 628 open and close actions | Confirmed with context | Same private-beta testing qualifier |
-| ShieldTX had 14 traders | Do not use as traction | They were internal-team testers |
-| Nexus package reduced from 14.9 MB to 1.6 MB unpacked | Confirmed | Name npm unpacked size and compared versions |
+| ShieldTX processed $2.3M+ executed volume across 1,300+ trades since June 2026 | Confirmed, 2026-10-21 query | Recorded fills; a lower bound |
+| ShieldTX recovery returned $19K+ across 132 operations | Confirmed with context | Not provably automatic |
+| ShieldTX open failure rate 19% to 3%, July to September | Confirmed with context | October was 8.7%; be ready to explain it |
+| ShieldTX opens ~20s to ~5s | ~20s measured (Aug p95 22.7s); ~5s stated by Amartya | Close-to-Canary evidence only for the after figure |
+| ShieldTX median close 7.5s to 2.7s | Confirmed, PostHog | About 25 samples per week |
+| ShieldTX $939K / 628 trades / 14 traders | Superseded | Do not use |
+| Nexus package reduced from 14.9 MB to 1.6 MB unpacked | Do not use | Caused by removing accidentally shipped source maps |
+| Nexus packages have 60K+ npm downloads | Confirmed | Includes downloads of teammates' later releases |
 | Nexus has 25+ integrations | Product context only | Do not imply all are attributable to Amartya |
 | GAMP reached almost 200K registered gamers | Confirmed as company scale | Do not rewrite as users acquired by Amartya |
 | GAMP recorded more than 110M gameplay events | Confirmed as company scale | Same attribution limit |
-| GAMP reached 100K MAU | Needs verification | Recover the original source and reporting period |
-| GAMP created 10K smart wallets | Needs verification | Recover the source and define the wallet count |
+| GAMP reached 100K users | Confirmed by Amartya | Platform scale |
+| GAMP created 10K+ wallets | Confirmed by Amartya | Platform scale |
+| GAMP wallet provisioning 60s to 15s | Confirmed by Amartya | Puppeteer automation |
 | Volt made one $15 sale | Accurate but strategically weak | Use only in a candid long-form case study, if useful |
 
 ## Public links
@@ -283,11 +316,8 @@ This order demonstrates product-engineering range rather than grouping the work 
 - Exact Amadeus employer title.
 - Exact Mojoboxx employer title.
 - King's College London attendance dates, degree styling, and classification if needed.
-- Source and reporting period for GAMP's remembered 100K MAU.
-- Source and definition for GAMP's 10K smart wallets.
 - Month of the Thailand product sprint and launch.
-- Exact convention and dates used to calculate “4+ years of experience.”
-- Exact public Nexus package versions and final artifact links for cited evidence.
+- A measured current market-open latency on mainnet. Telemetry stopped recording it after the week of 2026-08-05.
 - Current availability, proof, and outcomes for older small projects if they are ever reconsidered.
 
 ## Maintenance rule
