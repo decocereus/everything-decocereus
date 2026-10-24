@@ -10,7 +10,14 @@ export function MorningOpsFigure() {
       <Plate
         caption={CAPTION}
         fig="Fig 1"
-        hint="Move across the night · press the lever"
+        hint={
+          <>
+            <span className="mo-hint-mouse">
+              Hover to replay the night · click to approve
+            </span>
+            <span className="mo-hint-touch">Tap to approve</span>
+          </>
+        }
         keys={[
           {
             label: "The gate and lever: your approval",

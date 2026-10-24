@@ -112,7 +112,7 @@ export const FOUNDER = {
     {
       label: "Built",
       value:
-        "The system behind a trading product that has handled $2.3M+, and cut its failure rate from 19% to 3% between July and September 2026.",
+        "Systems that have handled $2.3M+ in transactions, with failures cut from 19% to 3%.",
     },
     {
       label: "Also built",

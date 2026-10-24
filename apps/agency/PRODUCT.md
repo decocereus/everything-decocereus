@@ -65,7 +65,7 @@ Real, verifiable founder facts, sourced from `docs/about-amartya.md` at the repo
 - Product engineer, 4+ years: Amadeus (London) and GAMP. Avail stays unnamed.
 - BSc Computer Science, King's College London (2022).
 - Built the Nexus SDK and UI packages, which have 60K+ npm downloads. The count includes later releases published by teammates.
-- Primary technical owner (not sole author) of the coordination layer behind ShieldTX, which has processed $2.3M+ in executed volume, a lower bound. The accepted-open failure rate fell from 19% (July 2026) to 3% (September 2026). October was 8.7%, so always give the date range.
+- Primary technical owner (not sole author) of the coordination layer behind ShieldTX, which has processed $2.3M+ in executed volume, a lower bound. The accepted-open failure rate fell from 19% (July 2026) to 3% (September 2026); October was 8.7%. On the site, Amartya chose to state it as "Systems that have handled $2.3M+ in transactions, with failures cut from 19% to 3%", without dates or the words "trading" or "crypto".
 
 Examples on the site (busywork, audit findings) are labelled illustrative. There are no hour-saved figures to quote yet. There are no agency clients, testimonials, case studies, logos or results yet. Never invent any.
 

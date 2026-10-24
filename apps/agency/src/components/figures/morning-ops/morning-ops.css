@@ -54,3 +54,17 @@
   font-size: 14px;
   color: var(--color-ink-soft);
 }
+
+.mo-hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .mo-hint-mouse {
+    display: none;
+  }
+
+  .mo-hint-touch {
+    display: inline;
+  }
+}

@@ -259,13 +259,14 @@ export default function Home() {
           <span>
             © {new Date().getFullYear()} {SITE.name}
           </span>
-          <div className="flex gap-6">
+          <div className="flex gap-3">
             <a
               className="underline decoration-1 underline-offset-4"
               href={`mailto:${SITE.email}`}
             >
               {SITE.email}
             </a>
+            <span aria-hidden="true">·</span>
             <a
               className="underline decoration-1 underline-offset-4"
               href={SITE.x.url}
