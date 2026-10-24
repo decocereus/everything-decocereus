@@ -15,6 +15,19 @@ import {
 } from "@/lib/content.ts";
 import { SITE } from "@/lib/site.ts";
 
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  areaServed: ["US", "GB"],
+  description: SITE.description,
+  email: SITE.email,
+  founder: { "@type": "Person", name: "Amartya Singh" },
+  image: `${SITE.url}/opengraph-image.png`,
+  name: SITE.name,
+  sameAs: [SITE.x.url],
+  url: SITE.url,
+};
+
 const CONTAINER = "mx-auto w-full max-w-[1200px] px-6 sm:px-10";
 
 function PrimaryLink({
@@ -88,6 +101,13 @@ function Rows({ items }: Readonly<{ items: readonly Row[] }>) {
 export default function Home() {
   return (
     <>
+      <script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from static constants, escaped as the Next.js guide shows.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c"),
+        }}
+        type="application/ld+json"
+      />
       <header className="sticky top-0 z-10 border-rule border-b bg-paper">
         <div className={`${CONTAINER} flex h-16 items-center justify-between`}>
           <Link

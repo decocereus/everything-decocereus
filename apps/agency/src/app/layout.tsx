@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 const VIDEO = `${SITE.url}/og-loop.mp4`;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/" },
   description: SITE.description,
   metadataBase: new URL(SITE.url),
   openGraph: {
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  title: SITE.name,
+  title: `AI agents for small businesses | ${SITE.name}`,
   twitter: {
     card: "summary_large_image",
     creator: SITE.x.handle,

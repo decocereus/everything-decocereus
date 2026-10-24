@@ -1,0 +1,7 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <title>decocereus agents</title>
+  <rect fill="#0a0a0a" height="32" rx="7" width="32" />
+  <path d="M16 6.5 24.7 11.5 16 16.5 7.3 11.5Z" fill="#ffffff" />
+  <path d="M7.3 11.5 16 16.5V26.5L7.3 21.5Z" fill="#b4b4b4" />
+  <path d="M24.7 11.5 16 16.5V26.5L24.7 21.5Z" fill="#6e6e6e" />
+</svg>
