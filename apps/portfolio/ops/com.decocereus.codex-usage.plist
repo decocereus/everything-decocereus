@@ -7,10 +7,10 @@
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/python3</string>
-    <string>/Users/amartyasingh/Documents/projects/everything-decocereus/scripts/publish-codex-usage.py</string>
+    <string>/Users/amartyasingh/Documents/projects/everything-decocereus/apps/portfolio/scripts/publish-codex-usage.py</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>/Users/amartyasingh/Documents/projects/everything-decocereus</string>
+  <string>/Users/amartyasingh/Documents/projects/everything-decocereus/apps/portfolio</string>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>

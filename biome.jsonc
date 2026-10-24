@@ -7,7 +7,7 @@
     "ultracite/biome/next"
   ],
   "files": {
-    "includes": ["!!graphify-out", "!!.next"]
+    "includes": ["!!**/graphify-out", "!!**/.next", "!!**/.turbo"]
   },
   "linter": {
     "rules": {
