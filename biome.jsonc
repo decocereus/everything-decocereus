@@ -15,5 +15,50 @@
         "noUnresolvedImports": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      // The anatomy kit, copied verbatim from the skill so it can be updated by copying again.
+      "includes": [
+        "apps/agency/src/components/iso/iso-kit.ts",
+        "apps/agency/src/components/iso/iso.css",
+        "apps/agency/src/components/iso/react/draw.tsx",
+        "apps/agency/src/components/iso/react/live.tsx"
+      ],
+      "formatter": { "enabled": false },
+      "assist": { "enabled": false },
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off",
+            "noForEach": "off",
+            "useSimplifiedLogicExpression": "off"
+          },
+          "correctness": {
+            "useImportExtensions": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off",
+            "useTopLevelRegex": "off"
+          },
+          "style": {
+            "noIncrementDecrement": "off",
+            "noNonNullAssertion": "off",
+            "useAtIndex": "off",
+            "useBlockStatements": "off",
+            "useImportType": "off",
+            "useNumericSeparators": "off"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "off",
+            "noBitwiseOperators": "off",
+            "noShadow": "off",
+            "noShadowRestrictedNames": "off",
+            "noUnnecessaryConditions": "off",
+            "useIterableCallbackReturn": "off"
+          }
+        }
+      }
+    }
+  ]
 }

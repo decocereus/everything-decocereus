@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T00:00:00Z",
+  "title": "Design System: Agency",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0a0a0a"
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#3d3d3d"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgb(10 10 10 / 0.12)"
+      },
+      "plate-card": {
+        "role": "neutral",
+        "displayName": "Plate Card",
+        "canonical": "#fbfbfa",
+        "tonalRamp": [
+          "#ffffff",
+          "#fbfbfa",
+          "#f4f4f1",
+          "#ededea",
+          "#e5e5e2",
+          "#dcdcd9"
+        ]
+      },
+      "plate-frame": {
+        "role": "neutral",
+        "displayName": "Plate Frame",
+        "canonical": "#8a8a8f",
+        "tonalRamp": [
+          "#d4d4d6",
+          "#b4b4b8",
+          "#8a8a8f",
+          "#57575a",
+          "#26262a",
+          "#000000"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only." },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Closing band headline, max 18ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings in the left grid column."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "Founder intro paragraph."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text; weight 500 for subheads and row terms."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons and text links; nav uses weight 400."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Footer, pending note, figure legend and caption."
+      },
+      "plate-mono": {
+        "displayName": "Plate Mono",
+        "purpose": "Figure plate corners and readout only."
+      }
+    },
+    "shadows": [],
+    "figureTheme": {
+      "source": "src/components/iso/iso.css, .iso[data-theme=\"light\"]",
+      "lit": "#000000",
+      "hi": "#26262a",
+      "mid": "#8a8a8f",
+      "lo": "#b4b4b8",
+      "faint": "#d4d4d6",
+      "strokeWeight": "0.6px",
+      "halo": "#8a8a80 at 0.32 opacity, 9px blur",
+      "unusedInV1": ["--anatomy-red", "--anatomy-green", "--anatomy-blue"]
+    },
+    "motion": [
+      {
+        "name": "button-press",
+        "value": "background-color, scale 150ms ease-out; active scale 0.97",
+        "purpose": "Primary button hover and press."
+      },
+      {
+        "name": "nav-hover",
+        "value": "color 150ms",
+        "purpose": "Nav link soft ink to ink."
+      },
+      {
+        "name": "disclosure",
+        "value": "transform 200ms ease-out, rotate 45deg",
+        "purpose": "FAQ plus turns to a cross on open."
+      },
+      {
+        "name": "anatomy-ease",
+        "value": "cubic-bezier(.32,.72,0,1)",
+        "purpose": "Figure kit easing."
+      },
+      {
+        "name": "anatomy-flow",
+        "value": "1600ms linear infinite",
+        "purpose": "Flowing lines and pulsing dots in figures; disabled under reduced motion."
+      },
+      {
+        "name": "anchor-scroll",
+        "value": "smooth, scroll-margin-top 5rem",
+        "purpose": "In-page anchors; auto under reduced motion."
+      }
+    ],
+    "focus": [
+      {
+        "name": "global",
+        "value": "outline 2px solid #0a0a0a; outline-offset 3px; border-radius 2px"
+      },
+      {
+        "name": "figure",
+        "value": "outline 1px solid #8c8c90; outline-offset 6px"
+      }
+    ],
+    "breakpoints": [
+      { "name": "kit-narrow", "value": "560px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The only button: solid ink rectangle with paper text.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Get in touch</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 6px; background: #0a0a0a; color: #fff; font: 500 15px Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; transition: background-color 150ms ease-out, scale 150ms ease-out; } .ds-btn:hover { background: #3d3d3d; } .ds-btn:active { scale: 0.97; } .ds-btn:focus-visible { outline: 2px solid #0a0a0a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Underlined Link",
+      "kind": "custom",
+      "refersTo": "link-underlined",
+      "description": "Secondary actions and inline links; always underlined.",
+      "html": "<a class=\"ds-link\" href=\"#\">See an example</a>",
+      "css": ".ds-link { color: #0a0a0a; font: 500 15px Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }"
+    },
+    {
+      "name": "Hairline Row",
+      "kind": "custom",
+      "description": "Definition-list row: medium term in a fixed column, soft-ink detail, hairline between rows.",
+      "html": "<dl class=\"ds-rows\"><div><dt>Invoices and books</dt><dd>Invoices drafted from finished work.</dd></div><div><dt>Daily reporting</dt><dd>A short morning summary.</dd></div></dl>",
+      "css": ".ds-rows { margin: 0; font: 400 18px/1.556 Geist, ui-sans-serif, system-ui, sans-serif; color: #0a0a0a; } .ds-rows > div { display: grid; grid-template-columns: 15rem 1fr; gap: 32px; padding: 20px 0; border-top: 1px solid rgb(10 10 10 / 0.12); } .ds-rows > div:first-child { border-top: 0; padding-top: 0; } .ds-rows dt { font-weight: 500; } .ds-rows dd { margin: 0; color: #3d3d3d; }"
+    },
+    {
+      "name": "Figure Plate",
+      "kind": "card",
+      "refersTo": "figure-plate",
+      "description": "Anatomy-kit Plate, light theme: mono corners (Fig n, title, hint, readout), one lit part, legend and true caption.",
+      "html": "<figure class=\"ds-plate\"><div class=\"ds-plate-box\"><span data-c=\"fig\">Fig 1</span><span data-c=\"title\">Morning Ops Report</span><span data-c=\"hint\">Press the lever</span><span data-c=\"readout\">06:00 · 7 waiting for approval</span></div><figcaption>An illustrative example, not a client result.</figcaption></figure>",
+      "css": ".ds-plate { margin: 0; } .ds-plate-box { position: relative; height: 220px; background: #fbfbfa; box-shadow: 0 0 0 1px #8a8a8f; } .ds-plate-box span { position: absolute; font: 10.5px/1 'Geist Mono', ui-monospace, monospace; letter-spacing: .04em; color: #8c8c90; } [data-c=fig] { top: 18px; left: 20px; color: #57575a; } [data-c=title] { top: 18px; right: 20px; text-transform: uppercase; letter-spacing: .1em; color: #57575a; } [data-c=hint] { bottom: 18px; left: 20px; text-transform: uppercase; letter-spacing: .1em; } [data-c=readout] { bottom: 18px; right: 20px; color: #57575a; font-variant-numeric: tabular-nums; } .ds-plate figcaption { margin-top: 12px; max-width: 68ch; font: 14px/1.55 Geist, ui-sans-serif, system-ui, sans-serif; color: #3d3d3d; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Machine Catalogue",
+    "overview": "The site reads like a printed catalogue of machines. Each workflow is drawn as a real isometric machine on its own plate, and the words beside it are plain. The page is white paper with black ink, divided by hairline rules. Grey appears only in supporting text and in the drawings' tone ramp. The figure carries the visual weight, and the type, buttons and rules stay quiet.",
+    "keyCharacteristics": [
+      "Pure white ground and near-black ink. No accent colour.",
+      "Geist for reading text, set large. Geist Mono only for figure measurement.",
+      "Hairline rules in place of cards, fills or shadows.",
+      "Isometric anatomy plates as the only illustration, rendered as SVG in code.",
+      "A faint Paper Shaders grain, used once on the closing band."
+    ],
+    "rules": [
+      {
+        "name": "The Ink-Only Rule",
+        "body": "v1 is black and white. The kit's red, green and blue tones stay unused.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Lit Part Rule",
+        "body": "Inside a figure, pure black is reserved for the one part the visitor should look at.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight 500 Rule",
+        "body": "Headings are weight 500, never bold. Hierarchy comes from size and tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Is Measurement Rule",
+        "body": "Geist Mono and uppercase tracking appear only on plate corners and readouts.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Page Rule",
+        "body": "Separation comes from hairlines and whitespace, never shadows or filled cards.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do separate content with hairline rules and whitespace.",
+      "Do set reading text at 18px or larger in Geist, with measures between 44ch and 60ch.",
+      "Do draw every workflow as an anatomy Plate in the light theme, with one lit part and a true caption that says \"illustrative example\".",
+      "Do underline links, and use the single black button for the primary action."
+    ],
+    "donts": [
+      "Don't add an accent colour or the kit's red, green or blue tones while v1 is black and white.",
+      "Don't add box shadows, filled cards or tinted section backgrounds to the page.",
+      "Don't use Geist Mono or uppercase tracked labels outside figure plates.",
+      "Don't use Paper Shaders as a colour or motion effect.",
+      "Don't ship raster figures. The .impeccable/mocks PNGs are abandoned comps."
+    ]
+  }
+}

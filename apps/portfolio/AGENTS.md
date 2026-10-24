@@ -3,7 +3,6 @@
 The portfolio at [decocereus.com](https://www.decocereus.com). Follow the root `AGENTS.md` too.
 
 - Keep portfolio content in `src/lib/constants.ts`.
-- Keep the application tracker at `/applications` current. After every confirmed submission or explicit hiring outcome, update `src/lib/job-applications.ts` in the same task. Use first-party confirmation or recent email evidence, and never infer rejection from silence.
 - Reuse the theme tokens in `src/app/globals.css`.
 - Do not invent or rewrite portfolio claims. The factual source is `docs/about-amartya.md` at the repository root.
 

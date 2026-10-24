@@ -1,0 +1,32 @@
+{
+  "name": "agency",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI consultancy site",
+  "author": "decocereus",
+  "scripts": {
+    "build": "next build",
+    "check": "ultracite check",
+    "dev": "next dev --port 3001",
+    "fix": "ultracite fix",
+    "react:doctor": "react-doctor . --no-telemetry --no-supply-chain",
+    "start": "next start --port 3001",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@paper-design/shaders-react": "^0.0.81",
+    "next": "16.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "baseline-browser-mapping": "2.11.13",
+    "react-doctor": "0.9.11",
+    "tailwindcss": "^4.3.3",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,56 @@
+.mo {
+  border-radius: 6px;
+  cursor: pointer;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.mo:focus-visible {
+  outline: 1px solid var(--anatomy-muted);
+  outline-offset: 6px;
+}
+
+.mo .iso-svg {
+  overflow: visible;
+}
+
+.mo-hand,
+.mo-needle {
+  fill: var(--anatomy-hi);
+  stroke: var(--anatomy-hi);
+  stroke-width: 0.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.mo-hazard {
+  fill: var(--anatomy-lit);
+  stroke: none;
+}
+
+.mo-tape {
+  stroke-width: 0.8;
+}
+
+@media (max-width: 640px) {
+  .mo {
+    overflow: hidden;
+  }
+
+  .iso-plate .mo .iso-svg {
+    width: 110%;
+    margin: -3% -5% -2%;
+  }
+}
+
+.iso[data-theme="light"] .iso-plate-corner {
+  color: var(--anatomy-text);
+}
+
+.iso[data-theme="light"] .iso-legend {
+  max-width: 68ch;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}

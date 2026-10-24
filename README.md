@@ -4,6 +4,7 @@ Amartya Singh's sites, in one pnpm and Turborepo monorepo.
 
 ```text
 apps/portfolio/   decocereus.com, the personal portfolio
+apps/agency/      The AI consultancy site, in progress (dev port 3001)
 docs/             Canonical profile source material shared by the sites
 output/           Generated résumé files
 ```
