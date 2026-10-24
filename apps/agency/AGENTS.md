@@ -1,6 +1,6 @@
 # AGENTS.md
 
-The site for Amartya's AI consultancy. It is a skeleton for now; the brand, copy, and design language are still to be decided. Follow the root `AGENTS.md` too.
+The site for Amartya's AI consultancy. Live at agents.decocereus.com. Read `PRODUCT.md` for the offer and voice and `DESIGN.md` for the visual system. Follow the root `AGENTS.md` too.
 
 - Do not invent claims, clients, results, or services. Ask for the source when copy needs facts.
 

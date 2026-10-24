@@ -264,4 +264,4 @@ export const MORNING: Night = {
   waiting: REPORT.invoices,
 };
 
-export const CAPTION = `An illustrative example, not a client result. Overnight the shuttle visits four stations: it notes ${REPORT.calls} calls from the tape, checks the books against the job system until the beam reads level, drafts ${REPORT.invoices} invoices and parks them behind the gate. At 06:00 they are still waiting. Nothing goes out to a customer until the owner presses the lever.`;
+export const CAPTION = `An illustrative example, not a client result. Overnight, the agents logged ${REPORT.calls} calls, checked the books against your job system, and drafted ${REPORT.invoices} invoices. At 6am the invoices are waiting for your OK. Nothing goes to a customer until you press the lever.`;

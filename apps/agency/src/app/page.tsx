@@ -3,16 +3,17 @@ import type React from "react";
 import { MorningOpsFigure } from "@/components/figures/morning-ops/figure.tsx";
 import { PaperGrain } from "@/components/paper-grain.tsx";
 import {
-  APPROACH,
   CLOSE,
   CONTROL,
+  CTA,
   FAQ,
   FOUNDER,
   HERO,
   NAV,
+  STEPS,
   WORK,
 } from "@/lib/content.ts";
-import { CONTACT, SITE } from "@/lib/site.ts";
+import { SITE } from "@/lib/site.ts";
 
 const CONTAINER = "mx-auto w-full max-w-[1200px] px-6 sm:px-10";
 
@@ -49,9 +50,14 @@ function Section({
   );
 }
 
-function Rows({
-  items,
-}: Readonly<{ items: readonly { title: string; detail: string }[] }>) {
+interface Row {
+  detail: string;
+  note?: React.ReactNode;
+  sub?: string;
+  title: string;
+}
+
+function Rows({ items }: Readonly<{ items: readonly Row[] }>) {
   return (
     <dl>
       {items.map((item) => (
@@ -59,8 +65,20 @@ function Rows({
           className="grid gap-1 border-rule border-t py-5 text-lg first:border-t-0 first:pt-0 sm:grid-cols-[15rem_1fr] sm:gap-8"
           key={item.title}
         >
-          <dt className="font-medium">{item.title}</dt>
-          <dd className="text-ink-soft">{item.detail}</dd>
+          <dt className="font-medium">
+            {item.title}
+            {item.sub ? (
+              <span className="block font-normal text-[15px] text-ink-soft">
+                {item.sub}
+              </span>
+            ) : null}
+          </dt>
+          <dd className="text-ink-soft">
+            {item.detail}
+            {item.note ? (
+              <p className="mt-2 text-[15px] text-ink">{item.note}</p>
+            ) : null}
+          </dd>
         </div>
       ))}
     </dl>
@@ -91,7 +109,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <PrimaryLink href={CONTACT.href}>{CONTACT.label}</PrimaryLink>
+            <PrimaryLink href={SITE.bookingUrl}>{CTA.header}</PrimaryLink>
           </nav>
         </div>
       </header>
@@ -106,8 +124,8 @@ export default function Home() {
               <p className="max-w-[44ch] text-ink-soft text-lg leading-relaxed">
                 {HERO.body}
               </p>
-              <div className="mt-6 flex items-center gap-6">
-                <PrimaryLink href={CONTACT.href}>{CONTACT.label}</PrimaryLink>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <PrimaryLink href={SITE.bookingUrl}>{CTA.hero}</PrimaryLink>
                 <a
                   className="font-medium text-[15px] underline decoration-1 underline-offset-4"
                   href="#example"
@@ -126,17 +144,39 @@ export default function Home() {
           <p className="mb-8 max-w-[52ch] text-ink-soft text-lg">
             {WORK.intro}
           </p>
-          <Rows items={WORK.items} />
+          <Rows
+            items={WORK.items.map((item) => ({
+              detail: item.detail,
+              note: (
+                <>
+                  <span className="font-medium">Saves:</span> {item.saves}
+                </>
+              ),
+              title: item.title,
+            }))}
+          />
         </Section>
 
-        <Section heading={APPROACH.heading}>
-          <div className="grid gap-10 sm:grid-cols-3 sm:gap-8">
-            {APPROACH.items.map((item) => (
-              <div key={item.title}>
-                <h3 className="font-medium text-lg">{item.title}</h3>
-                <p className="mt-2 text-ink-soft text-lg">{item.detail}</p>
-              </div>
-            ))}
+        <Section heading={STEPS.heading} id="how">
+          <Rows
+            items={STEPS.items.map((item) => ({
+              detail: item.detail,
+              sub: item.length,
+              title: item.title,
+            }))}
+          />
+          <div className="mt-10 border-ink border-t pt-6">
+            <p className="max-w-[52ch] text-xl leading-relaxed">
+              <span className="font-medium">The guarantee.</span>{" "}
+              {STEPS.guarantee}
+            </p>
+            <p className="mt-3 text-ink-soft text-lg">{STEPS.price}</p>
+          </div>
+          <div className="mt-12">
+            <h3 className="font-medium text-lg">{STEPS.consulting.title}</h3>
+            <p className="mt-2 max-w-[52ch] text-ink-soft text-lg">
+              {STEPS.consulting.detail}
+            </p>
           </div>
         </Section>
 
@@ -205,17 +245,8 @@ export default function Home() {
             <p className="mt-5 max-w-[48ch] text-ink-soft text-lg">
               {CLOSE.body}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-              {SITE.bookingUrl ? (
-                <PrimaryLink href={SITE.bookingUrl}>Book a call</PrimaryLink>
-              ) : (
-                <>
-                  <PrimaryLink href={SITE.x.url}>Message us on X</PrimaryLink>
-                  <p className="max-w-[44ch] text-ink-soft text-sm">
-                    {CLOSE.pending}
-                  </p>
-                </>
-              )}
+            <div className="mt-8">
+              <PrimaryLink href={SITE.bookingUrl}>{CTA.close}</PrimaryLink>
             </div>
           </div>
         </section>
@@ -223,17 +254,25 @@ export default function Home() {
 
       <footer className="border-rule border-t">
         <div
-          className={`${CONTAINER} flex h-16 items-center justify-between text-ink-soft text-sm`}
+          className={`${CONTAINER} flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-5 text-ink-soft text-sm`}
         >
           <span>
             © {new Date().getFullYear()} {SITE.name}
           </span>
-          <a
-            className="underline decoration-1 underline-offset-4"
-            href={SITE.x.url}
-          >
-            {SITE.x.handle}
-          </a>
+          <div className="flex gap-6">
+            <a
+              className="underline decoration-1 underline-offset-4"
+              href={`mailto:${SITE.email}`}
+            >
+              {SITE.email}
+            </a>
+            <a
+              className="underline decoration-1 underline-offset-4"
+              href={SITE.x.url}
+            >
+              {SITE.x.handle}
+            </a>
+          </div>
         </div>
       </footer>
     </>

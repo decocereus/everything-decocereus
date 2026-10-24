@@ -1,12 +1,9 @@
 export const SITE = {
-  bookingUrl: null as string | null,
+  bookingUrl: "https://cal.com/decocereus/intro",
   description:
-    "We put AI agents to work on the busywork in your business, and show you the hours you get back.",
-  name: "Agency",
+    "We find the hours your business loses to busywork, then build AI agents that do that work. Starts with a two-week audit.",
+  email: "amartya@decocereus.com",
+  name: "decocereus agents",
   url: "https://agents.decocereus.com",
   x: { handle: "@decocereus", url: "https://x.com/decocereus" },
 } as const;
-
-export const CONTACT = SITE.bookingUrl
-  ? { href: SITE.bookingUrl, label: "Book a call" }
-  : { href: "#book", label: "Get in touch" };

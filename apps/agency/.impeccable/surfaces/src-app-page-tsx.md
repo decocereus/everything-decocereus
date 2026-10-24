@@ -5,7 +5,7 @@ primary_target: "src/app/page.tsx"
 related_targets: []
 ---
 
-# Agency landing page
+# decocereus agents landing page
 
 Scope: the one-page site at `/`. Visitor mode: Persuade. Audience, job and proof live in PRODUCT.md. Success is a booked call.
 

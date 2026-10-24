@@ -8,13 +8,24 @@ web
 
 ## Users
 
-Anyone who wants AI working in their day-to-day operations: enterprises, small businesses, and creators. They are busy, they have repetitive work that eats their week, and they are not necessarily technical. They come to the site deciding whether this team can take real work off their plate and whether a call is worth their time.
+Owner-run businesses with 5 to 50 people in the US and UK: trades, home services, auto shops, clinics and agencies. The owner is busy, not technical, and loses hours a week to busywork and leads to missed calls. They buy hours back and fewer dropped leads, not "AI transformation". They come to the site deciding whether a free intro call is worth their time.
 
 ## Product Purpose
 
-An AI consultancy. It helps people save time and automate more of their business by putting AI agents and automations to work in their daily operations: finding where time goes, building the agents and automations that take it back, and showing the hours saved.
+We find the hours an owner-run business loses to busywork, then build AI agents that do that work.
 
-Success for the site is a booked call.
+The offer:
+
+1. **Intro call.** Free, 30 minutes.
+2. **Audit (main path).** Two weeks. We map how their week runs and hand over a ranked list of the tasks that cost the most hours and what fixing each is worth. Guarantee: if it doesn't find 10+ hours a week, the audit is free; if it does and they go ahead, the audit fee comes off the build.
+3. **Build.** Two to four weeks. The top two or three agents, on the tools they already use.
+4. **Retainer.** Monthly. We keep the agents running, add new ones, and send a weekly hours-saved report.
+
+Secondary path: consulting for teams already using AI tools (ChatGPT, Claude, Zapier, n8n) that aren't getting results. We review the setup and fix it.
+
+Every step is a fixed price, quoted after the intro call. Prices are never shown on the site.
+
+Success for the site is a booked intro call (https://cal.com/decocereus/intro).
 
 ## Positioning
 
@@ -31,10 +42,11 @@ Delivery is remote.
 ## Capabilities and Constraints
 
 - Hosted at agents.decocereus.com, as `apps/agency` in the everything-decocereus monorepo (Next.js App Router).
-- The site speaks in "we". Copy is US English, plain and confident, with no jargon and nothing that sounds like crypto hype.
-- The offer is undecided. Earlier drafts used an Audit, Build, Retainer ladder; do not present packages, steps, or pricing as fixed until confirmed.
-- Undecided: the name (placeholder "Agency", kept in `src/lib/site.ts`), pricing (not shown), the booking link (likely Cal.com), the contact address (amartya@decocereus.com, not yet provisioned).
-- Do not mention where the team is based or the hours it works.
+- The site speaks in "we", and "I" only in the founder section. Copy is US English, plain, short and specific, written for a busy owner. No hype, no "AI-native", no "leverage", nothing that sounds like crypto.
+- The wordmark is "decocereus agents" until a name is chosen (`src/lib/site.ts`).
+- Every call to action books the intro call. X (@decocereus) and amartya@decocereus.com appear only in the footer.
+- Calls run in UK hours and US Eastern hours. Do not say where the team is based.
+- Standard customer messages (such as the missed-call text) go out on wording the owner approved once; everything else waits for their OK.
 
 ## Brand Commitments
 
@@ -55,7 +67,7 @@ Real, verifiable founder facts, sourced from `docs/about-amartya.md` at the repo
 - Built the Nexus SDK and UI packages, which have 60K+ npm downloads. The count includes later releases published by teammates.
 - Primary technical owner (not sole author) of the coordination layer behind ShieldTX, which has processed $2.3M+ in executed volume, a lower bound. The accepted-open failure rate fell from 19% (July 2026) to 3% (September 2026). October was 8.7%, so always give the date range.
 
-There are no agency clients, testimonials, case studies, logos or results yet. Never invent any.
+Examples on the site (busywork, audit findings) are labelled illustrative. There are no hour-saved figures to quote yet. There are no agency clients, testimonials, case studies, logos or results yet. Never invent any.
 
 ## Product Principles
 

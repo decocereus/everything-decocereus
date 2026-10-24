@@ -1,5 +1,5 @@
 ---
-name: Agency
+name: decocereus agents
 description: A catalogue of working machines. White paper, black ink, isometric plates.
 colors:
   ink: "#0a0a0a"
@@ -94,7 +94,7 @@ components:
     padding: "52px 24px"
 ---
 
-# Design System: Agency
+# Design System: decocereus agents
 
 ## Overview
 

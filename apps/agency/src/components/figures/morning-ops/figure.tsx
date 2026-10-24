@@ -10,10 +10,10 @@ export function MorningOpsFigure() {
       <Plate
         caption={CAPTION}
         fig="Fig 1"
-        hint="Scrub the night · press the lever"
+        hint="Move across the night · press the lever"
         keys={[
           {
-            label: "The gate and its lever: the owner's approval",
+            label: "The gate and lever: your approval",
             mark: "lit",
           },
           { label: "Work done overnight", mark: "raised" },
