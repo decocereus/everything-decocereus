@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import clock from "@/assets/clock.png";
+import { OFFER_PREVIEWS } from "@/components/offer-previews.tsx";
+import { OfferTabs } from "@/components/offer-tabs.tsx";
+import { ProcessTrack } from "@/components/process-track.tsx";
 import {
   ABOUT,
   CLOSE,
@@ -13,6 +16,7 @@ import {
   PROBLEM,
   PROCESS,
 } from "@/lib/content.ts";
+import { getAuditPrice, withPrice } from "@/lib/price.ts";
 import { SITE } from "@/lib/site.ts";
 
 const JSON_LD = {
@@ -126,7 +130,322 @@ function Section({
   );
 }
 
-export default function Home() {
+function Hero() {
+  return (
+    <section>
+      <div
+        className={`${FRAME} grid gap-14 border-rule pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-12 lg:items-center lg:gap-10`}
+      >
+        <div className="lg:col-span-6">
+          <h1 className="font-medium text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98] tracking-[-0.045em]">
+            {HERO.headline}
+          </h1>
+          <p className="mt-6 max-w-[42ch] text-ink-soft text-lg leading-relaxed sm:text-xl">
+            {HERO.lead}
+          </p>
+          <div className="mt-7">
+            <p className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+              {HERO.choresLabel}
+            </p>
+            <ul
+              aria-label={HERO.choresLabel}
+              className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-[17px] text-ink-soft sm:text-lg"
+            >
+              {HERO.chores.map((chore, index) => (
+                <li
+                  className="struck"
+                  key={chore}
+                  style={{ "--i": index } as React.CSSProperties}
+                >
+                  {chore}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="mt-8 max-w-[38ch] font-medium text-[19px] leading-snug tracking-[-0.01em] sm:text-[21px]">
+            {HERO.promise}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <BookLink />
+            <a
+              className="font-medium text-[15px] underline decoration-1 decoration-ink/30 underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-ink"
+              href="#offer"
+            >
+              {HERO.secondary}
+            </a>
+          </div>
+        </div>
+        <div className="lg:col-span-6">
+          <Image
+            alt=""
+            className="mx-auto h-auto w-full max-w-[520px] lg:max-w-none"
+            fetchPriority="high"
+            loading="eager"
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 520px, 100vw"
+            src={clock}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Problem() {
+  return (
+    <Section id="problem">
+      <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-5">
+          <Label index={0}>{PROBLEM.label}</Label>
+          <Heading>{PROBLEM.heading}</Heading>
+        </div>
+        <p className="max-w-[36ch] text-ink-soft text-lg leading-relaxed lg:col-span-6 lg:col-start-7 lg:self-end lg:text-xl">
+          {PROBLEM.intro}
+        </p>
+      </div>
+      <ol className="mt-14">
+        {PROBLEM.items.map((item, index) => (
+          <li
+            className="reveal group grid gap-3 border-rule border-t py-8 sm:py-10 lg:grid-cols-12 lg:gap-10"
+            key={item.title}
+          >
+            <span className="font-mono text-[12px] text-muted tabular-nums transition-colors duration-200 group-hover:text-accent lg:col-span-1 lg:pt-3">
+              {pad(index)}
+            </span>
+            <h3 className="max-w-[22ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.12] tracking-[-0.03em] lg:col-span-6">
+              {item.title}
+            </h3>
+            <p className="max-w-[46ch] text-[17px] text-ink-soft leading-relaxed lg:col-span-5 lg:pt-2">
+              {item.detail}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </Section>
+  );
+}
+
+function Offer({ price }: Readonly<{ price: string }>) {
+  return (
+    <Section id="offer">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-7">
+          <Label index={1}>{OFFER.label}</Label>
+          <Heading>{OFFER.heading}</Heading>
+          <p className="mt-6 max-w-[50ch] text-ink-soft text-lg leading-relaxed lg:text-xl">
+            {OFFER.intro}
+          </p>
+          <dl className="mt-10 grid max-w-[34rem] grid-cols-2 border-rule border-t">
+            {OFFER.specs.map((spec, index) => (
+              <div
+                className={`py-5 ${index ? "border-rule border-l pl-5 sm:pl-7" : "pr-5"}`}
+                key={spec.label}
+              >
+                <dt className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+                  {spec.label}
+                </dt>
+                <dd className="mt-2 font-medium text-[clamp(1.25rem,2.4vw,1.625rem)] tracking-[-0.02em]">
+                  {spec.value}
+                </dd>
+                <dd className="mt-1 text-[14px] text-ink-soft">
+                  {spec.detail}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <aside
+          aria-label={OFFER.price.label}
+          className="lg:col-span-5 lg:col-start-8 lg:self-end"
+        >
+          <div className="rounded-xl bg-ink p-6 text-paper sm:p-8">
+            <p className="font-mono text-[12px] text-paper/60 uppercase tracking-[0.08em]">
+              {OFFER.price.label}
+            </p>
+            <p className="mt-3 font-medium text-[clamp(3rem,6vw,4.25rem)] tabular-nums leading-none tracking-[-0.045em]">
+              {price}
+            </p>
+            <ul className="mt-7 space-y-3 text-[15px] text-paper/75 leading-relaxed">
+              {OFFER.price.terms.map((term) => (
+                <li className="grid grid-cols-[1.25rem_1fr] gap-2" key={term}>
+                  <svg
+                    aria-hidden="true"
+                    className="mt-[0.3em] size-4 text-accent"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M3 8.5l3 3 7-7" />
+                  </svg>
+                  {term}
+                </li>
+              ))}
+            </ul>
+            <BookLink className="mt-8 w-full" tone="paper" />
+          </div>
+        </aside>
+      </div>
+
+      <h3 className="mt-20 mb-6 font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+        {OFFER.deliverablesHeading}
+      </h3>
+      <OfferTabs previews={OFFER_PREVIEWS} />
+    </Section>
+  );
+}
+
+function Process() {
+  return (
+    <Section id="process">
+      <Label index={2}>{PROCESS.label}</Label>
+      <Heading>{PROCESS.heading}</Heading>
+      <ProcessTrack />
+      <div className="reveal mt-16 grid gap-4 border-rule border-t pt-10 lg:grid-cols-12 lg:gap-10">
+        <p className="max-w-[30ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.15] tracking-[-0.03em] lg:col-span-7">
+          {PROCESS.more.lead}
+        </p>
+        <p className="max-w-[40ch] text-ink-soft text-lg leading-relaxed lg:col-span-4 lg:col-start-9 lg:self-end">
+          {PROCESS.more.body}
+        </p>
+      </div>
+    </Section>
+  );
+}
+
+function About() {
+  return (
+    <Section id="about">
+      <div className="grid gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <Label index={3}>{ABOUT.label}</Label>
+          <Heading>{ABOUT.heading}</Heading>
+          <p className="mt-6 text-[15px] text-ink-soft">{ABOUT.studied}</p>
+        </div>
+        <div className="lg:col-span-7">
+          <p className="max-w-[30ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.15] tracking-[-0.03em]">
+            {ABOUT.intro}
+          </p>
+          <nav
+            aria-label={ABOUT.linksLabel}
+            className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px]"
+          >
+            <span className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+              {ABOUT.linksLabel}
+            </span>
+            {ABOUT.links.map((link) => (
+              <a
+                className="group inline-flex items-center gap-1 font-medium underline decoration-ink/30 underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-ink"
+                href={link.href}
+                key={link.href}
+                rel="noopener"
+                target="_blank"
+              >
+                {link.label}
+                <svg
+                  aria-hidden="true"
+                  className="size-3 text-muted transition-transform duration-150 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  viewBox="0 0 12 12"
+                >
+                  <path d="M3.5 8.5l5-5M4.5 3.5h4v4" />
+                </svg>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      <dl className="mt-16 grid grid-cols-2 border-rule border-t lg:grid-cols-4">
+        {ABOUT.stats.map((stat, index) => (
+          <div
+            className={`reveal border-rule border-b py-8 pr-4 lg:border-b-0 lg:px-8 lg:first:pl-0 ${index % 2 ? "border-l pl-4 sm:pl-6" : ""} ${index ? "lg:border-l" : ""}`}
+            key={stat.value}
+          >
+            <dt className="sr-only">{stat.label}</dt>
+            <dd className="font-medium text-[clamp(2.25rem,5vw,3.5rem)] tabular-nums leading-none tracking-[-0.045em]">
+              {stat.value}
+            </dd>
+            <dd className="mt-4 max-w-[26ch] text-[15px] text-ink-soft leading-snug">
+              {stat.label}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="mt-14 grid gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <h3 className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+            {ABOUT.rulesLabel}
+          </h3>
+          <ul className="mt-4 border-rule border-t">
+            {ABOUT.rules.map((rule) => (
+              <li
+                className="reveal grid grid-cols-[1.75rem_1fr] border-rule border-b py-4 text-[17px] leading-relaxed"
+                key={rule}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="mt-[0.35em] size-4 text-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 8.5l3 3 7-7" />
+                </svg>
+                {rule}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="max-w-[40ch] text-[15px] text-ink-soft leading-relaxed lg:col-span-4 lg:col-start-9 lg:self-end">
+          {ABOUT.note}
+        </p>
+      </div>
+    </Section>
+  );
+}
+
+function Faq({ price }: Readonly<{ price: string }>) {
+  return (
+    <Section id="faq">
+      <div className="grid gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-4">
+          <Label index={4}>{FAQ.label}</Label>
+          <Heading>{FAQ.heading}</Heading>
+        </div>
+        <div className="border-rule border-t lg:col-span-7 lg:col-start-6">
+          {FAQ.items.map((item) => (
+            <details className="group border-rule border-b" key={item.question}>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-medium text-[17px] tracking-[-0.01em] transition-colors duration-150 hover:text-ink-soft [&::-webkit-details-marker]:hidden">
+                {item.question}
+                <svg
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-muted transition-transform duration-200 ease-out group-open:rotate-45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 2v12M2 8h12" />
+                </svg>
+              </summary>
+              <p className="max-w-[60ch] pb-6 text-[16px] text-ink-soft leading-relaxed">
+                {withPrice(item.answer, price)}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+export default async function Home() {
+  const price = await getAuditPrice();
   return (
     <>
       <script
@@ -170,291 +489,12 @@ export default function Home() {
       </header>
 
       <main>
-        <section>
-          <div
-            className={`${FRAME} grid gap-14 border-rule pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-12 lg:items-center lg:gap-10`}
-          >
-            <div className="lg:col-span-6">
-              <h1 className="font-medium text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98] tracking-[-0.045em]">
-                {HERO.headline}
-              </h1>
-              <ul
-                aria-label={HERO.choresLabel}
-                className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[17px] text-ink-soft sm:text-lg"
-              >
-                {HERO.chores.map((chore, index) => (
-                  <li
-                    className="struck"
-                    key={chore}
-                    style={{ "--i": index } as React.CSSProperties}
-                  >
-                    {chore}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-7 max-w-[34ch] font-medium text-[19px] leading-snug tracking-[-0.01em] sm:text-[22px]">
-                {HERO.promise}
-              </p>
-              <p className="mt-5 max-w-[50ch] text-[17px] text-ink-soft leading-relaxed sm:text-lg">
-                {HERO.body}
-              </p>
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-                <BookLink />
-                <a
-                  className="font-medium text-[15px] underline decoration-1 decoration-ink/30 underline-offset-4 transition-[text-decoration-color] duration-150 hover:decoration-ink"
-                  href="#offer"
-                >
-                  {HERO.secondary}
-                </a>
-              </div>
-            </div>
-            <div className="lg:col-span-6">
-              <Image
-                alt=""
-                className="mx-auto h-auto w-full max-w-[520px] lg:max-w-none"
-                fetchPriority="high"
-                loading="eager"
-                sizes="(min-width: 1024px) 560px, (min-width: 640px) 520px, 100vw"
-                src={clock}
-              />
-            </div>
-          </div>
-        </section>
-
-        <Section id="problem">
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-            <div className="lg:col-span-5">
-              <Label index={0}>{PROBLEM.label}</Label>
-              <Heading>{PROBLEM.heading}</Heading>
-            </div>
-            <p className="max-w-[36ch] text-ink-soft text-lg leading-relaxed lg:col-span-6 lg:col-start-7 lg:self-end lg:text-xl">
-              {PROBLEM.intro}
-            </p>
-          </div>
-          <ol className="mt-14 grid border-rule border-t md:grid-cols-3">
-            {PROBLEM.items.map((item, index) => (
-              <li
-                className="border-rule border-b py-8 last:border-b-0 md:border-b-0 md:border-l md:px-8 md:last:pr-0 md:first:border-l-0 md:first:pl-0"
-                key={item.title}
-              >
-                <span className="font-mono text-[12px] text-muted tabular-nums">
-                  {pad(index)}
-                </span>
-                <h3 className="mt-4 font-medium text-lg leading-snug tracking-[-0.01em]">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[16px] text-ink-soft leading-relaxed">
-                  {item.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-          <figure className="mt-14 rounded-[4px] border border-rule">
-            <figcaption className="border-rule border-b px-5 py-3 font-mono text-[12px] text-muted uppercase tracking-[0.08em] sm:px-6">
-              {PROBLEM.example.label}
-            </figcaption>
-            <dl className="grid md:grid-cols-2">
-              <div className="px-5 py-6 sm:px-6">
-                <dt className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                  Before
-                </dt>
-                <dd className="mt-3 text-[16px] text-ink-soft leading-relaxed">
-                  {PROBLEM.example.before}
-                </dd>
-              </div>
-              <div className="border-rule border-t px-5 py-6 sm:px-6 md:border-t-0 md:border-l">
-                <dt className="flex items-center gap-2 font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                  <span aria-hidden="true" className="size-1.5 bg-accent" />
-                  After
-                </dt>
-                <dd className="mt-3 text-[16px] text-ink leading-relaxed">
-                  {PROBLEM.example.after}
-                </dd>
-              </div>
-            </dl>
-          </figure>
-        </Section>
-
-        <Section id="offer">
-          <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-            <div className="lg:col-span-7">
-              <Label index={1}>{OFFER.label}</Label>
-              <Heading>{OFFER.heading}</Heading>
-              <p className="mt-6 max-w-[54ch] text-ink-soft text-lg leading-relaxed lg:text-xl">
-                {OFFER.intro}
-              </p>
-
-              <h3 className="mt-14 font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                {OFFER.deliverablesHeading}
-              </h3>
-              <ol className="mt-4 border-rule border-t">
-                {OFFER.deliverables.map((item, index) => (
-                  <li
-                    className="grid grid-cols-[2.5rem_1fr] border-rule border-b py-4 text-[16px] leading-relaxed sm:text-[17px]"
-                    key={item}
-                  >
-                    <span className="pt-[0.2em] font-mono text-[12px] text-muted tabular-nums">
-                      {pad(index)}
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <aside
-              aria-label="Price and timeline"
-              className="lg:col-span-5 lg:col-start-8"
-            >
-              <div className="rounded-xl border border-rule bg-surface p-6 shadow-[0_1px_2px_rgb(11_11_12/0.04),0_12px_32px_-16px_rgb(11_11_12/0.16)] sm:p-8 lg:sticky lg:top-24">
-                <p className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                  Fixed price
-                </p>
-                <p className="mt-4 font-medium text-[2.75rem] tabular-nums leading-none tracking-[-0.04em]">
-                  {OFFER.price.amount}
-                </p>
-                <p className="mt-3 text-ink-soft">{OFFER.price.after}</p>
-
-                <dl className="mt-7 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2">
-                  {OFFER.specs.map((spec) => (
-                    <div className="bg-surface p-4" key={spec.label}>
-                      <dt className="font-mono text-[11px] text-muted uppercase tracking-[0.08em]">
-                        {spec.label}
-                      </dt>
-                      <dd className="mt-2 font-medium tracking-[-0.01em]">
-                        {spec.value}
-                      </dd>
-                      <dd className="mt-1 text-[13px] text-ink-soft leading-snug">
-                        {spec.detail}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <ul className="mt-7 space-y-3 text-[15px] text-ink-soft leading-relaxed">
-                  {OFFER.price.terms.map((term) => (
-                    <li
-                      className="grid grid-cols-[1.25rem_1fr] gap-2"
-                      key={term}
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="mt-[0.3em] size-4 text-accent"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M3 8.5l3 3 7-7" />
-                      </svg>
-                      {term}
-                    </li>
-                  ))}
-                </ul>
-
-                <BookLink className="mt-8 w-full" />
-              </div>
-            </aside>
-          </div>
-        </Section>
-
-        <Section id="process">
-          <Label index={2}>{PROCESS.label}</Label>
-          <Heading>{PROCESS.heading}</Heading>
-          <ol className="mt-14 grid gap-0 lg:grid-cols-4 lg:gap-10">
-            {PROCESS.steps.map((step, index) => (
-              <li
-                className="relative border-ink/15 border-l pb-10 pl-7 last:pb-0 lg:border-t lg:border-l-0 lg:pt-8 lg:pb-0 lg:pl-0"
-                key={step.title}
-              >
-                <span
-                  aria-hidden="true"
-                  className={`absolute top-0 -left-[5px] size-[9px] rounded-full border-[1.5px] lg:-top-[5px] lg:left-0 ${index === 0 ? "border-accent bg-accent" : "border-ink/40 bg-paper"}`}
-                />
-                <p className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                  <span className="tabular-nums">{pad(index)}</span>
-                  <span className="mx-2">·</span>
-                  {step.length}
-                </p>
-                <h3 className="mt-3 font-medium text-xl tracking-[-0.015em]">
-                  {step.title}
-                </h3>
-                <p className="mt-3 max-w-[48ch] text-[16px] text-ink-soft leading-relaxed">
-                  {step.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-16 max-w-[68ch] border-rule border-t pt-6 text-[16px] text-ink-soft leading-relaxed">
-            {PROCESS.more}
-          </p>
-        </Section>
-
-        <Section id="about">
-          <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <Label index={3}>{ABOUT.label}</Label>
-              <Heading>{ABOUT.heading}</Heading>
-            </div>
-            <div className="lg:col-span-7 lg:col-start-6">
-              <p className="max-w-[46ch] text-xl leading-relaxed sm:text-2xl sm:leading-snug sm:tracking-[-0.01em]">
-                {ABOUT.intro}
-              </p>
-              <dl className="mt-10 border-rule border-t">
-                {ABOUT.facts.map((fact) => (
-                  <div
-                    className="grid gap-1 border-rule border-b py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
-                    key={fact.label}
-                  >
-                    <dt className="pt-[0.2em] font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                      {fact.label}
-                    </dt>
-                    <dd className="text-[17px] leading-relaxed">
-                      {fact.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-6 max-w-[60ch] text-[15px] text-ink-soft leading-relaxed">
-                {ABOUT.note}
-              </p>
-            </div>
-          </div>
-        </Section>
-
-        <Section id="faq">
-          <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <Label index={4}>{FAQ.label}</Label>
-              <Heading>{FAQ.heading}</Heading>
-            </div>
-            <div className="border-rule border-t lg:col-span-7 lg:col-start-6">
-              {FAQ.items.map((item) => (
-                <details
-                  className="group border-rule border-b"
-                  key={item.question}
-                >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-medium text-[17px] tracking-[-0.01em] transition-colors duration-150 hover:text-ink-soft [&::-webkit-details-marker]:hidden">
-                    {item.question}
-                    <svg
-                      aria-hidden="true"
-                      className="size-4 shrink-0 text-muted transition-transform duration-200 ease-out group-open:rotate-45"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 2v12M2 8h12" />
-                    </svg>
-                  </summary>
-                  <p className="max-w-[60ch] pb-6 text-[16px] text-ink-soft leading-relaxed">
-                    {item.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </Section>
+        <Hero />
+        <Problem />
+        <Offer price={price} />
+        <Process />
+        <About />
+        <Faq price={price} />
 
         <section className="bg-ink text-paper" id="book">
           <div

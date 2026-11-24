@@ -8,26 +8,24 @@ export const NAV = [
 export const CTA = "Book a 15-minute call";
 
 export const HERO = {
-  body: "Most teams already have AI tools, and still lose hours to manual work or to tools that don't fit. I start with a short paid audit of how the work actually runs, show you where AI belongs, and build only what will stick.",
-  /** The manual work the hero and the share image strike through. From the Problem section. */
-  chores: ["Status updates", "Reports", "Handoffs", "Follow-ups"],
-  choresLabel: "Less time on",
+  /** The manual work the hero and the share image strike through. */
+  chores: [
+    "Status updates",
+    "Weekly reports",
+    "Inbox triage",
+    "Data entry",
+    "Follow-ups",
+    "Handoffs",
+  ],
+  choresLabel: "Off your team's plate",
   headline: "Get your company's time back.",
-  /** The refund term, said as an outcome. The terms in OFFER.price are the source. */
+  lead: "We find the work that eats your team's week, then build the AI agents, automations, and internal tools that take it over.",
   promise:
-    "If we don't find savings worth more than you pay, you get your money back.",
+    "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
   secondary: "See the offer",
 } as const;
 
 export const PROBLEM = {
-  /** One made-up example, always labeled as illustrative. Not a client result. */
-  example: {
-    after:
-      "The report is drafted before Monday starts. Someone checks it and sends it.",
-    before:
-      "Every Monday, someone copies numbers from three tools into a report and sends it round.",
-    label: "Example, illustrative",
-  },
   heading: "Where the time goes",
   intro: "The work is usually clear. The bottleneck is not.",
   items: [
@@ -38,7 +36,7 @@ export const PROBLEM = {
     },
     {
       detail:
-        "The team has tried ChatGPT or a few automations, but there is no ranked view of which work is worth changing, and which to leave alone.",
+        "The team has tried Claude or a few automations, but there is no ranked view of which work is worth changing, and which to leave alone.",
       title: "No clear picture of where AI fits.",
     },
     {
@@ -52,13 +50,42 @@ export const PROBLEM = {
 
 export const OFFER = {
   deliverables: [
-    "A kickoff, then 3-5 interviews with the people who do the work.",
-    "A map of the workflows in scope, including tools and handoffs.",
-    "A ranked list of opportunities, labeled Adopt, Automate, or Build, including what to skip.",
-    "Cost, timeline, and payback estimates for the top three, with the assumptions written down.",
-    "A live test of the number-one opportunity on your real examples.",
-    "A 90-day plan for the first change.",
-    "A written report you keep, and a 45-60 minute recorded walkthrough.",
+    {
+      detail:
+        "A kickoff, then 3-5 short calls with the people who do the work. I learn how the work actually runs, not how it is written down.",
+      id: "calls",
+      title: "Calls with your team",
+    },
+    {
+      detail:
+        "Every workflow in scope, with the tools it touches and the handoffs where time goes missing.",
+      id: "map",
+      title: "A map of the work",
+    },
+    {
+      detail:
+        "Every opportunity labeled Adopt, Automate, or Build, ranked by what it gives back. It also says what to skip.",
+      id: "ranked",
+      title: "A ranked list",
+    },
+    {
+      detail:
+        "Cost, timeline, and payback estimates for the top three, with the assumptions written down so you can check them.",
+      id: "estimates",
+      title: "Estimates for the top three",
+    },
+    {
+      detail:
+        "The number-one opportunity, tried on your real examples, so you can see it work before you decide on a build.",
+      id: "test",
+      title: "A live test",
+    },
+    {
+      detail:
+        "A 90-day plan for the first change, a written report you keep, and a 45-60 minute recorded walkthrough.",
+      id: "plan",
+      title: "A plan and a report",
+    },
   ],
   deliverablesHeading: "What you get",
   heading: "AI Opportunity Audit",
@@ -66,18 +93,19 @@ export const OFFER = {
     "A fixed-price look at how one team actually works, with a live test on your real examples. You leave with a written plan you own, whether or not we build anything together.",
   label: "Offer",
   price: {
-    after: "for the first two teams, then USD 1,500.",
-    amount: "USD 999",
+    label: "Fixed price",
     terms: [
       "The audit fee is credited in full toward a build started within 60 days.",
       "If the audit doesn't find anything worth more than its fee, you get the fee back.",
       "The report is yours either way.",
     ],
   },
+  /** Labels the made-up previews of each deliverable. */
+  sample: "Sample, illustrative",
   specs: [
     { detail: "Kickoff to walkthrough", label: "Timeline", value: "7-10 days" },
     {
-      detail: "Kickoff, interviews, walkthrough",
+      detail: "Kickoff, calls, walkthrough",
       label: "Your team's time",
       value: "About 4-6 hours",
     },
@@ -87,7 +115,10 @@ export const OFFER = {
 export const PROCESS = {
   heading: "How it works",
   label: "Process",
-  more: "I also build internal tools, and I fix vibe-coded software that needs to be stable enough to run in production. Those are quoted separately. The usual starting point is the audit.",
+  more: {
+    body: "Those are quoted separately. The usual starting point is the audit.",
+    lead: "I also build internal tools, and I fix vibe-coded software that needs to be stable enough to run in production.",
+  },
   steps: [
     {
       detail:
@@ -96,7 +127,8 @@ export const PROCESS = {
       title: "Intro call",
     },
     {
-      detail: "The work above, on your real workflows and examples.",
+      detail:
+        "Calls with your team, a map of the work, a ranked list, and a live test on your real examples. You keep the report.",
       length: "7-10 days",
       title: "Audit",
     },
@@ -116,36 +148,45 @@ export const PROCESS = {
 } as const;
 
 export const ABOUT = {
-  facts: [
-    {
-      label: "Started",
-      value:
-        "As an engineer at Amadeus in London, on an airport-operations app used by 20+ airlines.",
-    },
-    {
-      label: "Built",
-      value:
-        "Systems that have handled $2.3M+ in transactions, with failures cut from 19% to 3%.",
-    },
-    {
-      label: "Also built",
-      value: "Developer tools that have been downloaded 60,000+ times.",
-    },
-    { label: "Studied", value: "Computer Science at King's College London." },
-  ],
   heading: "Amartya Singh",
   intro:
     "I'll be on the call, and I'm the one who does the work. There is no hand-off to a salesperson.",
   label: "About",
+  links: [
+    { href: "https://github.com/decocereus", label: "GitHub" },
+    { href: "https://www.linkedin.com/in/amartyasingh07/", label: "LinkedIn" },
+    { href: "https://x.com/decocereus", label: "X" },
+    { href: "https://www.decocereus.com", label: "decocereus.com" },
+  ],
+  linksLabel: "Check my work",
   note: "Until there is a published client result, the audit includes a live test on your examples so you can judge the work yourself.",
+  rules: [
+    "You talk to the person who does the work.",
+    "Your data is never used to train AI models.",
+    "You own everything I build: the accounts, the setup, and the data.",
+    "Nothing messages your customers without your OK.",
+  ],
+  rulesLabel: "Ground rules",
+  stats: [
+    {
+      label:
+        "Airlines on the airport-operations app I worked on as an engineer at Amadeus in London",
+      value: "20+",
+    },
+    { label: "In transactions through systems I built", value: "$2.3M+" },
+    { label: "Failure rate on those systems, down from 19%", value: "3%" },
+    { label: "Downloads of developer tools I built", value: "60,000+" },
+  ],
+  studied: "Studied Computer Science at King's College London.",
 } as const;
 
+/** `{price}` is filled with the audit price from `getAuditPrice()`. */
 export const FAQ = {
   heading: "Questions",
   items: [
     {
       answer:
-        "USD 999 for the first two teams, then USD 1,500. If we start a build within 60 days, the audit fee comes off that build. If the audit doesn't find anything worth more than its fee, you get the fee back.",
+        "{price}, fixed. If we start a build within 60 days, the audit fee comes off that build. If the audit doesn't find anything worth more than its fee, you get the fee back.",
       question: "What does the audit cost?",
     },
     {
@@ -155,7 +196,7 @@ export const FAQ = {
     },
     {
       answer:
-        "About 4-6 hours over 7-10 days: a kickoff and a few interviews, then a walkthrough of the report. In between, I work async and only ask when I need an answer.",
+        "About 4-6 hours over 7-10 days: a kickoff call and a few short calls with the people who do the work, then a walkthrough of the report. In between, I work async and only ask when I need an answer.",
       question: "How much of our time does it take?",
     },
     {
@@ -184,7 +225,7 @@ export const FAQ = {
     },
     {
       answer:
-        "The first clients I'm taking are startup founders and ops teams at mid-size companies. If the problem is messy operational work, book a call and I'll tell you if it's a fit.",
+        "No. I work with anyone who has a problem worth solving. Book a call, tell me what it is, and I'll tell you honestly if I can help.",
       question: "Do you only work with startups?",
     },
   ],

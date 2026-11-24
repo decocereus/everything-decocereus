@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { HERO } from "@/lib/content.ts";
 
-export const alt = `${HERO.headline} Less time on ${HERO.chores.join(", ").toLowerCase()}. An exploded view of a clock with orange hands.`;
+export const alt = `${HERO.headline} Less time on ${HERO.chores.slice(0, 4).join(", ").toLowerCase()}. An exploded view of a clock with orange hands.`;
 export const size = { height: 630, width: 1200 };
 export const contentType = "image/png";
 
@@ -71,7 +71,7 @@ export default async function Image() {
             maxWidth: 520,
           }}
         >
-          {HERO.chores.map((chore) => (
+          {HERO.chores.slice(0, 4).map((chore) => (
             <div
               key={chore}
               style={{

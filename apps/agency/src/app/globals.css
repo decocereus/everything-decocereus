@@ -90,3 +90,100 @@ dd {
     animation: none;
   }
 }
+
+/*
+ * Motion for the rest of the page. Everything here animates only transform
+ * and opacity, and all of it is off under reduced motion.
+ *
+ * .reveal: rises into place as it scrolls into view (scroll-driven, no JS;
+ *   browsers without view timelines just show it).
+ * .rise: enters when it mounts, one after another by --i (tab panels).
+ * .tour-progress: the bar that fills while a tab tour waits on a step. Its
+ *   animationend advances the tour, so it must run even when motion is off
+ *   for nobody: the tour itself never starts under reduced motion.
+ * .flow: dashes that travel along a connector. .grow-x: a bar that grows in.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 65%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    animation-timing-function: var(--ease-out-strong);
+  }
+}
+
+.rise {
+  animation: rise 520ms var(--ease-out-strong) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.tour-progress {
+  transform-origin: left center;
+  animation-name: tour;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes tour {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.flow {
+  stroke-dasharray: 3 5;
+  animation: flow 900ms linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.grow-x {
+  transform-origin: left center;
+  animation: grow-x 700ms var(--ease-out-strong) both;
+  animation-delay: 200ms;
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(11 11 12 / 0.14) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .flow,
+  .grow-x {
+    animation: none;
+  }
+}
