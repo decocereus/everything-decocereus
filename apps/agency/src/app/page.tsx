@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
-import clock from "@/assets/clock.png";
 import { AutomateFigure } from "@/components/figures/automate/figure.tsx";
+import { ClockFigure } from "@/components/figures/clock/figure.tsx";
 import { OFFER_PREVIEWS } from "@/components/offer-previews.tsx";
 import { OfferTabs } from "@/components/offer-tabs.tsx";
 import { ProcessTrack } from "@/components/process-track.tsx";
@@ -177,14 +176,7 @@ function Hero() {
           </div>
         </div>
         <div className="lg:col-span-6">
-          <Image
-            alt=""
-            className="mx-auto h-auto w-full max-w-[520px] lg:max-w-none"
-            fetchPriority="high"
-            loading="eager"
-            sizes="(min-width: 1024px) 560px, (min-width: 640px) 520px, 100vw"
-            src={clock}
-          />
+          <ClockFigure className="mx-auto w-full max-w-[520px] lg:max-w-none" />
         </div>
       </div>
     </section>
