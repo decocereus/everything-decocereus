@@ -9,40 +9,12 @@ export const CTA = "Book a 15-minute call";
 
 export const HERO = {
   body: "Most teams already have AI tools, and still lose hours to manual work or to tools that don't fit. I start with a short paid audit of how the work actually runs, show you where AI belongs, and build only what will stick.",
-  eyebrow: "AI Opportunity Audit",
+  /** The manual work the hero and the share image strike through. From the Problem section. */
+  chores: ["Status updates", "Reports", "Handoffs", "Follow-ups"],
+  choresLabel: "Less time on",
   headline: "Get your company's time back.",
+  note: "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
   secondary: "See the offer",
-} as const;
-
-/** The three steps the share image uses to say what we do at thumbnail size. */
-export const SHARE_STEPS = [
-  "Audit how you work",
-  "Find where AI fits",
-  "Build what sticks",
-] as const;
-
-/** The hero figure: one illustrative work week. Hours run 9 to 17. */
-export const WEEK = {
-  blocks: [
-    { day: 0, from: 9, kind: "manual", label: "Updates", to: 10 },
-    { day: 0, from: 11, kind: "meeting", label: "Planning", to: 12 },
-    { day: 0, from: 14, kind: "manual", label: "Copy data", to: 16 },
-    { day: 1, from: 10, kind: "meeting", label: "Calls", to: 11 },
-    { day: 1, from: 13, kind: "manual", label: "Handoffs", to: 15 },
-    { day: 2, from: 9, kind: "manual", label: "Updates", to: 10 },
-    { day: 2, from: 12, kind: "meeting", label: "Review", to: 13 },
-    { day: 2, from: 15, kind: "manual", label: "Follow-ups", to: 17 },
-    { day: 3, from: 9, kind: "meeting", label: "Standup", to: 10 },
-    { day: 3, from: 11, kind: "manual", label: "Reports", to: 13 },
-    { day: 3, from: 15, kind: "meeting", label: "Hiring", to: 16 },
-    { day: 4, from: 9, kind: "manual", label: "Weekly report", to: 11 },
-    { day: 4, from: 13, kind: "meeting", label: "Calls", to: 14 },
-    { day: 4, from: 14, kind: "manual", label: "Follow-ups", to: 16 },
-  ],
-  days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-  hours: [9, 17],
-  legend: { back: "Time back", manual: "Manual work", meeting: "Other work" },
-  title: "One week, illustrative",
 } as const;
 
 export const PROBLEM = {

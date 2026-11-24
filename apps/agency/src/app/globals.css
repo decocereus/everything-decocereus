@@ -58,68 +58,35 @@ dd {
 }
 
 /*
- * The hero week. Every manual block holds two layers: the hatched work and the
- * time that comes back. On load the work clears and the time back fades in,
- * one block after another (--i). Under reduced motion it is a plain crossfade.
+ * The hero's chores. Each one is struck through in the accent, one after
+ * another (--i), drawn left to right. Under reduced motion they start struck.
  */
-.hatch {
-  background-color: var(--color-surface);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgb(11 11 12 / 0.14) 0 1px,
-    transparent 1px 6px
-  );
+.struck {
+  position: relative;
 }
 
-.week-work {
-  animation: week-clear 520ms var(--ease-out-strong) both;
-  animation-delay: calc(900ms + var(--i) * 140ms);
+.struck::after {
+  position: absolute;
+  top: 54%;
+  right: -0.15em;
+  left: -0.15em;
+  height: 2px;
+  content: "";
+  background: var(--color-accent);
+  border-radius: 1px;
+  transform-origin: left center;
+  animation: strike 480ms var(--ease-out-strong) both;
+  animation-delay: calc(450ms + var(--i) * 160ms);
 }
 
-.week-back {
-  animation: week-return 520ms var(--ease-out-strong) both;
-  animation-delay: calc(1000ms + var(--i) * 140ms);
-}
-
-@keyframes week-clear {
+@keyframes strike {
   from {
-    opacity: 1;
-    transform: none;
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-}
-
-@keyframes week-return {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: scaleX(0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .week-work,
-  .week-back {
-    animation-name: week-fade;
-    animation-duration: 400ms;
-  }
-
-  .week-work {
-    animation-direction: reverse;
-  }
-}
-
-@keyframes week-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+  .struck::after {
+    animation: none;
   }
 }

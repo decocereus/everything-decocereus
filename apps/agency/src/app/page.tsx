@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
-import { Week } from "@/components/week.tsx";
+import clock from "@/assets/clock.png";
 import {
   ABOUT,
   CLOSE,
@@ -174,13 +175,23 @@ export default function Home() {
             className={`${FRAME} grid gap-14 border-rule pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-12 lg:items-center lg:gap-10`}
           >
             <div className="lg:col-span-6">
-              <p className="flex items-center gap-3 font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                <span className="size-1.5 bg-accent" />
-                {HERO.eyebrow}
-              </p>
-              <h1 className="mt-6 font-medium text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98] tracking-[-0.045em]">
+              <h1 className="font-medium text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98] tracking-[-0.045em]">
                 {HERO.headline}
               </h1>
+              <ul
+                aria-label={HERO.choresLabel}
+                className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[17px] text-ink-soft sm:text-lg"
+              >
+                {HERO.chores.map((chore, index) => (
+                  <li
+                    className="struck"
+                    key={chore}
+                    style={{ "--i": index } as React.CSSProperties}
+                  >
+                    {chore}
+                  </li>
+                ))}
+              </ul>
               <p className="mt-7 max-w-[50ch] text-[17px] text-ink-soft leading-relaxed sm:text-lg">
                 {HERO.body}
               </p>
@@ -193,9 +204,19 @@ export default function Home() {
                   {HERO.secondary}
                 </a>
               </div>
+              <p className="mt-6 max-w-[50ch] text-[14px] text-muted leading-relaxed">
+                {HERO.note}
+              </p>
             </div>
-            <div className="lg:col-span-6 lg:pl-6">
-              <Week />
+            <div className="lg:col-span-6">
+              <Image
+                alt=""
+                className="mx-auto h-auto w-full max-w-[520px] lg:max-w-none"
+                fetchPriority="high"
+                loading="eager"
+                sizes="(min-width: 1024px) 560px, (min-width: 640px) 520px, 100vw"
+                src={clock}
+              />
             </div>
           </div>
         </section>
