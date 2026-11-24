@@ -11,7 +11,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-const VIDEO = `${SITE.url}/og-loop.mp4`;
+const TITLE = `${SITE.title} | ${SITE.name}`;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -23,17 +23,8 @@ export const metadata: Metadata = {
     title: HERO.headline,
     type: "website",
     url: SITE.url,
-    videos: [
-      {
-        height: 630,
-        secureUrl: VIDEO,
-        type: "video/mp4",
-        url: VIDEO,
-        width: 1200,
-      },
-    ],
   },
-  title: `AI agents for small businesses | ${SITE.name}`,
+  title: TITLE,
   twitter: {
     card: "summary_large_image",
     creator: SITE.x.handle,

@@ -1,0 +1,117 @@
+/* The exploded clock in the hero. Kit light tones on the site's paper, with
+   the hands in the site orange as the one accent. */
+
+.iso.ck[data-theme="light"] {
+  --anatomy-paper: #fbfbf9;
+  --anatomy-face: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #c4c4c0;
+  --anatomy-shade-1: #d3d3cf;
+  --anatomy-shade-2: #e1e1dd;
+  --anatomy-shade-3: #ececea;
+  --anatomy-hi: #2a2a2e;
+  --anatomy-mid: #75757a;
+  --anatomy-lo: #a6a6aa;
+  --anatomy-faint: #cdcdd0;
+  --anatomy-dot: #3a3a3e;
+  --anatomy-weight: 0.75px;
+  --ck-accent: #e8590c;
+  --ck-accent-side: #c44a0a;
+  --ck-accent-edge: #9a3907;
+  --ck-stone: #4a4a50;
+  --ck-ink: #26262a;
+  background: transparent;
+}
+
+.ck-svg {
+  overflow: visible;
+}
+
+.ck .iso-line {
+  stroke-linecap: round;
+}
+
+/* Turning parts: a stack of one outline. The back copy holds the far edge,
+   the middle copies are the side, the front copy is the face. */
+.ck-part-back,
+.ck-part-mid,
+.ck-part-front,
+.ck-hand-back,
+.ck-hand-mid,
+.ck-hand-front {
+  stroke-linejoin: round;
+}
+.ck-part-back {
+  fill: var(--anatomy-shade-2);
+  stroke: var(--anatomy-hi);
+  stroke-width: calc(var(--anatomy-weight) * 1.7);
+}
+.ck-part-mid {
+  fill: var(--anatomy-shade-2);
+  stroke: none;
+}
+.ck-part-front {
+  fill: var(--anatomy-top);
+  stroke: var(--anatomy-hi);
+  stroke-width: var(--anatomy-weight);
+}
+.ck-hand-back {
+  fill: var(--ck-accent-side);
+  stroke: var(--ck-accent-edge);
+  stroke-width: calc(var(--anatomy-weight) * 2);
+}
+.ck-hand-mid {
+  fill: var(--ck-accent-side);
+  stroke: none;
+}
+.ck-hand-front {
+  fill: var(--ck-accent);
+  stroke: var(--ck-accent-edge);
+  stroke-width: var(--anatomy-weight);
+}
+
+.ck-stone {
+  fill: var(--ck-stone);
+  stroke: none;
+}
+.ck-ink {
+  fill: var(--ck-ink);
+  stroke: none;
+}
+.ck-hairspring {
+  stroke-width: 0.5px;
+}
+
+/* Glass: the parts behind show through its face. */
+.ck-glass > .iso-fill,
+.ck-glass > .iso-top {
+  fill-opacity: 0.55;
+}
+.ck-glass > .iso-shade {
+  fill-opacity: 0.8;
+}
+
+/* Spread apart from the near-assembled pose on load. */
+.ck-assembly {
+  animation: ck-open 1.15s backwards;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: var(--ck-delay, 0s);
+}
+
+@supports (animation-timing-function: linear(0, 1)) {
+  .ck-assembly {
+    animation-timing-function: var(--ck-spring);
+  }
+}
+
+@keyframes ck-open {
+  from {
+    transform: translate(var(--ck-x), var(--ck-y));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-assembly {
+    animation: none;
+  }
+}
