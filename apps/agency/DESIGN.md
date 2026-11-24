@@ -156,7 +156,14 @@ All tokens live in `src/app/globals.css` under `@theme`.
 
 ## Share images
 
-`src/app/opengraph-image.tsx` renders the 1200×630 card at build time with `next/og`. It shows the hero line, the mono eyebrow, the wordmark and an "after" version of the week, using Geist from the `geist` package. `twitter-image.tsx` reuses it. The card reads `SITE.name`, `SITE.title` and `HERO.headline`, so a rename or a new headline updates the card and its alt text with no extra step.
+`src/app/opengraph-image.tsx` renders the 1200×630 card at build time with `next/og`, using Geist from the `geist` package. `twitter-image.tsx` reuses it. The card has one job: someone who gets the link should know what we do from the thumbnail alone. It is the one dark surface outside the closing band:
+
+- The wordmark is top left and the domain top right.
+- The offer name ("AI Opportunity Audit") is an orange pill.
+- The hero line is set at 104px.
+- Three numbered steps run along the bottom (`SHARE_STEPS` in `content.ts`): audit how you work, find where AI fits, build what sticks.
+
+It reads `SITE.name`, `SITE.title`, `SITE.url`, `HERO.headline` and `SHARE_STEPS`, so a rename or copy change updates the card and its alt text. Keep every line legible when the card is shrunk to 400px wide. Don't put small figures or illustrations on it.
 
 ## Motion
 

@@ -14,6 +14,13 @@ export const HERO = {
   secondary: "See the offer",
 } as const;
 
+/** The three steps the share image uses to say what we do at thumbnail size. */
+export const SHARE_STEPS = [
+  "Audit how you work",
+  "Find where AI fits",
+  "Build what sticks",
+] as const;
+
 /** The hero figure: one illustrative work week. Hours run 9 to 17. */
 export const WEEK = {
   blocks: [
