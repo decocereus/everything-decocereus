@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import clock from "@/assets/clock.png";
+import { AutomateFigure } from "@/components/figures/automate/figure.tsx";
 import { OFFER_PREVIEWS } from "@/components/offer-previews.tsx";
 import { OfferTabs } from "@/components/offer-tabs.tsx";
 import { ProcessTrack } from "@/components/process-track.tsx";
@@ -220,6 +221,7 @@ function Problem() {
           </li>
         ))}
       </ol>
+      <AutomateFigure className="mt-14" />
     </Section>
   );
 }

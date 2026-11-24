@@ -1,0 +1,131 @@
+.automate.iso[data-theme="light"] {
+  --anatomy-paper: #fbfbf9;
+  --anatomy-card: #fbfbf9;
+  --anatomy-text: var(--color-ink-soft);
+  --anatomy-mono: var(--font-mono);
+  font-family: var(--font-sans);
+}
+
+.automate .am-stage {
+  padding: 8px 16px 4px;
+}
+
+.automate .iso-svg {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .automate .am-stage {
+    padding: 4px 0 0;
+    overflow: hidden;
+  }
+
+  .automate .iso-svg {
+    width: 116%;
+    margin: -2% -8% -3%;
+  }
+}
+
+/* The socket and the hopper mouths: open cavities, darker than any face. */
+.automate .am-recess {
+  fill: #d2d2ce;
+  stroke: none;
+}
+
+/* The AI module is the one accent: site orange, shaded by facing. */
+/* Rubber belts and the tray's mat: a shade darker, so white cards and the report read on them. */
+.automate .am-belt > .iso-top,
+.automate .am-mat {
+  fill: #e7e7e3;
+  stroke: none;
+}
+
+.automate .am-ai {
+  --anatomy-paper: #e8590c;
+  --anatomy-face: #e8590c;
+  --anatomy-top: #f27a36;
+  --anatomy-shade-0: #b9470a;
+  --anatomy-shade-1: #cc4f0b;
+  --anatomy-shade-2: #db560c;
+  --anatomy-shade-3: #e8590c;
+  --anatomy-hi: #7a2c05;
+  --anatomy-mid: #a83f08;
+  --anatomy-lo: #c24a09;
+  --anatomy-faint: #d9550b;
+  --anatomy-dot: #fff4ec;
+}
+
+.automate .am-ai .iso-face-text {
+  font-weight: 600;
+  fill: #fff4ec;
+}
+
+.automate .am-pip {
+  fill: var(--anatomy-paper);
+  stroke: var(--anatomy-mid);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+}
+
+.automate .am-pip[data-on="true"] {
+  fill: var(--anatomy-hi);
+  stroke: var(--anatomy-hi);
+}
+
+/* Step controls: hairline dividers, the active step in ink with a progress rule. */
+.automate .am-step {
+  color: var(--color-muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.automate .am-step + .am-step {
+  border-left-width: 1px;
+}
+
+@media (max-width: 639px) {
+  .automate .am-step:nth-of-type(3) {
+    border-left-width: 0;
+  }
+
+  .automate .am-step:nth-of-type(n + 3) {
+    border-top-width: 1px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .automate .am-step:hover {
+    color: var(--color-ink);
+  }
+}
+
+.automate .am-step[data-active] {
+  color: var(--color-ink);
+}
+
+.automate .am-step-label {
+  transform-origin: left center;
+  transition: transform 150ms ease-out;
+}
+
+.automate .am-step:active .am-step-label {
+  transform: scale(0.97);
+}
+
+.automate .am-bar {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+}
+
+.automate .am-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
