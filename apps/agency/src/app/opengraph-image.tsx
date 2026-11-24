@@ -11,10 +11,9 @@ const FONTS = join(process.cwd(), "node_modules/geist/dist/fonts");
 const PAPER = "#fbfbf9";
 const INK = "#0b0b0c";
 const SOFT = "#4a4a50";
-const MUTED = "#6b6b70";
 const ACCENT = "#e8590c";
 
-/** The share card, matching the hero: the promise, the chores struck through, the refund line, the clock. */
+/** The share card, matching the hero: the promise, the chores struck through, the clock. */
 export default async function Image() {
   const [sans, clock] = await Promise.all([
     readFile(join(FONTS, "geist-sans/Geist-Medium.ttf")),
@@ -54,7 +53,7 @@ export default async function Image() {
         <div
           style={{
             display: "flex",
-            fontSize: 92,
+            fontSize: 100,
             letterSpacing: "-0.045em",
             lineHeight: 0.98,
           }}
@@ -66,9 +65,9 @@ export default async function Image() {
             color: SOFT,
             display: "flex",
             flexWrap: "wrap",
-            fontSize: 32,
+            fontSize: 34,
             letterSpacing: "-0.015em",
-            marginTop: 32,
+            marginTop: 36,
             maxWidth: 520,
           }}
         >
@@ -91,24 +90,11 @@ export default async function Image() {
                   left: -4,
                   position: "absolute",
                   right: -4,
-                  top: 17,
+                  top: 18,
                 }}
               />
             </div>
           ))}
-        </div>
-        <div
-          style={{
-            color: MUTED,
-            display: "flex",
-            fontSize: 24,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.35,
-            marginTop: 40,
-            maxWidth: 520,
-          }}
-        >
-          {HERO.note}
         </div>
       </div>
     </div>,

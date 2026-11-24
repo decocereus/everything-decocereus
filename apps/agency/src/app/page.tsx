@@ -192,7 +192,10 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-7 max-w-[50ch] text-[17px] text-ink-soft leading-relaxed sm:text-lg">
+              <p className="mt-7 max-w-[34ch] font-medium text-[19px] leading-snug tracking-[-0.01em] sm:text-[22px]">
+                {HERO.promise}
+              </p>
+              <p className="mt-5 max-w-[50ch] text-[17px] text-ink-soft leading-relaxed sm:text-lg">
                 {HERO.body}
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
@@ -204,9 +207,6 @@ export default function Home() {
                   {HERO.secondary}
                 </a>
               </div>
-              <p className="mt-6 max-w-[50ch] text-[14px] text-muted leading-relaxed">
-                {HERO.note}
-              </p>
             </div>
             <div className="lg:col-span-6">
               <Image
@@ -249,6 +249,30 @@ export default function Home() {
               </li>
             ))}
           </ol>
+          <figure className="mt-14 rounded-[4px] border border-rule">
+            <figcaption className="border-rule border-b px-5 py-3 font-mono text-[12px] text-muted uppercase tracking-[0.08em] sm:px-6">
+              {PROBLEM.example.label}
+            </figcaption>
+            <dl className="grid md:grid-cols-2">
+              <div className="px-5 py-6 sm:px-6">
+                <dt className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+                  Before
+                </dt>
+                <dd className="mt-3 text-[16px] text-ink-soft leading-relaxed">
+                  {PROBLEM.example.before}
+                </dd>
+              </div>
+              <div className="border-rule border-t px-5 py-6 sm:px-6 md:border-t-0 md:border-l">
+                <dt className="flex items-center gap-2 font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+                  <span aria-hidden="true" className="size-1.5 bg-accent" />
+                  After
+                </dt>
+                <dd className="mt-3 text-[16px] text-ink leading-relaxed">
+                  {PROBLEM.example.after}
+                </dd>
+              </div>
+            </dl>
+          </figure>
         </Section>
 
         <Section id="offer">
@@ -440,7 +464,7 @@ export default function Home() {
               <Label index={5} tone="paper">
                 Next step
               </Label>
-              <h2 className="mt-5 max-w-[16ch] font-medium text-[clamp(2.5rem,6vw,4.5rem)] leading-[1] tracking-[-0.045em]">
+              <h2 className="mt-5 max-w-[18ch] font-medium text-[clamp(2.5rem,6vw,4.5rem)] leading-[1] tracking-[-0.045em]">
                 {keepTogether(CLOSE.headline)}
               </h2>
               <p className="mt-6 max-w-[46ch] text-lg text-paper/70 leading-relaxed">

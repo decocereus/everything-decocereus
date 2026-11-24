@@ -13,11 +13,21 @@ export const HERO = {
   chores: ["Status updates", "Reports", "Handoffs", "Follow-ups"],
   choresLabel: "Less time on",
   headline: "Get your company's time back.",
-  note: "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
+  /** The refund term, said as an outcome. The terms in OFFER.price are the source. */
+  promise:
+    "If we don't find savings worth more than you pay, you get your money back.",
   secondary: "See the offer",
 } as const;
 
 export const PROBLEM = {
+  /** One made-up example, always labeled as illustrative. Not a client result. */
+  example: {
+    after:
+      "The report is drafted before Monday starts. Someone checks it and sends it.",
+    before:
+      "Every Monday, someone copies numbers from three tools into a report and sends it round.",
+    label: "Example, illustrative",
+  },
   heading: "Where the time goes",
   intro: "The work is usually clear. The bottleneck is not.",
   items: [
@@ -182,6 +192,6 @@ export const FAQ = {
 } as const;
 
 export const CLOSE = {
-  body: "If the audit is a fit, you'll know by the end of the call. If it isn't, I'll say so.",
-  headline: "Start with a 15-minute call.",
+  body: "Tell me on a 15-minute call. If the audit is a fit, you'll know by the end of it. If it isn't, I'll say so.",
+  headline: "What does your team do by hand every week?",
 } as const;
