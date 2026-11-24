@@ -8,71 +8,77 @@ web
 
 ## Users
 
-Owner-run businesses with 5 to 50 people in the US and UK: trades, home services, auto shops, clinics and agencies. The owner is busy, not technical, and loses hours a week to busywork and leads to missed calls. They buy hours back and fewer dropped leads, not "AI transformation". They come to the site deciding whether a free intro call is worth their time.
+Founders and ops leads at funded startups and mid-size companies in the US and UK. Their teams already use AI tools, but they still lose hours every week to manual operational work (status updates, handoffs, reports, follow-ups) or to AI tools that don't fit how the work runs. They are deciding whether a paid audit from an independent engineer is worth USD 999-1,500. Most arrive from an outbound DM, so the page has to earn trust quickly.
 
-## Product Purpose
+## Product purpose
 
-We find the hours an owner-run business loses to busywork, then build AI agents that do that work.
+We give companies their time back. The offer starts with a paid audit of how one team actually works, then builds only what will stick.
 
-The offer:
+The offer, in order:
 
-1. **Intro call.** Free, 30 minutes.
-2. **Audit (main path).** Two weeks. We map how their week runs and hand over a ranked list of the tasks that cost the most hours and what fixing each is worth. Guarantee: if it doesn't find 10+ hours a week, the audit is free; if it does and they go ahead, the audit fee comes off the build.
-3. **Build.** Two to four weeks. The top two or three agents, on the tools they already use.
-4. **Retainer.** Monthly. We keep the agents running, add new ones, and send a weekly hours-saved report.
+1. **Intro call.** Free, 15 minutes. If the visitor already knows exactly what to build, we skip the audit and quote the build.
+2. **AI Opportunity Audit (the main path).** 7-10 days from kickoff to walkthrough, and about 4-6 hours of the client team's time. It includes a kickoff and 3-5 interviews, a workflow map, ranked opportunities labeled Adopt, Automate or Build (including what to skip), cost, timeline and payback estimates for the top three, a live test of the top opportunity on real examples, a 90-day plan, a written report and a recorded 45-60 minute walkthrough.
+   - Price: USD 999 for the first two teams, then USD 1,500.
+   - The fee is credited in full toward a build started within 60 days.
+   - If the audit finds nothing worth more than its fee, the fee is refunded. The report is the client's either way.
+3. **Build.** Usually 2-4 weeks. The first workflow, built in the tools the client already uses. Fixed price, quoted after the audit.
+4. **Retainer.** Monthly. Keep the system running, make small improvements, and take on the next workflow. Quoted after the build.
 
-Secondary path: consulting for teams already using AI tools (ChatGPT, Claude, Zapier, n8n) that aren't getting results. We review the setup and fix it.
+Side work, quoted separately: internal tools, and fixing vibe-coded software so it is stable enough for production. The audit stays the usual starting point.
 
-Every step is a fixed price, quoted after the intro call. Prices are never shown on the site.
-
-Success for the site is a booked intro call (https://cal.com/decocereus/intro).
+Success for the site is a booked 15-minute call at https://cal.com/decocereus/intro.
 
 ## Positioning
 
-- Outcomes over technology. The value is time given back and work that runs without the owner.
-- The client stays in control. Agents draft and queue; people approve what reaches customers.
-- Founder-led. The person on the call is the engineer who builds the system.
+- Time back is the outcome. AI is the means, not the headline.
+- Diagnosis before building. A ranked plan with written assumptions and a live test comes before any build. The plan includes what to skip.
+- Founder-led. The person on the call does the work, with no hand-off to sales.
+- The client owns everything: the report, the accounts, the setup and the data.
 
-## Operating Context
+## Voice
 
-The flagship illustration is the **Morning Ops Report**. Before the client starts the day, agents have reviewed yesterday's calls into notes, reconciled the books against the job or sales system, drafted the day's invoices, and queued anything that needs approval. It is always presented as an illustrative example of what we build, never as a past client result.
+- US English, plain words, no hype. No "AI-native", "leverage", "transform" or "unlock".
+- Use "we" for the work. "I" belongs in About. The approved hero, process and FAQ copy also uses "I" where Amartya speaks directly, and that copy stays as written.
+- Short and specific. If a busy ops lead has to reread a line, rewrite it.
 
-Delivery is remote.
+## Pricing rules
 
-## Capabilities and Constraints
+- Show the audit price (USD 999 for the first two teams, then USD 1,500), the 60-day credit and the refund rule.
+- Never show build or retainer price ranges. Say "fixed price, quoted after the audit" (build) and "quoted after the build" (retainer).
+- The old offer is retired. That means no free 30-minute intro, no "10+ hours or it's free" guarantee, and no pitch to trades or owner-run small businesses. Don't bring any of it back.
 
-- Hosted at agents.decocereus.com, as `apps/agency` in the everything-decocereus monorepo (Next.js App Router).
-- The site speaks in "we", and "I" only in the founder section. Copy is US English, plain, short and specific, written for a busy owner. No hype, no "AI-native", no "leverage", nothing that sounds like crypto.
-- The wordmark is "decocereus agents" until a name is chosen (`src/lib/site.ts`).
-- Every call to action books the intro call. X (@decocereus) and amartya@decocereus.com appear only in the footer.
-- Calls run in UK hours and US Eastern hours. Do not say where the team is based.
-- Standard customer messages (such as the missed-call text) go out on wording the owner approved once; everything else waits for their OK.
+## Capabilities and constraints
 
-## Brand Commitments
+- Hosted at agents.decocereus.com as `apps/agency` in the everything-decocereus monorepo (Next.js App Router, Vercel project `decocereus-agents`).
+- The brand name is temporary. It lives in one place, `SITE.name` in `src/lib/site.ts`, and the page, metadata and share images all read it.
+- All copy lives in `src/lib/content.ts` and `src/lib/site.ts`.
+- Nav: Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
+- Contact appears only in the footer: amartya@decocereus.com and @decocereus on X.
+- Calls run in UK hours and US Eastern hours. Delivery is remote. Do not say where the team is based.
+- Customer-facing messages go out only on wording the client approved. Standard messages are signed off once, and everything else waits for their OK.
+- Client data is never used to train AI models. Access stays at what the work needs.
 
-- Founder: Amartya Singh. Lead with Amadeus (London). Do not name Avail, and do not say the founder is currently employed anywhere. Products he built may be named and described.
-- X: @decocereus.
-- Black and white for v1. An accent colour may come later.
-- Minimal: easy to read and digest, one idea at a time.
-- Workflows are explained with detailed isometric drawings of real machines, made with the anatomy skill. Each one is a true breakdown of a workflow we build, starting with the Morning Ops Report.
-- Shader effects use Paper Shaders (`@paper-design/shaders-react`).
-- The site must not feel like a SaaS template, too techy for non-technical visitors, cheap or small-time, or playful and gimmicky.
+## Brand commitments
 
-## Evidence on Hand
+- Founder: Amartya Singh. Lead with Amadeus (London). Never name Avail, and never imply he is currently employed anywhere.
+- Calm, premium, technical, with a little boldness. See `DESIGN.md`.
+- One accent color (signal orange). No emoji, no stock or AI-gradient look, no fake logos.
 
-Real, verifiable founder facts, sourced from `docs/about-amartya.md` at the repository root:
+## Evidence on hand
 
-- Product engineer, 4+ years: Amadeus (London) and GAMP. Avail stays unnamed.
-- BSc Computer Science, King's College London (2022).
-- Built the Nexus SDK and UI packages, which have 60K+ npm downloads. The count includes later releases published by teammates.
-- Primary technical owner (not sole author) of the coordination layer behind ShieldTX, which has processed $2.3M+ in executed volume, a lower bound. The accepted-open failure rate fell from 19% (July 2026) to 3% (September 2026); October was 8.7%. On the site, Amartya chose to state it as "Systems that have handled $2.3M+ in transactions, with failures cut from 19% to 3%", without dates or the words "trading" or "crypto".
+These founder facts are real and verifiable. They come from `docs/about-amartya.md` at the repository root:
 
-Examples on the site (busywork, audit findings) are labelled illustrative. There are no hour-saved figures to quote yet. There are no agency clients, testimonials, case studies, logos or results yet. Never invent any.
+- Started as an engineer at Amadeus in London, on an airport-operations app used by 20+ airlines.
+- Built systems that have handled $2.3M+ in transactions, with failures cut from 19% to 3%. This is the wording Amartya approved. Leave out dates and the words "trading" and "crypto".
+- Built developer tools that have been downloaded 60,000+ times.
+- Studied Computer Science at King's College London.
 
-## Product Principles
+There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero week figure is labeled illustrative and shows no numbers.
 
-1. Plain words. If a busy visitor has to reread a line, rewrite it.
-2. Show the work, not the technology. Name the work that disappears, not the model or the tool.
-3. People approve what reaches their customers, and the site says so.
-4. Every claim is true and sourced. Examples are labelled as examples.
-5. Founder-led trust stands in for social proof until real results exist.
+## Product principles
+
+1. Plain words over impressive ones.
+2. Name the work that disappears, not the model or the tool.
+3. Every claim is true and sourced. Examples are labeled as examples.
+4. People approve what reaches their customers.
+5. Founder-led trust and the live test stand in for social proof until real results exist.
