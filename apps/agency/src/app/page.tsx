@@ -25,10 +25,14 @@ const JSON_LD = {
   areaServed: ["US", "GB"],
   description: SITE.description,
   email: SITE.email,
-  founder: { "@type": "Person", name: "Amartya Singh" },
+  founder: {
+    "@type": "Person",
+    name: ABOUT.heading,
+    sameAs: ABOUT.links.map((link) => link.href),
+  },
   image: `${SITE.url}/opengraph-image`,
   name: SITE.name,
-  sameAs: [SITE.x.url],
+  sameAs: ABOUT.links.map((link) => link.href),
   url: SITE.url,
 };
 

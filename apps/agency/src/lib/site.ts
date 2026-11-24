@@ -2,10 +2,10 @@
 export const SITE = {
   bookingUrl: "https://cal.com/decocereus/intro",
   description:
-    "A paid audit of how your team actually works, then a plan and a live test for where AI can give you time back.",
+    "We find the work that eats your week, then build the AI agents, automations, and internal tools that take it over. It starts with a fixed-price audit.",
   email: "amartya@decocereus.com",
   name: "decocereus agents",
-  title: "AI Opportunity Audit",
+  title: "AI agents, automations, and internal tools",
   url: "https://agents.decocereus.com",
   x: { handle: "@decocereus", url: "https://x.com/decocereus" },
 } as const;
