@@ -8,7 +8,7 @@ web
 
 ## Users
 
-Founders and ops leads at funded startups and mid-size companies in the US and UK. Their teams already use AI tools, but they still lose hours every week to manual operational work (status updates, handoffs, reports, follow-ups) or to AI tools that don't fit how the work runs. They are deciding whether a paid audit from an independent engineer is worth USD 999-1,500. Most arrive from an outbound DM, so the page has to earn trust quickly.
+Anyone with messy operational work worth fixing, most often founders and ops leads at startups and mid-size companies in the US and UK. Their teams already use AI tools, but they still lose hours every week to manual operational work (status updates, handoffs, reports, follow-ups) or to AI tools that don't fit how the work runs. They are deciding whether a paid audit from an independent engineer is worth its fixed price. Most arrive from an outbound DM, so the page has to earn trust quickly.
 
 ## Product purpose
 
@@ -17,8 +17,8 @@ We give companies their time back. The offer starts with a paid audit of how one
 The offer, in order:
 
 1. **Intro call.** Free, 15 minutes. If the visitor already knows exactly what to build, we skip the audit and quote the build.
-2. **AI Opportunity Audit (the main path).** 7-10 days from kickoff to walkthrough, and about 4-6 hours of the client team's time. It includes a kickoff and 3-5 interviews, a workflow map, ranked opportunities labeled Adopt, Automate or Build (including what to skip), cost, timeline and payback estimates for the top three, a live test of the top opportunity on real examples, a 90-day plan, a written report and a recorded 45-60 minute walkthrough.
-   - Price: USD 999 for the first two teams, then USD 1,500.
+2. **AI Opportunity Audit (the main path).** 7-10 days from kickoff to walkthrough, and about 4-6 hours of the client team's time. It includes a kickoff and 3-5 short calls with the people who do the work (never "interviews"), a workflow map, ranked opportunities labeled Adopt, Automate or Build (including what to skip), cost, timeline and payback estimates for the top three, a live test of the top opportunity on real examples, a 90-day plan, a written report and a recorded 45-60 minute walkthrough.
+   - Price: one fixed price, shown with a $ sign. It comes from `getAuditPrice()` in `src/lib/price.ts` (the `AUDIT_PRICE_USD` env var for now), never from copy. Don't mention a launch discount or a "first two teams" price.
    - The fee is credited in full toward a build started within 60 days.
    - If the audit finds nothing worth more than its fee, the fee is refunded. The report is the client's either way.
 3. **Build.** Usually 2-4 weeks. The first workflow, built in the tools the client already uses. Fixed price, quoted after the audit.
@@ -43,7 +43,7 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 
 ## Pricing rules
 
-- Show the audit price (USD 999 for the first two teams, then USD 1,500), the 60-day credit and the refund rule.
+- Show the audit price (from `getAuditPrice()`), the 60-day credit and the refund rule.
 - Never show build or retainer price ranges. Say "fixed price, quoted after the audit" (build) and "quoted after the build" (retainer).
 - The old offer is retired. That means no free 30-minute intro, no "10+ hours or it's free" guarantee, and no pitch to trades or owner-run small businesses. Don't bring any of it back.
 
@@ -73,7 +73,7 @@ These founder facts are real and verifiable. They come from `docs/about-amartya.
 - Built developer tools that have been downloaded 60,000+ times.
 - Studied Computer Science at King's College London.
 
-There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through.
+There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through. Samples of the deliverables and the automation figure are labeled illustrative.
 
 ## Product principles
 
