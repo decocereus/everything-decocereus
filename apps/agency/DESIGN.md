@@ -114,7 +114,7 @@ All tokens live in `src/app/globals.css` under `@theme`.
 ## Typography
 
 - **Display** (Geist 500, `clamp(2.75rem, 7vw, 5.25rem)`, 0.98, -0.045em): the hero headline only.
-- **Close** (Geist 500, `clamp(2.5rem, 6vw, 4.5rem)`, -0.045em): the closing band headline. The headline asks "What does your team do by hand every week?" next to the button. `keepTogether()` in `page.tsx` stops a heading breaking at a hyphen.
+- **Close** (Geist 500, `clamp(2.5rem, 6vw, 4.5rem)`, -0.045em): the closing band headline. The headline asks "What do you do by hand every week?" next to the button. `keepTogether()` in `page.tsx` stops a heading breaking at a hyphen.
 - **Headline** (Geist 500, `clamp(2rem, 4vw, 3rem)`, -0.035em): section headings.
 - **Lead** (20px): section intros and the About intro (24px from 640px).
 - **Body** (16-18px, relaxed): everything else. Measures stay between 36ch and 68ch.
@@ -153,7 +153,7 @@ All tokens live in `src/app/globals.css` under `@theme`.
 
 ## The hero
 
-- Left: the headline, the lead (what we build, in ink soft at 18-20px), the chores under a mono "Off your team's plate" label, the fixed-price line (ink, 19-21px medium), and the two calls to action. Right: the clock. Below 1024px the clock follows the copy.
+- Left: the headline, the lead (what we build, in ink soft at 18-20px), the chores under a mono "Off your plate" label, the fixed-price line (ink, 19-21px medium), and the two calls to action. Right: the clock. Below 1024px the clock follows the copy.
 - **Chores** (`HERO.chores` in `content.ts`): each item gets a 2px orange strike (`.struck` in `globals.css`), drawn left to right with `scaleX`, one after another from 450ms. Under `prefers-reduced-motion` they start struck. CSS only.
 - **Clock** (`src/components/figures/clock/`): an anatomy figure of an exploded watch, from crystal to case back along one diagonal, grey line work with orange hands. The settled pose is server-rendered SVG. On load the parts spread from a near-assembled pose (a sampled spring run as a CSS `linear()` curve, about 1.5 s). While on screen the train steps each 1.1 s beat at the true ratios from its tooth counts, the balance swings and the hands advance. It pauses offscreen and is still under reduced motion. Decorative (`aria-hidden`).
 

@@ -17,9 +17,9 @@ export const HERO = {
     "Follow-ups",
     "Handoffs",
   ],
-  choresLabel: "Off your team's plate",
-  headline: "Get your company's time back.",
-  lead: "We find the work that eats your team's week, then build the AI agents, automations, and internal tools that take it over.",
+  choresLabel: "Off your plate",
+  headline: "Get your time back.",
+  lead: "We find the work that eats your week, then build the AI agents, automations, and internal tools that take it over.",
   promise:
     "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
   secondary: "See the offer",
@@ -234,5 +234,5 @@ export const FAQ = {
 
 export const CLOSE = {
   body: "Tell me on a 15-minute call. If the audit is a fit, you'll know by the end of it. If it isn't, I'll say so.",
-  headline: "What does your team do by hand every week?",
+  headline: "What do you do by hand every week?",
 } as const;
