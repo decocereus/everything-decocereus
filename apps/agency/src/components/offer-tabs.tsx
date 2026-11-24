@@ -92,16 +92,20 @@ export function OfferTabs({
         ))}
       </Tabs.List>
 
-      <div className="order-first lg:order-none lg:col-span-7">
+      <div className="order-first lg:order-none lg:col-span-7 lg:flex lg:flex-col">
         {items.map((item) => (
-          <Tabs.Panel key={item.id} value={item.id}>
+          <Tabs.Panel
+            className="lg:flex lg:flex-1 lg:flex-col"
+            key={item.id}
+            value={item.id}
+          >
             <p className="sr-only">{item.detail}</p>
-            <div className="overflow-hidden rounded-xl border border-rule bg-surface shadow-[0_1px_2px_rgb(11_11_12/0.04),0_12px_32px_-16px_rgb(11_11_12/0.16)]">
+            <div className="flex flex-1 flex-col overflow-hidden rounded-xl border border-rule bg-surface shadow-[0_1px_2px_rgb(11_11_12/0.04),0_12px_32px_-16px_rgb(11_11_12/0.16)]">
               <div className="flex items-center justify-between gap-4 border-rule border-b px-5 py-3 font-mono text-[11px] text-muted uppercase tracking-[0.08em]">
                 <span className="truncate">{item.title}</span>
                 <span className="shrink-0">{OFFER.sample}</span>
               </div>
-              <div className="min-h-[300px] p-5 sm:min-h-[340px] sm:p-7">
+              <div className="min-h-[300px] flex-1 p-5 sm:min-h-[340px] sm:p-7">
                 {previews[item.id]}
               </div>
             </div>

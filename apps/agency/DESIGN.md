@@ -131,10 +131,13 @@ All tokens live in `src/app/globals.css` under `@theme`.
 - Every section opens with the same head: a mono label with an orange square and a two-digit index, then the headline.
 - The section order is Hero, 01 Problem, 02 Offer (`#offer`), 03 Process (`#process`), 04 About (`#about`), 05 FAQ (`#faq`), then 06 the closing band (`#book`), then the footer.
 - Desktop grids use 12 columns with 40px gaps. Most sections put the head in 4-5 columns and the content in 7. Everything stacks below 1024px.
-- **Problem**: three ruled rows, each with a mono index, a large title (`clamp(1.5rem, 3vw, 2.125rem)`) and the detail, rising in on scroll. No cards. Under them, the automation figure.
-- **Offer**: the head (label, heading, intro, then timeline and team time as two large specs) takes 7 columns, and the ink price panel takes 5. Below that, "What you get" is a tab list (5 columns) beside the preview frame (7). Below 1024px the preview sits above the list.
-- **Process**: a horizontal four-step track at every width, then a panel for the chosen step, then the "I also build" note in large type.
-- **About**: name and intro, links to GitHub, LinkedIn, X and decocereus.com, then four large numbers in a ruled row (2×2 on mobile), then the ground rules as checked rows.
+- **Problem**: three ruled rows rising in on scroll. The mono index sits beside a large title (`clamp(1.5rem, 3vw, 2.125rem)`) in 7 columns and the detail takes the last 5; on mobile the detail indents to the title. No cards. Under them, the automation figure.
+- **Offer**: the head (label, heading, intro, then timeline and team time as two large specs pinned to the bottom) takes 7 columns, and the ink price panel takes 5 at the same height. Below that, "What you get" as a headline, then a tab list (5 columns) beside the preview frame (7), which stretches to the list's height. Below 1024px the preview sits above the list.
+- **Process**: a horizontal four-step track at every width, then a panel with the step's meta in mono and its detail in large type (the track already names the step), then the "I also build" note in a softly tinted block (`ink` at 3.5%).
+- **About**: name and intro, links to GitHub, LinkedIn, X and decocereus.com, then four large numbers in a ruled row (2×2 on mobile), then the ground rules as a 2×2 grid of checked rows across the full width, with the note under them.
+- **FAQ**: the head column is sticky on desktop and holds the call button and the email under the heading. The questions take 7 columns.
+- **Closing band**: one left-aligned stack: label, the question at display size, the body, then the button beside the email.
+- **Footer**: wordmark, the nav links, then email and X.
 - **Header**: 64px and sticky. Nav links hide below 768px, leaving the wordmark and the "Book a 15-minute call" button, which fits at 360px.
 
 ## Components

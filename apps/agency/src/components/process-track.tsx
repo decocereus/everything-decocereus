@@ -84,26 +84,21 @@ export function ProcessTrack() {
         ))}
       </Tabs.List>
 
-      <div className="mt-8 min-h-[14rem] border-rule border-t pt-8 sm:min-h-[10rem] sm:pt-10">
+      <div className="mt-8 min-h-[13rem] border-rule border-t pt-8 sm:min-h-[10rem] sm:pt-10">
         {steps.map((step, index) => (
           <Tabs.Panel
             className="grid gap-4 lg:grid-cols-12 lg:gap-10"
             key={step.title}
             value={index}
           >
-            <div
-              className="rise lg:col-span-5"
+            <p
+              className="rise font-mono text-[12px] text-muted uppercase tracking-[0.08em] lg:col-span-3 lg:pt-2"
               style={{ "--i": 0 } as React.CSSProperties}
             >
-              <p className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
-                Step {pad(index)} · {step.length}
-              </p>
-              <h3 className="mt-3 font-medium text-[clamp(2rem,4vw,3rem)] leading-[1.05] tracking-[-0.035em]">
-                {step.title}
-              </h3>
-            </div>
+              Step {pad(index)} · {step.length}
+            </p>
             <p
-              className="rise max-w-[52ch] text-ink-soft text-lg leading-relaxed lg:col-span-6 lg:col-start-7 lg:self-end lg:text-xl"
+              className="rise max-w-[44ch] font-medium text-[clamp(1.375rem,2.6vw,2rem)] leading-[1.25] tracking-[-0.025em] lg:col-span-9"
               style={{ "--i": 1 } as React.CSSProperties}
             >
               {step.detail}
