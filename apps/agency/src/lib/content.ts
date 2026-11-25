@@ -101,8 +101,6 @@ export const OFFER = {
       "The report is yours. Build with us, hand it to someone else, or shelve it.",
     ],
   },
-  /** Labels the made-up previews of each deliverable. */
-  sample: "Sample, illustrative",
   specs: [
     { detail: "Kickoff to walkthrough", label: "Timeline", value: "7-10 days" },
     {

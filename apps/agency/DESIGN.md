@@ -145,7 +145,7 @@ All tokens live in `src/app/globals.css` under `@theme`.
 - **Primary button**: ink fill, paper text, 44px tall, 8px radius, 15px medium text, a trailing arrow. On hover the fill drops to 85% ink over 150ms. On press it scales to 0.97. On the ink band it inverts to paper with ink text. Every button books the call at `SITE.bookingUrl`.
 - **Secondary link**: underlined in 30% ink, which darkens to full ink on hover. Only "See the offer" in the hero uses it.
 - **Price panel**: ink card, 12px radius, paper text, the price at `clamp(3rem, 6vw, 4.25rem)`, orange checks, and the paper button.
-- **Preview frame**: white surface, 1px rule border, 12px radius, one soft shadow (`0 1px 2px` plus a `0 12px 32px -16px` drop), and a mono header with the deliverable's name and "Sample, illustrative".
+- **Preview frame**: white surface, 1px rule border, 12px radius, one soft shadow (`0 1px 2px` plus a `0 12px 32px -16px` drop), and a mono header with the deliverable's name and its place in the list ("03 / 06"). Each preview is one object filling the frame: a call list with a quote from the finance call, the lead-to-cash map with the handoffs done by hand, the ranked list ending in a skip, the payback worksheet, a drafted reminder with its test run, and the 90-day plan with the report and walkthrough. They follow one made-up business that chases invoices by hand and show no outcome numbers.
 - **Tabs** (`offer-tabs.tsx`, `process-track.tsx`): Base UI `Tabs`. While in view they tour on their own: a 1-2px orange bar fills (`.tour-progress`) and its `animationend` moves to the next tab. The tour pauses on hover or focus, stops for good once someone picks a tab, and never runs under reduced motion (`use-autoplay.ts`).
 - **Ruled rows**: problems, deliverable tabs, ground rules and FAQ items all use hairline rows.
 - **FAQ**: native `details`/`summary`. A 16px plus rotates 45° to an × over 200ms.
@@ -159,7 +159,7 @@ All tokens live in `src/app/globals.css` under `@theme`.
 
 ## The automation figure
 
-`src/components/figures/automate/`: an anatomy figure of a desk machine that makes the Monday report, labeled "Example, illustrative". Four beats, toured on their own and picked with four step buttons: Task (hand-cranked), Break it down (the stations slide apart), Add AI (the orange module drops in, the crank comes off) and Automated (it runs itself; the draft waits at a gate until a person approves). A readout under the drawing follows the same model that moves the parts. Copy lives in its `model.ts`. Under reduced motion it shows the chosen beat as a still.
+`src/components/figures/automate/`: an anatomy figure of a desk machine that makes the Monday report, labeled "Example". Four beats, toured on their own and picked with four step buttons: Task (hand-cranked), Break it down (the stations slide apart), Add AI (the orange module drops in, the crank comes off) and Automated (it runs itself; the draft waits at a gate until a person approves). A readout under the drawing follows the same model that moves the parts. Copy lives in its `model.ts`. Under reduced motion it shows the chosen beat as a still.
 
 Both figures use the anatomy kit copied verbatim into `src/components/iso/` (excluded from lint formatting in `biome.jsonc` and from `react-doctor.config.json`). Update it by copying the skill's kit again.
 
@@ -186,7 +186,7 @@ It reads `HERO.headline` and `HERO.chores`, so a copy change updates the card an
 - Use mono labels and indices for structure, and Geist for sentences.
 - Keep the page frame and full-bleed section rules.
 - Keep the struck chores to plain, real kinds of manual work.
-- Label every sample and example as illustrative.
+- Samples use a made-up business and no outcome numbers, never a client's name or result.
 
 **Don't**
 - Add a second accent, gradients, glows, emoji, stock imagery, fake logos or testimonials.

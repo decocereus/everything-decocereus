@@ -35,7 +35,7 @@ export const STEPS: Record<
   },
 };
 
-export const FIGURE_LABEL = "Example, illustrative";
+export const FIGURE_LABEL = "Example";
 export const FIGURE_TITLE = "The Monday report";
 export const SVG_LABEL =
   "An isometric drawing of a desk machine that makes a weekly report. Three hoppers feed cards onto a belt, a press copies them, a writer turns them into one report, and an out tray holds it behind a gate until a person approves it. It is first cranked by hand, then taken apart into its four steps, then an orange AI module is plugged into its drive and it runs on its own.";
