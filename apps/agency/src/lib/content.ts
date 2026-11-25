@@ -31,7 +31,7 @@ export const PROBLEM = {
   items: [
     {
       detail:
-        "Status updates, handoffs, reports, and follow-ups still move through inboxes and spreadsheets, and the same hours disappear every week.",
+        "Information still moves between inboxes, spreadsheets, and tools by hand, and the same hours disappear every week.",
       title: "Manual work that should already be a system.",
     },
     {
@@ -64,7 +64,7 @@ export const OFFER = {
     },
     {
       detail:
-        "Every opportunity labeled Adopt, Automate, or Build, ranked by what it gives back. It also says what to skip.",
+        "Every opportunity labeled Adopt, Automate, or Build, ranked by what it gives back, plus the work that only looks automatable and isn't worth it.",
       id: "ranked",
       title: "A ranked list",
     },
@@ -90,14 +90,15 @@ export const OFFER = {
   deliverablesHeading: "What you get",
   heading: "AI Opportunity Audit",
   intro:
-    "A fixed-price look at how one team actually works, with a live test on your real examples. You leave with a written plan you own, whether or not we build anything together.",
+    "A fixed-price look at how one team actually works. You leave with a working test on your own examples, not a slide deck.",
   label: "Offer",
   price: {
+    capacity: "I take one audit at a time.",
     label: "Fixed price",
     terms: [
       "The audit fee is credited in full toward a build started within 60 days.",
       "If the audit doesn't find anything worth more than its fee, you get the fee back.",
-      "The report is yours either way.",
+      "The report is yours. Build with us, hand it to someone else, or shelve it.",
     ],
   },
   /** Labels the made-up previews of each deliverable. */
@@ -122,13 +123,13 @@ export const PROCESS = {
   steps: [
     {
       detail:
-        "Tell me how the work runs. I'll tell you honestly whether an audit is the right next step. If you already know exactly what to build, we skip the audit and I'll quote the build.",
+        "Tell me how the work runs and where the hours go. I ask the questions, so there's nothing to prepare.",
       length: "Free, 15 minutes",
       title: "Intro call",
     },
     {
       detail:
-        "Calls with your team, a map of the work, a ranked list, and a live test on your real examples. You keep the report.",
+        "Everything in the offer above. Between calls I work async and only ask when I need an answer.",
       length: "7-10 days",
       title: "Audit",
     },
@@ -161,7 +162,7 @@ export const ABOUT = {
   linksLabel: "Check my work",
   note: "Until there is a published client result, the audit includes a live test on your examples so you can judge the work yourself.",
   rules: [
-    "You talk to the person who does the work.",
+    "I take only the access the work needs.",
     "Your data is never used to train AI models.",
     "You own everything I build: the accounts, the setup, and the data.",
     "Nothing messages your customers without your OK.",
@@ -186,7 +187,7 @@ export const FAQ = {
   items: [
     {
       answer:
-        "{price}, fixed. If we start a build within 60 days, the audit fee comes off that build. If the audit doesn't find anything worth more than its fee, you get the fee back.",
+        "{price}, fixed. If we start a build within 60 days, the audit fee comes off that build.",
       question: "What does the audit cost?",
     },
     {
@@ -196,7 +197,7 @@ export const FAQ = {
     },
     {
       answer:
-        "About 4-6 hours over 7-10 days: a kickoff call and a few short calls with the people who do the work, then a walkthrough of the report. In between, I work async and only ask when I need an answer.",
+        "About 4-6 hours over 7-10 days: a kickoff call, a few short calls with the people who do the work, and a walkthrough of the report.",
       question: "How much of our time does it take?",
     },
     {
@@ -210,22 +211,12 @@ export const FAQ = {
       question: "What tools do you work with?",
     },
     {
-      answer:
-        "Only with wording you've approved. Standard messages can be signed off once. Everything else waits for your OK.",
-      question: "Will anything message our customers on its own?",
-    },
-    {
-      answer:
-        "I never use your data to train AI models. I take only the access the work needs, and you own everything I build: the accounts, the setup, and the data.",
-      question: "Is our data safe?",
-    },
-    {
       answer: "Yes. I take calls in UK hours and US Eastern hours.",
       question: "Do you work in our timezone?",
     },
     {
       answer:
-        "No. I work with anyone who has a problem worth solving. Book a call, tell me what it is, and I'll tell you honestly if I can help.",
+        "No. I work with anyone who has a problem worth solving. Book a call and tell me what it is.",
       question: "Do you only work with startups?",
     },
   ],
