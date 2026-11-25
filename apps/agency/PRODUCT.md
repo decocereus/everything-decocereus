@@ -53,6 +53,8 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 - Hosted at agents.decocereus.com as `apps/agency` in the everything-decocereus monorepo (Next.js App Router, Vercel project `decocereus-agents`).
 - The brand name is temporary. It lives in one place, `SITE.name` in `src/lib/site.ts`, and the page, metadata and share images all read it.
 - All copy lives in `src/lib/content.ts` and `src/lib/site.ts`.
+- Search: the title names the offer ("Fixed-price AI audit and automation builds"), and the description carries the price and the refund in under 155 characters. JSON-LD lists the audit as an Offer with its price, the founder's degree, and the FAQ. `GOOGLE_SITE_VERIFICATION` adds the Search Console tag when set.
+- Analytics: PostHog from Amartya's personal account, never a work account. It loads only when `NEXT_PUBLIC_POSTHOG_KEY` is set (`NEXT_PUBLIC_POSTHOG_REGION` is `us` or `eu`), goes through `/ingest` on the site's own domain, and keeps everything in memory, so there are no cookies and no consent banner.
 - Nav: Who it's for, Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
 - Contact appears only in the footer: amartya@decocereus.com and @decocereus on X.
 - Replies come the same day, and Amartya will sign an NDA before the call. After a build there are 30 days of support for small fixes, then an optional monthly retainer.

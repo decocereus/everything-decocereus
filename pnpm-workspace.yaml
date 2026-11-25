@@ -1,6 +1,9 @@
 packages:
   - "apps/*"
 
+allowBuilds:
+  core-js: false
+
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - "@biomejs/biome@2.5.8"
