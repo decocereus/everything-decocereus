@@ -16,7 +16,7 @@ import {
   PROBLEM,
   PROCESS,
 } from "@/lib/content.ts";
-import { getAuditPrice, withPrice } from "@/lib/price.ts";
+import { type AuditPrice, getAuditPrice, withPrice } from "@/lib/price.ts";
 import { SITE } from "@/lib/site.ts";
 
 const JSON_LD = {
@@ -224,7 +224,7 @@ function Problem() {
   );
 }
 
-function Offer({ price }: Readonly<{ price: string }>) {
+function Offer({ price }: Readonly<{ price: AuditPrice }>) {
   return (
     <Section id="offer">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -260,10 +260,21 @@ function Offer({ price }: Readonly<{ price: string }>) {
         >
           <div className="flex h-full flex-col rounded-xl bg-ink p-6 text-paper sm:p-8">
             <p className="font-mono text-[12px] text-paper/60 uppercase tracking-[0.08em]">
-              {OFFER.price.label}
+              {price.regular ? OFFER.price.launchLabel : OFFER.price.label}
             </p>
-            <p className="mt-3 font-medium text-[clamp(3rem,6vw,4.25rem)] tabular-nums leading-none tracking-[-0.045em]">
-              {price}
+            <p className="mt-3 flex items-baseline gap-4 font-medium tabular-nums leading-none tracking-[-0.045em]">
+              {price.regular ? (
+                <s className="text-[clamp(1.75rem,3.5vw,2.25rem)] text-paper/45 decoration-2 decoration-accent">
+                  <span className="sr-only">Regular price </span>
+                  {price.regular}
+                </s>
+              ) : null}
+              <span className="text-[clamp(3rem,6vw,4.25rem)]">
+                {price.regular ? (
+                  <span className="sr-only">Launch price </span>
+                ) : null}
+                {price.now}
+              </span>
             </p>
             <ul className="mt-7 mb-8 space-y-3 text-[15px] text-paper/75 leading-relaxed">
               {OFFER.price.terms.map((term) => (
@@ -504,7 +515,7 @@ export default async function Home() {
         <Offer price={price} />
         <Process />
         <About />
-        <Faq price={price} />
+        <Faq price={price.now} />
 
         <section className="bg-ink text-paper" id="book">
           <div className={`${FRAME} border-paper/10 py-24 sm:py-32`}>
