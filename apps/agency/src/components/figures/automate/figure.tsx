@@ -54,7 +54,7 @@ const ART = {
   writerBracketBack,
 };
 
-/** One weekly task, taken apart, given an AI module, and left to run. An illustrative example. */
+/** One weekly task, taken apart, given an AI module, and left to run. An example. */
 export function AutomateFigure({ className = "" }: { className?: string }) {
   return (
     <figure

@@ -73,7 +73,7 @@ These founder facts are real and verifiable. They come from `docs/about-amartya.
 - Built developer tools that have been downloaded 60,000+ times.
 - Studied Computer Science at King's College London.
 
-There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through. Samples of the deliverables and the automation figure are labeled illustrative.
+There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through. Samples of the deliverables and the automation figure use a made-up business and carry no outcome numbers, so they need no "illustrative" label.
 
 ## Product principles
 
