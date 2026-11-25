@@ -450,7 +450,7 @@ function Process({ price }: Readonly<{ price: string }>) {
       </ol>
       <div className="reveal mt-16 grid gap-6 rounded-xl bg-ink/[0.035] p-6 sm:p-10 lg:grid-cols-12 lg:items-end lg:gap-10">
         <p className="max-w-[30ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.15] tracking-[-0.03em] lg:col-span-8">
-          {PROCESS.more.lead}
+          {keepTogether(PROCESS.more.lead)}
         </p>
         <p className="max-w-[34ch] text-ink-soft text-lg leading-relaxed lg:col-span-4">
           {PROCESS.more.body}

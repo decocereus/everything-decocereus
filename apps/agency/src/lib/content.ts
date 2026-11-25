@@ -20,9 +20,9 @@ export const HERO = {
   ],
   choresLabel: "Off your plate",
   headline: "Get your time back.",
-  lead: "I work with one team at a time on one question: which work eats your week, and what would it take to hand it to AI? You leave with a working system, not a deck.",
+  lead: "I find the work that eats your week and build the AI that takes it over. You get a working system, not a deck.",
   promise:
-    "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
+    "Fixed-price audit. If it finds nothing worth more than its fee, you get the fee back.",
   secondary: "See the offer",
 } as const;
 
@@ -56,12 +56,12 @@ export const FIT = {
       title: "Agencies",
     },
     {
-      chores: "Qualifying leads, the CRM, support triage",
+      chores: "Handoffs, weekly reports, support triage",
       title: "Small teams",
     },
   ],
   good: [
-    "You do the same work by hand every week: chasing, copying, drafting, updating.",
+    "The same tasks eat hours every week: chasing, copying, drafting, updating.",
     "You've tried AI on your own, and it hasn't stuck.",
     "You'd rather have one thing working than a plan for ten.",
   ],
@@ -117,14 +117,14 @@ export const OFFER = {
   deliverablesHeading: "What you get",
   heading: "AI Opportunity Audit",
   intro:
-    "A fixed-price look at how your work actually runs. You leave with a ranked plan and a test on your own examples.",
+    "A fixed-price look at how your work runs. You leave with a ranked plan and a test on your own examples.",
   label: "Offer",
   price: {
     capacity: "I take one audit at a time.",
     label: "Fixed price",
     launchLabel: "Fixed launch price",
     terms: [
-      "The audit fee is credited in full toward a build started within 60 days.",
+      "Start a build within 60 days and the full audit fee comes off its price.",
       "If the audit doesn't find anything worth more than its fee, you get the fee back.",
       "The report is yours. Build with me, hand it to someone else, or shelve it.",
     ],
@@ -145,21 +145,21 @@ export const PROCESS = {
   label: "Process",
   leaveLabel: "You leave with",
   more: {
-    body: "Those are quoted separately. The usual starting point is the audit.",
-    lead: "I also build internal tools, and I fix vibe-coded software that needs to be stable enough to run in production.",
+    body: "Those are quoted separately. Not sure which you need? Start with the call.",
+    lead: "I also build internal tools, and I make vibe-coded apps stable enough for production.",
   },
   steps: [
     {
       leave: "A straight answer on whether an audit is worth it",
       meta: "15 min · free",
       name: "Talk",
-      promise: "A 15-minute call to see if there's a real problem.",
+      promise: "Tell me how the work runs and where the hours go.",
     },
     {
       leave: "A report you keep and a tested first step",
       meta: "7-10 days · {price} fixed",
       name: "Audit",
-      promise: "A ranked plan, and a test on your own examples.",
+      promise: "I map the work and test the best fix on your examples.",
     },
     {
       leave: "A working system you own, plus 30 days of support",
@@ -171,7 +171,7 @@ export const PROCESS = {
       leave: "Time back, every week after",
       meta: "Monthly · quoted after the build",
       name: "Run",
-      promise: "It keeps running, and the next workflow gets built.",
+      promise: "I keep it running and build the next one.",
     },
   ],
 } as const;
@@ -204,12 +204,12 @@ export const FAQ = {
   items: [
     {
       answer:
-        "{price}, fixed. Start a build within 60 days and the fee comes off it.",
+        "{price}, fixed. Start a build within 60 days and the full fee comes off its price.",
       question: "What does the audit cost?",
     },
     {
       answer:
-        "We skip the audit. I quote a fixed price for the build after a short call.",
+        "Then you can skip the audit. I quote a fixed price for the build after a short call.",
       question: "What if we already know what to build?",
     },
     {
@@ -240,6 +240,6 @@ export const FAQ = {
 } as const;
 
 export const CLOSE = {
-  body: "Book 15 minutes and walk me through it. I reply the same day, and I'll sign an NDA first if you need one.",
+  body: "Book 15 minutes and walk me through it. Or email me, and I'll reply the same day.",
   headline: "What do you do by hand every week?",
 } as const;
