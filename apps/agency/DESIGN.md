@@ -103,7 +103,7 @@ All tokens live in `src/app/globals.css` under `@theme`.
 - **Ink soft** `#4a4a50`: supporting text, such as intros, details, FAQ answers and nav links at rest.
 - **Muted** `#6b6b70`: mono labels, step numbers and axis text. It is about 5:1 on paper, so it is fine for small text but never for paragraphs.
 - **Rule** `rgb(11 11 12 / 0.1)`: every hairline, including the page frame.
-- **Accent** `#e8590c`: the signal orange. It is used only for the small square before each section label, the first process marker, the check marks, the strikes through the hero chores, the clock hands, the AI module in the automation figure, the active tab number, the process rail and markers, the handoff dots in the map preview, and the focus ring. It is about 3.6:1 on paper, so it is for marks, not text.
+- **Accent** `#e8590c`: the signal orange. It is used only for the small square before each section label, the first process marker, the check marks, the strikes through the hero chores and the regular price, the clock hands, the AI module in the automation figure, the active tab number, the process rail and markers, the handoff dots in the map preview, and the focus ring. It is about 3.6:1 on paper, so it is for marks, not text.
 - **Accent ink** `#b3420a` and **accent tint** `#fdf1ea`: reserved. Nothing uses them today; reach for them only if orange text is ever needed.
 
 ### Rules

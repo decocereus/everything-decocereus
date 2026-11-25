@@ -95,6 +95,7 @@ export const OFFER = {
   price: {
     capacity: "I take one audit at a time.",
     label: "Fixed price",
+    launchLabel: "Fixed launch price",
     terms: [
       "The audit fee is credited in full toward a build started within 60 days.",
       "If the audit doesn't find anything worth more than its fee, you get the fee back.",

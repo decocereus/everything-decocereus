@@ -18,7 +18,7 @@ The offer, in order:
 
 1. **Intro call.** Free, 15 minutes. If the visitor already knows exactly what to build, we skip the audit and quote the build.
 2. **AI Opportunity Audit (the main path).** 7-10 days from kickoff to walkthrough, and about 4-6 hours of the client team's time. It includes a kickoff and 3-5 short calls with the people who do the work (never "interviews"), a workflow map, ranked opportunities labeled Adopt, Automate or Build (including what to skip), cost, timeline and payback estimates for the top three, a live test of the top opportunity on real examples, a 90-day plan, a written report and a recorded 45-60 minute walkthrough.
-   - Price: one fixed price, shown with a $ sign. It comes from `getAuditPrice()` in `src/lib/price.ts` (the `AUDIT_PRICE_USD` env var for now), never from copy. Don't mention a launch discount or a "first two teams" price.
+   - Price: one fixed price, shown with a $ sign. It comes from `getAuditPrice()` in `src/lib/price.ts` (the `AUDIT_PRICE_USD` env var for now), never from copy. During launch the price panel also shows the regular price struck through (`AUDIT_REGULAR_PRICE_USD`, $1,500). Only show a regular price that will actually be charged after launch, and set it to 0 when launch ends. Don't use a "first two teams" price.
    - The fee is credited in full toward a build started within 60 days.
    - If the audit finds nothing worth more than its fee, the fee is refunded. The report is the client's either way.
 3. **Build.** Usually 2-4 weeks. The first workflow, built in the tools the client already uses. Fixed price, quoted after the audit.
