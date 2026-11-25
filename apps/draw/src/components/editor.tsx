@@ -69,6 +69,10 @@ const goHome = () => {
   window.location.href = "/";
 };
 
+const goConnect = () => {
+  window.location.href = "/connect";
+};
+
 function SyncStatus({ status }: { status: SyncState }) {
   return (
     <span
@@ -380,6 +384,7 @@ export default function Editor({ boardId }: { boardId: string }) {
       >
         <MainMenu>
           <MainMenu.Item onSelect={goHome}>All boards</MainMenu.Item>
+          <MainMenu.Item onSelect={goConnect}>Connect an agent</MainMenu.Item>
           <MainMenu.Separator />
           <MainMenu.DefaultItems.SaveAsImage />
           <MainMenu.DefaultItems.Export />

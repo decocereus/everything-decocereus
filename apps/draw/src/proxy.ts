@@ -12,4 +12,4 @@ export async function proxy(req: NextRequest) {
   return NextResponse.redirect(url);
 }
 
-export const config = { matcher: ["/", "/b/:path*"] };
+export const config = { matcher: ["/", "/b/:path*", "/connect"] };

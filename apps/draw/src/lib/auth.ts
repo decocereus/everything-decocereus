@@ -94,10 +94,16 @@ export function checkPassword(input: string) {
   return !!expected && safeEqual(input, expected);
 }
 
-export function verifyMcpToken(token: string | undefined) {
-  const expected =
+/** The bearer token agents use; the connect page shows it to the signed-in user. */
+export function mcpToken() {
+  return (
     process.env.DRAW_MCP_TOKEN ??
-    (process.env.VERCEL ? undefined : "dev-mcp-token");
+    (process.env.VERCEL ? undefined : "dev-mcp-token")
+  );
+}
+
+export function verifyMcpToken(token: string | undefined) {
+  const expected = mcpToken();
   return !!token && !!expected && safeEqual(token, expected);
 }
 

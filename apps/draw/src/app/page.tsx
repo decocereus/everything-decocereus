@@ -28,7 +28,12 @@ export default async function Home() {
   const boards = await listBoards();
   return (
     <main className="page">
-      <h1>Boards</h1>
+      <header className="page-head">
+        <h1>Boards</h1>
+        <Link className="quiet-link" href="/connect">
+          Connect an agent
+        </Link>
+      </header>
       <form action={create} className="row">
         <input
           aria-label="New board name"
