@@ -1,0 +1,63 @@
+:root {
+  --bg: #fafaf9;
+  --fg: #1c1917;
+  --muted: #78716c;
+  --line: #e7e5e4;
+  --card: #ffffff;
+  --accent: #6965db;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #e7e5e4;
+    --muted: #a8a29e;
+    --line: #2c2a28;
+    --card: #1b1a19;
+    --accent: #a8a5ff;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: inherit; }
+button, input { font: inherit; }
+
+.page { max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+.page h1 { font-size: 22px; margin: 0 0 24px; font-weight: 600; letter-spacing: -0.01em; }
+.row { display: flex; gap: 8px; align-items: center; }
+.input {
+  flex: 1; min-width: 0; padding: 9px 12px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--card); color: var(--fg);
+}
+.input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.btn {
+  padding: 9px 14px; border-radius: 8px; border: 1px solid transparent;
+  background: var(--accent); color: #fff; cursor: pointer; font-weight: 500; white-space: nowrap;
+}
+.btn.ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+.btn.ghost:hover { color: var(--fg); }
+.btn.danger:hover { color: #e03131; border-color: #e03131; }
+.list { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
+.list li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.list .name { flex: 1; min-width: 0; text-decoration: none; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .name:hover { color: var(--accent); }
+.list .meta { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.empty { color: var(--muted); padding: 32px 0; }
+.error { color: #e03131; font-size: 14px; margin-top: 8px; }
+
+.login { min-height: 100%; display: grid; place-items: center; padding: 16px; }
+.login form { width: 100%; max-width: 320px; display: grid; gap: 10px; }
+
+.editor { position: fixed; inset: 0; }
+.sync-status {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted);
+  padding: 0 8px; height: 36px;
+}
+.sync-status i { width: 7px; height: 7px; border-radius: 50%; background: #2f9e44; }
+.sync-status[data-state="saving"] i { background: #f08c00; }
+.sync-status[data-state="offline"] i { background: #e03131; }

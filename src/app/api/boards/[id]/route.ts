@@ -1,0 +1,39 @@
+import { isAuthorized, unauthorized, verifyRenderToken } from "@/lib/auth";
+import { boardKey, deleteBoard, getBoard, NotFoundError, renameBoard } from "@/lib/boards";
+import { getStore } from "@/lib/store";
+
+type Ctx = { params: Promise<{ id: string }> };
+
+const POLL_URL_TTL = 3600;
+
+export async function GET(req: Request, { params }: Ctx) {
+  const { id } = await params;
+  const rt = new URL(req.url).searchParams.get("rt") ?? undefined;
+  if (!(await isAuthorized(req)) && !(await verifyRenderToken(rt, id))) return unauthorized();
+  try {
+    const { doc, etag } = await getBoard(id);
+    // The browser polls R2 directly with this URL, so watching a board costs
+    // no function invocations. Without R2 it falls back to the poll route.
+    const presigned = await getStore().presign(boardKey(id), "GET", POLL_URL_TTL);
+    return Response.json({ doc, etag, pollUrl: presigned ?? `/api/boards/${id}/poll`, pollExpiresAt: Date.now() + POLL_URL_TTL * 1000 });
+  } catch (e) {
+    if (e instanceof NotFoundError) return Response.json({ error: e.message }, { status: 404 });
+    throw e;
+  }
+}
+
+export async function PATCH(req: Request, { params }: Ctx) {
+  if (!(await isAuthorized(req))) return unauthorized();
+  const { id } = await params;
+  const { name } = (await req.json()) as { name?: string };
+  if (!name?.trim()) return Response.json({ error: "name required" }, { status: 400 });
+  await renameBoard(id, name.trim());
+  return Response.json({ ok: true });
+}
+
+export async function DELETE(req: Request, { params }: Ctx) {
+  if (!(await isAuthorized(req))) return unauthorized();
+  const { id } = await params;
+  await deleteBoard(id);
+  return Response.json({ ok: true });
+}
