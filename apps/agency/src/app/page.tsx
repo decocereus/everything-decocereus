@@ -283,6 +283,9 @@ function Offer({ price }: Readonly<{ price: string }>) {
               ))}
             </ul>
             <BookLink className="mt-8 w-full lg:mt-auto" tone="paper" />
+            <p className="mt-3 text-center text-[13px] text-paper/60">
+              {OFFER.price.capacity}
+            </p>
           </div>
         </aside>
       </div>
