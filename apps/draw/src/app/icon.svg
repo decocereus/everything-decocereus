@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#6965db"/><path d="M9 22.5c3-1 5.5-5 7.5-9.5M16.5 13c1.2 3.4 3.4 6.8 6.5 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <title>Draw</title>
+  <rect fill="#6965db" height="32" rx="7" width="32" />
+  <path
+    d="M9 22.5c3-1 5.5-5 7.5-9.5M16.5 13c1.2 3.4 3.4 6.8 6.5 9"
+    fill="none"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="2.6"
+  />
+</svg>

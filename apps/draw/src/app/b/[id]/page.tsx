@@ -1,7 +1,11 @@
 import Script from "next/script";
-import EditorLoader from "@/components/EditorLoader";
+import EditorLoader from "@/components/editor-loader.tsx";
 
-export default async function BoardPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function BoardPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   return (
     <>
