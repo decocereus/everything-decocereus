@@ -40,6 +40,7 @@ const skeleton = z.object({
   start: z.string().optional().describe("Arrow: id of the element it starts from (bound, follows the shape when moved)"),
   end: z.string().optional().describe("Arrow: id of the element it points to"),
   points: z.array(z.tuple([z.number(), z.number()])).optional().describe("Arrow/line without bindings: points relative to x,y"),
+  via: z.array(z.tuple([z.number(), z.number()])).optional().describe("Arrow with start/end: absolute waypoints to bend through"),
   startArrowhead: z.enum(["arrow", "bar", "dot", "triangle", "diamond"]).nullable().optional(),
   endArrowhead: z.enum(["arrow", "bar", "dot", "triangle", "diamond"]).nullable().optional().describe("Defaults to 'arrow' on arrows"),
   name: z.string().optional().describe("Frame title"),

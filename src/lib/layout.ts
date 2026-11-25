@@ -54,10 +54,15 @@ export function layoutGraph(nodes: GraphNode[], edges: GraphEdge[], direction: D
     });
   }
   for (const e of edges) {
+    // Bend through dagre's route (minus its endpoints, which sit on the node
+    // borders) so arrows go around nodes instead of through them.
+    const pts = (g.edge(e.from, e.to)?.points ?? []) as { x: number; y: number }[];
+    const via = pts.slice(1, -1).map((p) => [Math.round(origin.x + p.x), Math.round(origin.y + p.y)] as [number, number]);
     out.push({
       type: "arrow",
       start: e.from,
       end: e.to,
+      via: via.length ? via : undefined,
       label: e.label,
       strokeStyle: e.dashed ? "dashed" : undefined,
     });

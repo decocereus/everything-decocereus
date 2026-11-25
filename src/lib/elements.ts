@@ -65,6 +65,8 @@ export type Skeleton = {
   start?: string;
   end?: string;
   points?: [number, number][];
+  /** Absolute waypoints an arrow bends through between its start and end. */
+  via?: [number, number][];
   startArrowhead?: string | null;
   endArrowhead?: string | null;
   name?: string;
@@ -335,7 +337,7 @@ export function buildElements(skeletons: Skeleton[], existing: El[]) {
       if (abs.length < 2) {
         const a: [number, number] = startEl ? center(startEl) : abs[0] ?? [ox, oy];
         const b: [number, number] = endEl ? center(endEl) : [a[0] + (s.width ?? 150), a[1] + (s.height ?? 0)];
-        abs = [a, b];
+        abs = [a, ...(s.via ?? []), b];
       }
       setPoints(el, abs);
       if (s.type === "arrow") {
