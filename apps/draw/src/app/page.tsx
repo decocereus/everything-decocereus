@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { LocalTime } from "@/components/local-time.tsx";
 import { createBoard, deleteBoard, listBoards } from "@/lib/boards.ts";
 
 export const dynamic = "force-dynamic";
@@ -18,11 +19,6 @@ async function remove(formData: FormData) {
   await deleteBoard(String(formData.get("id")));
   revalidatePath("/");
 }
-
-const fmt = new Intl.DateTimeFormat("en", {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
 
 export default async function Home() {
   const boards = await listBoards();
@@ -53,7 +49,7 @@ export default async function Home() {
                 {b.name}
               </Link>
               <span className="meta">
-                {fmt.format(new Date(b.updatedAt ?? b.createdAt))}
+                <LocalTime iso={b.updatedAt ?? b.createdAt} />
               </span>
               <form action={remove}>
                 <input name="id" type="hidden" value={b.id} />
