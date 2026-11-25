@@ -204,6 +204,11 @@ export const FAQ = {
   items: [
     {
       answer:
+        "You walk me through how the work runs. I ask where the hours go and which tools you use. You leave with a yes or a not yet, and the reason.",
+      question: "What happens on the call?",
+    },
+    {
+      answer:
         "{price}, fixed. Start a build within 60 days and the full fee comes off its price.",
       question: "What does the audit cost?",
     },

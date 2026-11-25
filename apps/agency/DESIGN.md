@@ -103,8 +103,9 @@ All tokens live in `src/app/globals.css` under `@theme`.
 - **Ink soft** `#4a4a50`: supporting text, such as intros, details, FAQ answers and nav links at rest.
 - **Muted** `#6b6b70`: mono labels, step numbers and axis text. It is about 5:1 on paper, so it is fine for small text but never for paragraphs.
 - **Rule** `rgb(11 11 12 / 0.1)`: every hairline, including the page frame.
-- **Accent** `#e8590c`: the signal orange. It is used only for the small square before each section label, the first process marker and its stretch of the rail, the first audience rule, the check marks, the strikes through the hero chores and the regular price, the clock hands, the AI module in the automation figure, the active tab number, the handoff dots in the map preview, and the focus ring. It is about 3.6:1 on paper, so it is for marks, not text.
-- **Accent ink** `#b3420a` and **accent tint** `#fdf1ea`: reserved. Nothing uses them today; reach for them only if orange text is ever needed.
+- **Accent** `#e8590c`: the signal orange. It is used only for the small square before each section label, the first process marker and its stretch of the rail, the first audience rule, the check marks, the strikes through the hero chores and the regular price, the clock hands, the AI module in the automation figure, the handoff dots in the map preview, and the focus ring. It is about 3.6:1 on paper, so it is for marks, not text.
+- **Accent ink** `#b3420a`: orange text, which today is only the active offer tab number. Plain accent fails contrast at small sizes.
+- **Accent tint** `#fdf1ea`: reserved.
 
 ### Rules
 **One accent.** Orange is the only hue. Do not add a second color, gradients or tinted section backgrounds. The closing band and the price panel are the inverted surfaces (ink ground, paper text).
@@ -169,9 +170,9 @@ Both figures use the anatomy kit copied verbatim into `src/components/iso/` (exc
 
 `src/app/opengraph-image.tsx` renders the 1200×630 card at build time with `next/og`, using Geist from the `geist` package. `twitter-image.tsx` reuses it. The card has one job: someone who gets the link should know what this is from the thumbnail alone. It matches the hero:
 
-- Paper ground, the headline at 100px on the left and the first four chores struck through in orange beneath it. Nothing else: no audit line, no price.
+- Paper ground, the headline at 100px on the left and the first four chores struck through in orange beneath it.
 - On the right, the raster clock `src/assets/clock.png` (made with GPT-6.2 Sol, keyed to transparency). It is only used here; the site uses the anatomy clock.
-- No wordmark, no offer pill, no domain. The link preview already shows the domain.
+- One 22px line in ink soft along the bottom left: `SITE.ogTagline` and the domain ("Fixed-price AI audit · agents.decocereus.com"). Without it, a preview in Slack or LinkedIn never says the card is about AI. No price, no wordmark, no pill.
 
 It reads `HERO.headline` and `HERO.chores`, so a copy change updates the card and its alt text. Keep every line legible when the card is shrunk to 400px wide.
 

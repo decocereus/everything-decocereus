@@ -20,22 +20,48 @@ import {
 import { type AuditPrice, getAuditPrice, withPrice } from "@/lib/price.ts";
 import { SITE } from "@/lib/site.ts";
 
-const JSON_LD = {
+const jsonLd = ({ amount, now }: AuditPrice) => ({
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  areaServed: ["US", "GB"],
-  description: SITE.description,
-  email: SITE.email,
-  founder: {
-    "@type": "Person",
-    name: ABOUT.heading,
-    sameAs: ABOUT.links.map((link) => link.href),
-  },
-  image: `${SITE.url}/opengraph-image`,
-  name: SITE.name,
-  sameAs: ABOUT.links.map((link) => link.href),
-  url: SITE.url,
-};
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      areaServed: ["US", "GB"],
+      description: withPrice(SITE.description, now),
+      email: SITE.email,
+      founder: {
+        "@type": "Person",
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: "King's College London",
+        },
+        name: ABOUT.heading,
+        sameAs: ABOUT.links.map((link) => link.href),
+      },
+      image: `${SITE.url}/opengraph-image`,
+      makesOffer: {
+        "@type": "Offer",
+        description: OFFER.intro,
+        name: OFFER.heading,
+        price: amount,
+        priceCurrency: "USD",
+      },
+      name: SITE.name,
+      sameAs: ABOUT.links.map((link) => link.href),
+      url: SITE.url,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.items.map((item) => ({
+        "@type": "Question",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: withPrice(item.answer, now),
+        },
+        name: item.question,
+      })),
+    },
+  ],
+});
 
 /** The page frame: one 1200px column with hairline sides from desktop up. */
 const FRAME = "mx-auto w-full max-w-[1200px] px-5 sm:px-10 lg:border-x";
@@ -585,7 +611,7 @@ export default async function Home() {
       <script
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from static constants, escaped as the Next.js guide shows.
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(jsonLd(price)).replace(/</g, "\\u003c"),
         }}
         type="application/ld+json"
       />

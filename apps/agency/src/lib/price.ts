@@ -1,5 +1,7 @@
 /** The audit price now, and the regular price it returns to after launch, if there is one. */
 export interface AuditPrice {
+  /** The price now in whole US dollars, for structured data. */
+  amount: number;
   now: string;
   regular: string | null;
 }
@@ -16,7 +18,9 @@ const toUsd = (value: string | undefined, fallback: string) => {
  * regular price disappears. Only show a regular price that will actually be charged.
  */
 export function getAuditPrice(): Promise<AuditPrice> {
+  const amount = Number(process.env.AUDIT_PRICE_USD ?? "999");
   return Promise.resolve({
+    amount: amount > 0 ? amount : 999,
     now: toUsd(process.env.AUDIT_PRICE_USD, "999") ?? "$999",
     regular: toUsd(process.env.AUDIT_REGULAR_PRICE_USD, "1500"),
   });

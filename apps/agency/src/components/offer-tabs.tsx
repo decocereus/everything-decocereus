@@ -60,7 +60,7 @@ export function OfferTabs({
             value={item.id}
           >
             <span className="flex items-baseline gap-4">
-              <span className="w-6 shrink-0 font-mono text-[12px] text-muted tabular-nums transition-colors duration-200 group-data-[active]:text-accent">
+              <span className="w-6 shrink-0 font-mono text-[12px] text-muted tabular-nums transition-colors duration-200 group-data-[active]:text-accent-ink">
                 {pad(index)}
               </span>
               <span className="font-medium text-[17px] text-ink-soft tracking-[-0.01em] transition-colors duration-200 group-hover:text-ink group-data-[active]:text-ink sm:text-lg">
