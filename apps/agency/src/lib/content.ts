@@ -10,12 +10,12 @@ export const CTA = "Book a 15-minute call";
 export const HERO = {
   /** The manual work the hero and the share image strike through. */
   chores: [
-    "Status updates",
-    "Weekly reports",
-    "Inbox triage",
-    "Data entry",
-    "Follow-ups",
-    "Handoffs",
+    "Qualifying leads",
+    "Drafting proposals",
+    "Chasing invoices",
+    "Updating the CRM",
+    "Support triage",
+    "Reconciling spreadsheets",
   ],
   choresLabel: "Off your plate",
   headline: "Get your time back.",
