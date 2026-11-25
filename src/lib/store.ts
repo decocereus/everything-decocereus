@@ -40,7 +40,9 @@ class R2Store implements ObjectStore {
   }
 
   async get(key: string) {
-    const res = await this.client.fetch(this.url(key), { cache: "no-store" });
+    // Without identity encoding R2 gzips JSON and returns a weak ETag, which
+    // If-Match rejects, so every conditional write would fail.
+    const res = await this.client.fetch(this.url(key), { cache: "no-store", headers: { "accept-encoding": "identity" } });
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(`R2 GET ${key} failed: ${res.status} ${await res.text()}`);
     return {
