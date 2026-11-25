@@ -199,6 +199,7 @@ function Problem() {
           {PROBLEM.intro}
         </p>
       </div>
+      <AutomateFigure className="mt-14" />
       <ol className="mt-14">
         {PROBLEM.items.map((item, index) => (
           <li
@@ -219,7 +220,6 @@ function Problem() {
           </li>
         ))}
       </ol>
-      <AutomateFigure className="mt-14" />
     </Section>
   );
 }
