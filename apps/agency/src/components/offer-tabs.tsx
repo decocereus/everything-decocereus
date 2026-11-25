@@ -67,16 +67,6 @@ export function OfferTabs({
                 {item.title}
               </span>
             </span>
-            <span
-              aria-hidden="true"
-              className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-[var(--ease-out-strong)] group-data-[active]:grid-rows-[1fr]"
-            >
-              <span className="overflow-hidden">
-                <span className="block max-w-[44ch] pt-2 pl-10 text-[15px] text-ink-soft leading-relaxed">
-                  {item.detail}
-                </span>
-              </span>
-            </span>
             {auto.enabled ? (
               <span
                 aria-hidden="true"

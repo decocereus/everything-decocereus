@@ -2,7 +2,7 @@
 export const SITE = {
   bookingUrl: "https://cal.com/decocereus/intro",
   description:
-    "We find the work that eats your week, then build the AI agents, automations, and internal tools that take it over. It starts with a fixed-price audit.",
+    "I find the work that eats your week, then build the AI agents, automations, and internal tools that take it over. It starts with a fixed-price audit.",
   email: "amartya@decocereus.com",
   name: "decocereus agents",
   title: "AI agents, automations, and internal tools",

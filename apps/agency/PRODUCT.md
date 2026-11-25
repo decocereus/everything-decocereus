@@ -12,7 +12,7 @@ Anyone with messy operational work worth fixing, most often founders and ops lea
 
 ## Product purpose
 
-We give companies their time back. The offer starts with a paid audit of how one team actually works, then builds only what will stick.
+I give people their time back. The offer starts with a paid audit of how one team actually works, then builds only what will stick.
 
 The offer, in order:
 
@@ -38,7 +38,8 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 ## Voice
 
 - US English, plain words, no hype. No "AI-native", "leverage", "transform" or "unlock".
-- Use "we" for the work. "I" belongs in About. The approved hero, process and FAQ copy also uses "I" where Amartya speaks directly, and that copy stays as written.
+- Write in the first person singular. Amartya does the work, so the page says "I" and "me", never "we" for the practice. "We" is fine only for the client and Amartya together ("We skip the audit").
+- Keep it short. One idea per line, and cut any sentence that repeats another section.
 - Short and specific. If a busy ops lead has to reread a line, rewrite it.
 
 ## Pricing rules
@@ -52,8 +53,9 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 - Hosted at agents.decocereus.com as `apps/agency` in the everything-decocereus monorepo (Next.js App Router, Vercel project `decocereus-agents`).
 - The brand name is temporary. It lives in one place, `SITE.name` in `src/lib/site.ts`, and the page, metadata and share images all read it.
 - All copy lives in `src/lib/content.ts` and `src/lib/site.ts`.
-- Nav: Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
+- Nav: Who it's for, Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
 - Contact appears only in the footer: amartya@decocereus.com and @decocereus on X.
+- Replies come the same day, and Amartya will sign an NDA before the call. After a build there are 30 days of support for small fixes, then an optional monthly retainer.
 - Calls run in UK hours and US Eastern hours. Delivery is remote. Do not say where the team is based.
 - Customer-facing messages go out only on wording the client approved. Standard messages are signed off once, and everything else waits for their OK.
 - Client data is never used to train AI models. Access stays at what the work needs.
@@ -73,7 +75,7 @@ These founder facts are real and verifiable. They come from `docs/about-amartya.
 - Built developer tools that have been downloaded 60,000+ times.
 - Studied Computer Science at King's College London.
 
-There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through. Samples of the deliverables and the automation figure use a made-up business and carry no outcome numbers, so they need no "illustrative" label.
+There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved, only the chores that get struck through. The four numbers under the hero come from Amartya's engineering work before this practice, so they sit under the label "My track record as an engineer" and are styled quieter than the headings. Never present them as client results. Samples of the deliverables and the automation figure use a made-up business and carry no outcome numbers, so they need no "illustrative" label.
 
 ## Product principles
 
