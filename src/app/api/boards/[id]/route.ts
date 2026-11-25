@@ -12,10 +12,14 @@ export async function GET(req: Request, { params }: Ctx) {
   if (!(await isAuthorized(req)) && !(await verifyRenderToken(rt, id))) return unauthorized();
   try {
     const { doc, etag } = await getBoard(id);
-    // The browser polls R2 directly with this URL, so watching a board costs
-    // no function invocations. Without R2 it falls back to the poll route.
-    const presigned = await getStore().presign(boardKey(id), "GET", POLL_URL_TTL);
-    return Response.json({ doc, etag, pollUrl: presigned ?? `/api/boards/${id}/poll`, pollExpiresAt: Date.now() + POLL_URL_TTL * 1000 });
+    // The browser watches the board by sending HEAD requests straight to R2
+    // and GETs the board only when the ETag changes, so watching costs no
+    // function invocations. (Conditional GETs don't work: R2 leaves CORS
+    // headers off 304 responses.) Without R2 it falls back to the poll route.
+    const store = getStore();
+    const [headUrl, getUrl] = await Promise.all([store.presign(boardKey(id), "HEAD", POLL_URL_TTL), store.presign(boardKey(id), "GET", POLL_URL_TTL)]);
+    const fallback = `/api/boards/${id}/poll`;
+    return Response.json({ doc, etag, headUrl: headUrl ?? fallback, getUrl: getUrl ?? fallback, pollExpiresAt: Date.now() + POLL_URL_TTL * 1000 });
   } catch (e) {
     if (e instanceof NotFoundError) return Response.json({ error: e.message }, { status: 404 });
     throw e;

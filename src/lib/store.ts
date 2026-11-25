@@ -20,7 +20,7 @@ export interface ObjectStore {
   delete(key: string): Promise<void>;
   list(prefix: string): Promise<{ key: string; lastModified: string }[]>;
   /** A short-lived URL the browser can GET or PUT directly, or null if unsupported. */
-  presign(key: string, method: "GET" | "PUT", expiresSeconds: number): Promise<string | null>;
+  presign(key: string, method: "GET" | "HEAD" | "PUT", expiresSeconds: number): Promise<string | null>;
 }
 
 const enc = new TextEncoder();
@@ -58,11 +58,11 @@ class R2Store implements ObjectStore {
     };
     if (opts.ifMatch) headers["if-match"] = opts.ifMatch;
     if (opts.ifNoneMatch) headers["if-none-match"] = "*";
-    const res = await this.client.fetch(this.url(key), {
-      method: "PUT",
-      headers,
-      body: toBytes(body) as BodyInit,
-    });
+    const bytes = toBytes(body);
+    // Sign, then send the raw bytes ourselves: a signed Request carries its
+    // body as a stream, which goes out without Content-Length, and R2 rejects that.
+    const signed = await this.client.sign(this.url(key), { method: "PUT", headers, body: bytes as BodyInit });
+    const res = await fetch(signed.url, { method: "PUT", headers: signed.headers, body: bytes as BodyInit });
     if (res.status === 412) return null;
     if (!res.ok) throw new Error(`R2 PUT ${key} failed: ${res.status} ${await res.text()}`);
     return res.headers.get("etag") ?? "";
@@ -92,7 +92,7 @@ class R2Store implements ObjectStore {
     return out;
   }
 
-  async presign(key: string, method: "GET" | "PUT", expiresSeconds: number) {
+  async presign(key: string, method: "GET" | "HEAD" | "PUT", expiresSeconds: number) {
     const signed = await this.client.sign(
       new Request(`${this.url(key)}?X-Amz-Expires=${expiresSeconds}`, { method }),
       { aws: { signQuery: true } },

@@ -8,6 +8,10 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   const { id } = await params;
   const obj = await getStore().get(boardKey(id));
   if (!obj) return new Response(null, { status: 404 });
-  if (req.headers.get("if-none-match") === obj.etag) return new Response(null, { status: 304, headers: { etag: obj.etag } });
   return new Response(obj.body as BodyInit, { headers: { "content-type": "application/json", etag: obj.etag, "cache-control": "no-store" } });
+}
+
+export async function HEAD(req: Request, ctx: { params: Promise<{ id: string }> }) {
+  const res = await GET(req, ctx);
+  return new Response(null, { status: res.status, headers: res.headers });
 }

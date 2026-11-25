@@ -9,6 +9,9 @@ import { registerPageTools } from "./webmcp";
 type SyncState = "saved" | "saving" | "offline";
 
 const FLUSH_DELAY_MS = 300;
+
+// R2 marks ETags weak (W/) when it compresses the response; the hash is the same.
+const sameEtag = (a: string | null, b: string) => (a ? a.replace(/^W\//, "") === b.replace(/^W\//, "") : null);
 const POLL_MS = 1500;
 const HIDDEN_POLL_MS = 15000;
 
@@ -24,7 +27,8 @@ export default function Editor({ boardId }: { boardId: string }) {
     synced: new Map<string, number>(),
     uploaded: new Set<string>(),
     etag: "",
-    pollUrl: "",
+    headUrl: "",
+    getUrl: "",
     pollExpiresAt: 0,
     flushTimer: 0 as unknown as ReturnType<typeof setTimeout>,
     flushing: false,
@@ -44,7 +48,8 @@ export default function Editor({ boardId }: { boardId: string }) {
     }
     if (!res.ok) throw new Error(res.status === 404 ? "This board doesn't exist." : `Couldn't load the board (${res.status}).`);
     const data = await res.json();
-    s.current.pollUrl = data.pollUrl;
+    s.current.headUrl = data.headUrl;
+    s.current.getUrl = data.getUrl;
     s.current.pollExpiresAt = data.pollExpiresAt;
     return data as { doc: any; etag: string };
   }, [boardId]);
@@ -137,8 +142,8 @@ export default function Editor({ boardId }: { boardId: string }) {
     s.current.flushTimer = setTimeout(() => flush(), FLUSH_DELAY_MS);
   }, [flush]);
 
-  // Poll for changes made by agents. In production this hits R2 directly
-  // with a presigned URL and a conditional GET, so idle polls are 304s.
+  // Poll for changes made by agents. In production this sends HEAD requests
+  // straight to R2 with presigned URLs and fetches the board only when its ETag changes.
   useEffect(() => {
     if (!api) return;
     let stopped = false;
@@ -150,16 +155,16 @@ export default function Editor({ boardId }: { boardId: string }) {
           s.current.etag = etag;
           applyRemote(doc);
         } else {
-          const res = await fetch(s.current.pollUrl, {
-            headers: s.current.etag ? { "if-none-match": s.current.etag } : {},
-            cache: "no-store",
-            credentials: s.current.pollUrl.startsWith("/") ? "same-origin" : "omit",
-          });
-          if (res.status === 200) {
-            s.current.etag = res.headers.get("etag") ?? "";
-            applyRemote(await res.json());
-          } else if (res.status === 403 || res.status === 401) {
+          const credentials = s.current.headUrl.startsWith("/") ? "same-origin" : "omit";
+          const head = await fetch(s.current.headUrl, { method: "HEAD", cache: "no-store", credentials });
+          if (head.status === 403 || head.status === 401) {
             s.current.pollExpiresAt = 0;
+          } else if (head.ok && sameEtag(head.headers.get("etag"), s.current.etag) === false) {
+            const res = await fetch(s.current.getUrl, { cache: "no-store", credentials });
+            if (res.ok) {
+              s.current.etag = res.headers.get("etag") ?? "";
+              applyRemote(await res.json());
+            }
           }
         }
         setStatus((prev) => (prev === "offline" ? "saved" : prev));
