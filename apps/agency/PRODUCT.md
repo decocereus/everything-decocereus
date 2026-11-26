@@ -12,13 +12,13 @@ Anyone with messy operational work worth fixing, most often founders and ops lea
 
 ## Product purpose
 
-We give companies their time back. The offer starts with a paid audit of how one team actually works, then builds only what will stick.
+I give people their time back. The offer starts with a paid audit of how one team actually works, then builds only what will stick.
 
 The offer, in order:
 
 1. **Intro call.** Free, 15 minutes. If the visitor already knows exactly what to build, we skip the audit and quote the build.
 2. **AI Opportunity Audit (the main path).** 7-10 days from kickoff to walkthrough, and about 4-6 hours of the client team's time. It includes a kickoff and 3-5 short calls with the people who do the work (never "interviews"), a workflow map, ranked opportunities labeled Adopt, Automate or Build (including what to skip), cost, timeline and payback estimates for the top three, a live test of the top opportunity on real examples, a 90-day plan, a written report and a recorded 45-60 minute walkthrough.
-   - Price: one fixed price, shown with a $ sign. It comes from `getAuditPrice()` in `src/lib/price.ts` (the `AUDIT_PRICE_USD` env var for now), never from copy. Don't mention a launch discount or a "first two teams" price.
+   - Price: one fixed price, shown with a $ sign. It comes from `getAuditPrice()` in `src/lib/price.ts` (the `AUDIT_PRICE_USD` env var for now), never from copy. During launch the price panel also shows the regular price struck through (`AUDIT_REGULAR_PRICE_USD`, $1,500). Only show a regular price that will actually be charged after launch, and set it to 0 when launch ends. Don't use a "first two teams" price.
    - The fee is credited in full toward a build started within 60 days.
    - If the audit finds nothing worth more than its fee, the fee is refunded. The report is the client's either way.
 3. **Build.** Usually 2-4 weeks. The first workflow, built in the tools the client already uses. Fixed price, quoted after the audit.
@@ -38,7 +38,8 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 ## Voice
 
 - US English, plain words, no hype. No "AI-native", "leverage", "transform" or "unlock".
-- Use "we" for the work. "I" belongs in About. The approved hero, process and FAQ copy also uses "I" where Amartya speaks directly, and that copy stays as written.
+- Write in the first person singular. Amartya does the work, so the page says "I" and "me", never "we" for the practice. "We" is fine only for the client and Amartya together ("We skip the audit").
+- Keep it short. One idea per line, and cut any sentence that repeats another section.
 - Short and specific. If a busy ops lead has to reread a line, rewrite it.
 
 ## Pricing rules
@@ -52,8 +53,11 @@ Success for the site is a booked 15-minute call at https://cal.com/decocereus/in
 - Hosted at agents.decocereus.com as `apps/agency` in the everything-decocereus monorepo (Next.js App Router, Vercel project `decocereus-agents`).
 - The brand name is temporary. It lives in one place, `SITE.name` in `src/lib/site.ts`, and the page, metadata and share images all read it.
 - All copy lives in `src/lib/content.ts` and `src/lib/site.ts`.
-- Nav: Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
+- Search: the title names the offer ("Fixed-price AI audit and automation builds"), and the description carries the price and the refund in under 155 characters. JSON-LD lists the audit as an Offer with its price, the founder's degree, and the FAQ. `GOOGLE_SITE_VERIFICATION` adds the Search Console tag when set.
+- Analytics: PostHog from Amartya's personal account, never a work account. It loads only when `NEXT_PUBLIC_POSTHOG_KEY` is set (`NEXT_PUBLIC_POSTHOG_REGION` is `us` or `eu`), goes through `/ingest` on the site's own domain, and keeps everything in memory, so there are no cookies and no consent banner.
+- Nav: Who it's for, Offer, Process, About, FAQ. Every button reads "Book a 15-minute call" and books the intro call.
 - Contact appears only in the footer: amartya@decocereus.com and @decocereus on X.
+- Replies come the same day, and Amartya will sign an NDA before the call. After a build there are 30 days of support for small fixes, then an optional monthly retainer.
 - Calls run in UK hours and US Eastern hours. Delivery is remote. Do not say where the team is based.
 - Customer-facing messages go out only on wording the client approved. Standard messages are signed off once, and everything else waits for their OK.
 - Client data is never used to train AI models. Access stays at what the work needs.
@@ -73,7 +77,7 @@ These founder facts are real and verifiable. They come from `docs/about-amartya.
 - Built developer tools that have been downloaded 60,000+ times.
 - Studied Computer Science at King's College London.
 
-There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved or other numbers, only the chores that get struck through. Samples of the deliverables and the automation figure are labeled illustrative.
+There are no agency clients, case studies, testimonials, logos or results yet. Never invent any. Until there is a published client result, the audit's live test on the client's own examples stands in for proof, and the site says so. The hero shows no hours saved, only the chores that get struck through. The four numbers under the hero come from Amartya's engineering work before this practice, so they sit under the label "My track record as an engineer" and are styled quieter than the headings. Never present them as client results. Samples of the deliverables and the automation figure use a made-up business and carry no outcome numbers, so they need no "illustrative" label.
 
 ## Product principles
 

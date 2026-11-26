@@ -4,43 +4,71 @@ import { AutomateFigure } from "@/components/figures/automate/figure.tsx";
 import { ClockFigure } from "@/components/figures/clock/figure.tsx";
 import { OFFER_PREVIEWS } from "@/components/offer-previews.tsx";
 import { OfferTabs } from "@/components/offer-tabs.tsx";
-import { ProcessTrack } from "@/components/process-track.tsx";
 import {
   ABOUT,
   CLOSE,
   CTA,
   FAQ,
+  FIT,
   HERO,
   NAV,
   OFFER,
   PROBLEM,
   PROCESS,
+  TRACK_RECORD,
 } from "@/lib/content.ts";
-import { getAuditPrice, withPrice } from "@/lib/price.ts";
+import { type AuditPrice, getAuditPrice, withPrice } from "@/lib/price.ts";
 import { SITE } from "@/lib/site.ts";
 
-const JSON_LD = {
+const jsonLd = ({ amount, now }: AuditPrice) => ({
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  areaServed: ["US", "GB"],
-  description: SITE.description,
-  email: SITE.email,
-  founder: {
-    "@type": "Person",
-    name: ABOUT.heading,
-    sameAs: ABOUT.links.map((link) => link.href),
-  },
-  image: `${SITE.url}/opengraph-image`,
-  name: SITE.name,
-  sameAs: ABOUT.links.map((link) => link.href),
-  url: SITE.url,
-};
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      areaServed: ["US", "GB"],
+      description: withPrice(SITE.description, now),
+      email: SITE.email,
+      founder: {
+        "@type": "Person",
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: "King's College London",
+        },
+        name: ABOUT.heading,
+        sameAs: ABOUT.links.map((link) => link.href),
+      },
+      image: `${SITE.url}/opengraph-image`,
+      makesOffer: {
+        "@type": "Offer",
+        description: OFFER.intro,
+        name: OFFER.heading,
+        price: amount,
+        priceCurrency: "USD",
+      },
+      name: SITE.name,
+      sameAs: ABOUT.links.map((link) => link.href),
+      url: SITE.url,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.items.map((item) => ({
+        "@type": "Question",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: withPrice(item.answer, now),
+        },
+        name: item.question,
+      })),
+    },
+  ],
+});
 
 /** The page frame: one 1200px column with hairline sides from desktop up. */
 const FRAME = "mx-auto w-full max-w-[1200px] px-5 sm:px-10 lg:border-x";
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
 const HYPHENATED = /(\S+-\S+)/;
+const SENTENCE = /(?<=\.) /;
 
 /** Stops a display line from breaking at the hyphen in "15-minute". */
 const keepTogether = (text: string) =>
@@ -138,7 +166,7 @@ function Hero() {
   return (
     <section>
       <div
-        className={`${FRAME} grid gap-6 border-rule pt-14 pb-10 sm:gap-10 sm:pt-24 sm:pb-24 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-28`}
+        className={`${FRAME} grid gap-6 border-rule pt-14 pb-12 sm:gap-10 sm:pt-24 sm:pb-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-20`}
       >
         <div className="lg:col-span-6">
           <h1 className="font-medium text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.98] tracking-[-0.045em]">
@@ -187,49 +215,138 @@ function Hero() {
   );
 }
 
+/** Numbers from past engineering work, kept quieter than the headings around them. */
+function TrackRecord() {
+  return (
+    <section aria-labelledby="track-record">
+      <div className={`${FRAME} border-rule pb-16 sm:pb-24`}>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-rule border-t pt-5 pb-2 lg:pb-0">
+          <h2
+            className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]"
+            id="track-record"
+          >
+            {TRACK_RECORD.label}
+          </h2>
+          <a
+            className="text-[14px] text-ink-soft underline decoration-ink/30 underline-offset-4 transition-[color,text-decoration-color] duration-150 hover:text-ink hover:decoration-ink"
+            href="#about"
+          >
+            {TRACK_RECORD.link} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <dl className="grid grid-cols-2 border-rule border-b lg:grid-cols-4">
+          {TRACK_RECORD.stats.map((stat, index) => (
+            <div
+              className={`flex flex-col-reverse justify-end border-rule py-5 pr-4 sm:py-6 lg:pr-6 ${index % 2 ? "border-l pl-4 sm:pl-6" : ""} ${index < 2 ? "border-b lg:border-b-0" : ""} ${index ? "lg:border-l lg:pl-6" : ""}`}
+              key={stat.value}
+            >
+              <dt className="mt-1.5 max-w-[28ch] text-pretty text-[14px] text-muted leading-snug">
+                {stat.label}
+              </dt>
+              <dd className="font-medium text-[clamp(1.5rem,2.6vw,1.875rem)] text-ink-soft tabular-nums leading-none tracking-[-0.03em]">
+                {stat.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
 function Problem() {
   return (
     <Section id="problem">
-      <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-5">
-          <Label index={0}>{PROBLEM.label}</Label>
-          <Heading>{PROBLEM.heading}</Heading>
-        </div>
-        <p className="max-w-[36ch] text-ink-soft text-lg leading-relaxed lg:col-span-6 lg:col-start-7 lg:self-end lg:text-xl">
-          {PROBLEM.intro}
-        </p>
-      </div>
-      <ol className="mt-14">
-        {PROBLEM.items.map((item, index) => (
-          <li
-            className="reveal group grid gap-3 border-rule border-t py-8 sm:py-10 lg:grid-cols-12 lg:gap-10"
-            key={item.title}
-          >
-            <div className="flex gap-5 sm:gap-8 lg:col-span-7">
-              <span className="pt-[0.6em] font-mono text-[12px] text-muted tabular-nums transition-colors duration-200 group-hover:text-accent">
-                {pad(index)}
-              </span>
-              <h3 className="max-w-[22ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.12] tracking-[-0.03em]">
-                {item.title}
-              </h3>
-            </div>
-            <p className="max-w-[46ch] pl-[2.6rem] text-[17px] text-ink-soft leading-relaxed sm:pl-[3.35rem] lg:col-span-5 lg:pt-1.5 lg:pl-0">
-              {item.detail}
-            </p>
-          </li>
+      <Label index={0}>{PROBLEM.label}</Label>
+      <Heading className="text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.02]">
+        {PROBLEM.heading.split(SENTENCE).map((line) => (
+          <span className="block" key={line}>
+            {line}
+          </span>
         ))}
-      </ol>
-      <AutomateFigure className="mt-14" />
+      </Heading>
+      <p className="mt-6 max-w-[40ch] text-ink-soft text-lg leading-relaxed lg:text-xl">
+        {PROBLEM.intro}
+      </p>
+      <AutomateFigure className="mt-14 sm:mt-20" />
     </Section>
   );
 }
 
-function Offer({ price }: Readonly<{ price: string }>) {
+function Mark({ fit }: Readonly<{ fit: boolean }>) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={`mt-[0.3em] size-4 ${fit ? "text-accent" : "text-muted"}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={fit ? 2 : 1.75}
+      viewBox="0 0 16 16"
+    >
+      <path d={fit ? "M3 8.5l3 3 7-7" : "M4 4l8 8M12 4l-8 8"} />
+    </svg>
+  );
+}
+
+function FitList({
+  fit,
+  items,
+  label,
+}: Readonly<{ fit: boolean; items: readonly string[]; label: string }>) {
+  return (
+    <div>
+      <h3 className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+        {label}
+      </h3>
+      <ul className="mt-3">
+        {items.map((item) => (
+          <li
+            className={`grid grid-cols-[1.5rem_1fr] gap-2 border-rule border-t py-3.5 text-[17px] leading-relaxed sm:text-lg ${fit ? "" : "text-ink-soft"}`}
+            key={item}
+          >
+            <Mark fit={fit} />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Fit() {
+  return (
+    <Section id="who">
+      <Label index={1}>{FIT.label}</Label>
+      <Heading className="max-w-[24ch]">{FIT.heading}</Heading>
+      <ul className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-10">
+        {FIT.audiences.map((audience, index) => (
+          <li
+            className={`reveal border-t-2 pt-4 ${index ? "border-ink" : "border-accent"}`}
+            key={audience.title}
+          >
+            <h3 className="font-medium text-[clamp(1.25rem,2.2vw,1.5rem)] tracking-[-0.02em]">
+              {audience.title}
+            </h3>
+            <p className="mt-2 text-[17px] text-ink-soft leading-snug">
+              {audience.chores}
+            </p>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-16 grid gap-10 sm:mt-20 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
+        <FitList fit items={FIT.good} label={FIT.goodLabel} />
+        <FitList fit={false} items={FIT.notGood} label={FIT.notGoodLabel} />
+      </div>
+    </Section>
+  );
+}
+
+function Offer({ price }: Readonly<{ price: AuditPrice }>) {
   return (
     <Section id="offer">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="flex flex-col lg:col-span-7">
-          <Label index={1}>{OFFER.label}</Label>
+          <Label index={2}>{OFFER.label}</Label>
           <Heading>{OFFER.heading}</Heading>
           <p className="mt-6 max-w-[50ch] text-ink-soft text-lg leading-relaxed lg:text-xl">
             {OFFER.intro}
@@ -260,10 +377,21 @@ function Offer({ price }: Readonly<{ price: string }>) {
         >
           <div className="flex h-full flex-col rounded-xl bg-ink p-6 text-paper sm:p-8">
             <p className="font-mono text-[12px] text-paper/60 uppercase tracking-[0.08em]">
-              {OFFER.price.label}
+              {price.regular ? OFFER.price.launchLabel : OFFER.price.label}
             </p>
-            <p className="mt-3 font-medium text-[clamp(3rem,6vw,4.25rem)] tabular-nums leading-none tracking-[-0.045em]">
-              {price}
+            <p className="mt-3 flex items-baseline gap-4 font-medium tabular-nums leading-none tracking-[-0.045em]">
+              {price.regular ? (
+                <s className="text-[clamp(1.75rem,3.5vw,2.25rem)] text-paper/45 decoration-2 decoration-accent">
+                  <span className="sr-only">Regular price </span>
+                  {price.regular}
+                </s>
+              ) : null}
+              <span className="text-[clamp(3rem,6vw,4.25rem)]">
+                {price.regular ? (
+                  <span className="sr-only">Launch price </span>
+                ) : null}
+                {price.now}
+              </span>
             </p>
             <ul className="mt-7 mb-8 space-y-3 text-[15px] text-paper/75 leading-relaxed">
               {OFFER.price.terms.map((term) => (
@@ -283,6 +411,9 @@ function Offer({ price }: Readonly<{ price: string }>) {
               ))}
             </ul>
             <BookLink className="mt-8 w-full lg:mt-auto" tone="paper" />
+            <p className="mt-3 text-center text-[13px] text-paper/60">
+              {OFFER.price.capacity}
+            </p>
           </div>
         </aside>
       </div>
@@ -295,15 +426,57 @@ function Offer({ price }: Readonly<{ price: string }>) {
   );
 }
 
-function Process() {
+/** Each step's rail runs from its dot to the next, so the line joins the first dot to the last. */
+const DOT_CENTER = "41px";
+
+function Process({ price }: Readonly<{ price: string }>) {
+  const last = PROCESS.steps.length - 1;
   return (
     <Section id="process">
-      <Label index={2}>{PROCESS.label}</Label>
-      <Heading>{PROCESS.heading}</Heading>
-      <ProcessTrack />
+      <Label index={3}>{PROCESS.label}</Label>
+      <Heading className="max-w-[20ch]">{PROCESS.heading}</Heading>
+      <ol className="mt-10 sm:mt-14">
+        {PROCESS.steps.map((step, index) => (
+          <li
+            className="reveal relative grid grid-cols-[1.75rem_1fr] gap-x-3 gap-y-5 border-rule border-b py-8 last:border-b-0 sm:grid-cols-[2.5rem_1fr] sm:gap-x-6 lg:grid-cols-[2.5rem_1fr_18rem]"
+            key={step.name}
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute left-[6px] w-px ${index ? "bg-rule" : "bg-accent"}`}
+              style={{
+                bottom: index === last ? undefined : 0,
+                height: index === last ? DOT_CENTER : undefined,
+                top: index ? 0 : DOT_CENTER,
+              }}
+            />
+            <span
+              aria-hidden="true"
+              className={`relative mt-[3px] size-[13px] rounded-full border-[1.5px] ${index ? "border-ink/35 bg-paper" : "border-accent bg-accent"}`}
+            />
+            <div>
+              <p className="font-mono text-[12px] text-muted uppercase tabular-nums tracking-[0.08em]">
+                {pad(index)} · {withPrice(step.meta, price)}
+              </p>
+              <h3 className="mt-2 max-w-[44ch] text-balance font-medium text-[clamp(1.375rem,2.6vw,1.625rem)] leading-[1.25] tracking-[-0.025em]">
+                {step.name}:{" "}
+                <span className="text-ink-soft">{step.promise}</span>
+              </h3>
+            </div>
+            <p
+              className={`col-start-2 self-start border-l-2 pl-3.5 text-[15px] leading-normal lg:col-start-3 ${index ? "border-rule" : "border-accent"}`}
+            >
+              <span className="mb-1.5 block font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
+                {PROCESS.leaveLabel}
+              </span>
+              {step.leave}
+            </p>
+          </li>
+        ))}
+      </ol>
       <div className="reveal mt-16 grid gap-6 rounded-xl bg-ink/[0.035] p-6 sm:p-10 lg:grid-cols-12 lg:items-end lg:gap-10">
         <p className="max-w-[30ch] font-medium text-[clamp(1.5rem,3vw,2.125rem)] leading-[1.15] tracking-[-0.03em] lg:col-span-8">
-          {PROCESS.more.lead}
+          {keepTogether(PROCESS.more.lead)}
         </p>
         <p className="max-w-[34ch] text-ink-soft text-lg leading-relaxed lg:col-span-4">
           {PROCESS.more.body}
@@ -318,7 +491,7 @@ function About() {
     <Section id="about">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Label index={3}>{ABOUT.label}</Label>
+          <Label index={4}>{ABOUT.label}</Label>
           <Heading>{ABOUT.heading}</Heading>
           <p className="mt-6 text-[15px] text-ink-soft">{ABOUT.studied}</p>
         </div>
@@ -358,23 +531,6 @@ function About() {
         </div>
       </div>
 
-      <dl className="mt-16 grid grid-cols-2 border-rule border-t lg:grid-cols-4">
-        {ABOUT.stats.map((stat, index) => (
-          <div
-            className={`reveal border-rule border-b py-8 pr-4 lg:border-b-0 lg:px-8 lg:first:pl-0 ${index % 2 ? "border-l pl-4 sm:pl-6" : ""} ${index ? "lg:border-l" : ""}`}
-            key={stat.value}
-          >
-            <dt className="sr-only">{stat.label}</dt>
-            <dd className="font-medium text-[clamp(2.25rem,5vw,3.5rem)] tabular-nums leading-none tracking-[-0.045em]">
-              {stat.value}
-            </dd>
-            <dd className="mt-4 max-w-[26ch] text-[15px] text-ink-soft leading-snug">
-              {stat.label}
-            </dd>
-          </div>
-        ))}
-      </dl>
-
       <div className="mt-16">
         <h3 className="font-mono text-[12px] text-muted uppercase tracking-[0.08em]">
           {ABOUT.rulesLabel}
@@ -399,9 +555,6 @@ function About() {
             </li>
           ))}
         </ul>
-        <p className="mt-6 max-w-[60ch] text-[15px] text-ink-soft leading-relaxed">
-          {ABOUT.note}
-        </p>
       </div>
     </Section>
   );
@@ -412,7 +565,7 @@ function Faq({ price }: Readonly<{ price: string }>) {
     <Section id="faq">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:sticky lg:top-24 lg:col-span-4 lg:self-start">
-          <Label index={4}>{FAQ.label}</Label>
+          <Label index={5}>{FAQ.label}</Label>
           <Heading>{FAQ.heading}</Heading>
           <div className="mt-8 hidden flex-col items-start gap-4 lg:flex">
             <BookLink />
@@ -458,7 +611,7 @@ export default async function Home() {
       <script
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD from static constants, escaped as the Next.js guide shows.
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(jsonLd(price)).replace(/</g, "\\u003c"),
         }}
         type="application/ld+json"
       />
@@ -497,16 +650,18 @@ export default async function Home() {
 
       <main>
         <Hero />
+        <TrackRecord />
         <Problem />
+        <Fit />
         <Offer price={price} />
-        <Process />
+        <Process price={price.now} />
         <About />
-        <Faq price={price} />
+        <Faq price={price.now} />
 
         <section className="bg-ink text-paper" id="book">
           <div className={`${FRAME} border-paper/10 py-24 sm:py-32`}>
             <div>
-              <Label index={5} tone="paper">
+              <Label index={6} tone="paper">
                 Next step
               </Label>
               <h2 className="mt-5 max-w-[16ch] font-medium text-[clamp(2.5rem,7vw,5.25rem)] leading-[1] tracking-[-0.045em]">

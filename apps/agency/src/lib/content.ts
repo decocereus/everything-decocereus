@@ -1,4 +1,5 @@
 export const NAV = [
+  { href: "#who", label: "Who it's for" },
   { href: "#offer", label: "Offer" },
   { href: "#process", label: "Process" },
   { href: "#about", label: "About" },
@@ -10,42 +11,68 @@ export const CTA = "Book a 15-minute call";
 export const HERO = {
   /** The manual work the hero and the share image strike through. */
   chores: [
-    "Status updates",
-    "Weekly reports",
-    "Inbox triage",
-    "Data entry",
-    "Follow-ups",
-    "Handoffs",
+    "Qualifying leads",
+    "Drafting proposals",
+    "Chasing invoices",
+    "Updating the CRM",
+    "Support triage",
+    "Reconciling spreadsheets",
   ],
   choresLabel: "Off your plate",
   headline: "Get your time back.",
-  lead: "We find the work that eats your week, then build the AI agents, automations, and internal tools that take it over.",
+  lead: "I find the work that eats your week and build the AI that takes it over. You get a working system, not a deck.",
   promise:
-    "Fixed-price audit. If it doesn't find more than it costs, you get the fee back.",
+    "Fixed-price audit. If it finds nothing worth more than its fee, you get the fee back.",
   secondary: "See the offer",
 } as const;
 
 export const PROBLEM = {
-  heading: "Where the time goes",
-  intro: "The work is usually clear. The bottleneck is not.",
-  items: [
+  heading: "Everyone has tried AI. Few got their time back.",
+  intro:
+    "The work is usually clear. Where AI fits, and how to make it stick, is not.",
+  label: "Problem",
+} as const;
+
+/** Numbers from Amartya's engineering work before this practice, shown under the hero. */
+export const TRACK_RECORD = {
+  label: "My track record as an engineer",
+  link: "More about me",
+  stats: [
     {
-      detail:
-        "Status updates, handoffs, reports, and follow-ups still move through inboxes and spreadsheets, and the same hours disappear every week.",
-      title: "Manual work that should already be a system.",
+      label: "Airlines on an airport app I worked on at Amadeus",
+      value: "20+",
+    },
+    { label: "In transactions through systems I built", value: "$2.3M+" },
+    { label: "Failure rate on those systems, down from 19%", value: "3%" },
+    { label: "Downloads of developer tools I built", value: "60,000+" },
+  ],
+} as const;
+
+export const FIT = {
+  audiences: [
+    { chores: "Proposals, invoices, follow-ups", title: "Solo founders" },
+    {
+      chores: "Client reports, status updates, onboarding",
+      title: "Agencies",
     },
     {
-      detail:
-        "The team has tried Claude or a few automations, but there is no ranked view of which work is worth changing, and which to leave alone.",
-      title: "No clear picture of where AI fits.",
-    },
-    {
-      detail:
-        "The model is fine. It just never sees the real policies, past decisions, or examples, so people stop trusting it and go back to doing the work themselves.",
-      title: "Tools that don't work in practice.",
+      chores: "Handoffs, weekly reports, support triage",
+      title: "Small teams",
     },
   ],
-  label: "Problem",
+  good: [
+    "The same tasks eat hours every week: chasing, copying, drafting, updating.",
+    "You've tried AI on your own, and it hasn't stuck.",
+    "You'd rather have one thing working than a plan for ten.",
+  ],
+  goodLabel: "Works well when",
+  heading: "If you do it by hand every week, it's worth a look.",
+  label: "Who it's for",
+  notGood: [
+    "You want a chatbot because everyone has one.",
+    "You want a strategy deck, not a working system.",
+  ],
+  notGoodLabel: "Not a fit when",
 } as const;
 
 export const OFFER = {
@@ -64,7 +91,7 @@ export const OFFER = {
     },
     {
       detail:
-        "Every opportunity labeled Adopt, Automate, or Build, ranked by what it gives back. It also says what to skip.",
+        "Every opportunity labeled Adopt, Automate, or Build, ranked by what it gives back, plus the work that only looks automatable and isn't worth it.",
       id: "ranked",
       title: "A ranked list",
     },
@@ -90,18 +117,18 @@ export const OFFER = {
   deliverablesHeading: "What you get",
   heading: "AI Opportunity Audit",
   intro:
-    "A fixed-price look at how one team actually works, with a live test on your real examples. You leave with a written plan you own, whether or not we build anything together.",
+    "A fixed-price look at how your work runs. You leave with a ranked plan and a test on your own examples.",
   label: "Offer",
   price: {
+    capacity: "I take one audit at a time.",
     label: "Fixed price",
+    launchLabel: "Fixed launch price",
     terms: [
-      "The audit fee is credited in full toward a build started within 60 days.",
+      "Start a build within 60 days and the full audit fee comes off its price.",
       "If the audit doesn't find anything worth more than its fee, you get the fee back.",
-      "The report is yours either way.",
+      "The report is yours. Build with me, hand it to someone else, or shelve it.",
     ],
   },
-  /** Labels the made-up previews of each deliverable. */
-  sample: "Sample, illustrative",
   specs: [
     { detail: "Kickoff to walkthrough", label: "Timeline", value: "7-10 days" },
     {
@@ -112,37 +139,39 @@ export const OFFER = {
   ],
 } as const;
 
+/** `{price}` is filled with the audit price from `getAuditPrice()`. */
 export const PROCESS = {
-  heading: "How it works",
+  heading: "Four steps. The call is free, and you decide after each one.",
   label: "Process",
+  leaveLabel: "You leave with",
   more: {
-    body: "Those are quoted separately. The usual starting point is the audit.",
-    lead: "I also build internal tools, and I fix vibe-coded software that needs to be stable enough to run in production.",
+    body: "Those are quoted separately. Not sure which you need? Start with the call.",
+    lead: "I also build internal tools, and I make vibe-coded apps stable enough for production.",
   },
   steps: [
     {
-      detail:
-        "Tell me how the work runs. I'll tell you honestly whether an audit is the right next step. If you already know exactly what to build, we skip the audit and I'll quote the build.",
-      length: "Free, 15 minutes",
-      title: "Intro call",
+      leave: "A straight answer on whether an audit is worth it",
+      meta: "15 min · free",
+      name: "Talk",
+      promise: "Tell me how the work runs and where the hours go.",
     },
     {
-      detail:
-        "Calls with your team, a map of the work, a ranked list, and a live test on your real examples. You keep the report.",
-      length: "7-10 days",
-      title: "Audit",
+      leave: "A report you keep and a tested first step",
+      meta: "7-10 days · {price} fixed",
+      name: "Audit",
+      promise: "I map the work and test the best fix on your examples.",
     },
     {
-      detail:
-        "I build the first workflow in the tools you already use, test it with the people who do the work, and hand it over. Fixed price, quoted after the audit.",
-      length: "Usually 2-4 weeks",
-      title: "Build",
+      leave: "A working system you own, plus 30 days of support",
+      meta: "2-4 weeks · fixed quote",
+      name: "Build",
+      promise: "The first workflow, in the tools you already use.",
     },
     {
-      detail:
-        "I keep the system running, make small improvements, and take on the next workflow. Quoted after the build.",
-      length: "Monthly",
-      title: "Retainer",
+      leave: "Time back, every week after",
+      meta: "Monthly · quoted after the build",
+      name: "Run",
+      promise: "I keep it running and build the next one.",
     },
   ],
 } as const;
@@ -150,7 +179,7 @@ export const PROCESS = {
 export const ABOUT = {
   heading: "Amartya Singh",
   intro:
-    "I'll be on the call, and I'm the one who does the work. There is no hand-off to a salesperson.",
+    "You talk to the person who does the work. No salespeople, no hand-offs.",
   label: "About",
   links: [
     { href: "https://github.com/decocereus", label: "GitHub" },
@@ -159,24 +188,13 @@ export const ABOUT = {
     { href: "https://www.decocereus.com", label: "decocereus.com" },
   ],
   linksLabel: "Check my work",
-  note: "Until there is a published client result, the audit includes a live test on your examples so you can judge the work yourself.",
   rules: [
-    "You talk to the person who does the work.",
-    "Your data is never used to train AI models.",
-    "You own everything I build: the accounts, the setup, and the data.",
+    "Only the access the work needs.",
+    "Your data never trains AI models.",
+    "You own everything I build.",
     "Nothing messages your customers without your OK.",
   ],
   rulesLabel: "Ground rules",
-  stats: [
-    {
-      label:
-        "Airlines on the airport-operations app I worked on as an engineer at Amadeus in London",
-      value: "20+",
-    },
-    { label: "In transactions through systems I built", value: "$2.3M+" },
-    { label: "Failure rate on those systems, down from 19%", value: "3%" },
-    { label: "Downloads of developer tools I built", value: "60,000+" },
-  ],
   studied: "Studied Computer Science at King's College London.",
 } as const;
 
@@ -186,53 +204,47 @@ export const FAQ = {
   items: [
     {
       answer:
-        "{price}, fixed. If we start a build within 60 days, the audit fee comes off that build. If the audit doesn't find anything worth more than its fee, you get the fee back.",
+        "You walk me through how the work runs. I ask where the hours go and which tools you use. You leave with a yes or a not yet, and the reason.",
+      question: "What happens on the call?",
+    },
+    {
+      answer:
+        "{price}, fixed. Start a build within 60 days and the full fee comes off its price.",
       question: "What does the audit cost?",
     },
     {
       answer:
-        "We skip the audit. I'll quote a fixed price for the build after a short call.",
+        "Then you can skip the audit. I quote a fixed price for the build after a short call.",
       question: "What if we already know what to build?",
     },
     {
       answer:
-        "About 4-6 hours over 7-10 days: a kickoff call and a few short calls with the people who do the work, then a walkthrough of the report. In between, I work async and only ask when I need an answer.",
+        "About 4-6 hours over 7-10 days: a kickoff, a few short calls, and the walkthrough.",
       question: "How much of our time does it take?",
     },
     {
-      answer:
-        "No. You show me how the work runs. I set things up and show your team the parts they touch.",
+      answer: "No. You show me how the work runs, and I do the setup.",
       question: "Do we need to be technical?",
     },
     {
       answer:
-        "The ones you already use: email, calendar, docs, chat, your CRM or issue tracker, and whatever you use for finance or ops. If you already use ChatGPT, Claude, Zapier, or n8n, I build on those when they are the right fit.",
+        "The ones you already use: email, docs, chat, your CRM, and tools like ChatGPT, Claude, Zapier, or n8n.",
       question: "What tools do you work with?",
     },
     {
-      answer:
-        "Only with wording you've approved. Standard messages can be signed off once. Everything else waits for your OK.",
-      question: "Will anything message our customers on its own?",
+      answer: "Yes, before the call if you like.",
+      question: "Can you sign an NDA?",
     },
     {
       answer:
-        "I never use your data to train AI models. I take only the access the work needs, and you own everything I build: the accounts, the setup, and the data.",
-      question: "Is our data safe?",
-    },
-    {
-      answer: "Yes. I take calls in UK hours and US Eastern hours.",
-      question: "Do you work in our timezone?",
-    },
-    {
-      answer:
-        "No. I work with anyone who has a problem worth solving. Book a call, tell me what it is, and I'll tell you honestly if I can help.",
-      question: "Do you only work with startups?",
+        "30 days of support for small fixes. After that, an optional monthly retainer.",
+      question: "What happens after the build?",
     },
   ],
   label: "FAQ",
 } as const;
 
 export const CLOSE = {
-  body: "Tell me on a 15-minute call. If the audit is a fit, you'll know by the end of it. If it isn't, I'll say so.",
+  body: "Book 15 minutes and walk me through it. Or email me, and I'll reply the same day.",
   headline: "What do you do by hand every week?",
 } as const;

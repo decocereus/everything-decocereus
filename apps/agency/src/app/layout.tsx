@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import type React from "react";
 import { HERO } from "@/lib/content.ts";
+import { getAuditPrice, withPrice } from "@/lib/price.ts";
 import { SITE } from "@/lib/site.ts";
 import "./globals.css";
 
@@ -13,26 +14,32 @@ const geistMono = Geist_Mono({
 
 const TITLE = `${SITE.title} | ${SITE.name}`;
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-  description: SITE.description,
-  metadataBase: new URL(SITE.url),
-  openGraph: {
-    description: SITE.description,
-    siteName: SITE.name,
-    title: HERO.headline,
-    type: "website",
-    url: SITE.url,
-  },
-  title: TITLE,
-  twitter: {
-    card: "summary_large_image",
-    creator: SITE.x.handle,
-    description: SITE.description,
-    site: SITE.x.handle,
-    title: HERO.headline,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { now } = await getAuditPrice();
+  const description = withPrice(SITE.description, now);
+  return {
+    alternates: { canonical: "/" },
+    description,
+    metadataBase: new URL(SITE.url),
+    openGraph: {
+      description,
+      siteName: SITE.name,
+      title: HERO.headline,
+      type: "website",
+      url: SITE.url,
+    },
+    title: TITLE,
+    twitter: {
+      card: "summary_large_image",
+      creator: SITE.x.handle,
+      description,
+      site: SITE.x.handle,
+      title: HERO.headline,
+    },
+    // Set in Vercel once Search Console gives you the tag. Bing imports the site from Search Console.
+    verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
+  };
+}
 
 export default function RootLayout({
   children,

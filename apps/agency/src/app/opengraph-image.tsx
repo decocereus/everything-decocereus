@@ -2,8 +2,12 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { HERO } from "@/lib/content.ts";
+import { SITE } from "@/lib/site.ts";
 
-export const alt = `${HERO.headline} Less time on ${HERO.chores.slice(0, 4).join(", ").toLowerCase()}. An exploded view of a clock with orange hands.`;
+const lowerFirst = (text: string) =>
+  text.charAt(0).toLowerCase() + text.slice(1);
+
+export const alt = `${HERO.headline} Less time on ${HERO.chores.slice(0, 4).map(lowerFirst).join(", ")}. ${SITE.ogTagline}. An exploded view of a clock with orange hands.`;
 export const size = { height: 630, width: 1200 };
 export const contentType = "image/png";
 
@@ -96,6 +100,19 @@ export default async function Image() {
             </div>
           ))}
         </div>
+      </div>
+      <div
+        style={{
+          bottom: 40,
+          color: SOFT,
+          display: "flex",
+          fontSize: 22,
+          left: 72,
+          letterSpacing: "-0.01em",
+          position: "absolute",
+        }}
+      >
+        {`${SITE.ogTagline} · ${SITE.url.replace("https://", "")}`}
       </div>
     </div>,
     {
