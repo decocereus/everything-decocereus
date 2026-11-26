@@ -1,0 +1,4 @@
+# Local board storage used when R2 credentials are absent
+.data
+# Copied from node_modules by scripts/copy-fonts.mjs
+public/fonts

@@ -25,4 +25,6 @@ minimumReleaseAgeExclude:
   - ultracite@7.10.3
 trustPolicy: no-downgrade
 trustPolicyExclude:
+  # Excalidraw 0.18.1 pins it through @mermaid-js/parser; no 3.x release carries an attestation.
+  - langium@3.3.1
   - semver@6.3.1
