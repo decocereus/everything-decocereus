@@ -10,11 +10,22 @@ import {
 import type { RemoteExcalidrawElement } from "@excalidraw/excalidraw/data/reconcile";
 import type { ExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 import type {
+  AppState,
   ExcalidrawImperativeAPI,
   ExcalidrawInitialDataState,
 } from "@excalidraw/excalidraw/types";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { currentTheme, saveTheme, type Theme } from "@/lib/theme.ts";
 import { loadMissingFiles, uploadNewFiles } from "./files.ts";
+import { OpeningBoard } from "./opening-board.tsx";
+import { loadDrawingPrefs, loadView, savePrefs } from "./prefs.ts";
 import { registerPageTools } from "./webmcp.ts";
 
 type SyncState = "saved" | "saving" | "offline";
@@ -42,11 +53,19 @@ interface SyncBook {
   getUrl: string;
   headUrl: string;
   pollExpiresAt: number;
+  /** App state whose preferences haven't been written yet. */
+  prefsPending: AppState | null;
+  prefsTimer: ReturnType<typeof setTimeout>;
   synced: Map<string, number>;
   uploaded: Set<string>;
 }
 
+// Some Excalidraw actions fall back to light mode unless `theme` is passed as a
+// prop; passing it hides the built-in toggle unless it's turned back on.
+const UI_OPTIONS = { canvasActions: { toggleTheme: true } };
+
 const FLUSH_DELAY_MS = 300;
+const PREFS_DELAY_MS = 500;
 
 // R2 marks ETags weak (W/) when it compresses the response; the hash is the same.
 const WEAK_ETAG_RE = /^W\//;
@@ -73,18 +92,83 @@ const goConnect = () => {
   window.location.href = "/connect";
 };
 
-function SyncStatus({ status }: { status: SyncState }) {
+function SyncStatus({
+  compact = false,
+  status,
+}: {
+  compact?: boolean;
+  status: SyncState;
+}) {
   return (
     <span
       className="sync-status"
+      data-compact={compact || undefined}
       data-state={status}
       title={
         status === "offline" ? "Can't reach the server; retrying" : undefined
       }
     >
       <i aria-hidden />
-      {SYNC_LABEL[status]}
+      <span className="label">{SYNC_LABEL[status]}</span>
     </span>
+  );
+}
+
+/** The board's name, editable in place. Enter or leaving the field saves; Escape reverts. */
+function BoardName({
+  name,
+  onRename,
+}: {
+  name: string;
+  onRename: (name: string) => void;
+}) {
+  const [draft, setDraft] = useState<string | null>(null);
+  const reverting = useRef(false);
+  const value = draft ?? name;
+
+  const onFocus = useCallback(
+    (e: { currentTarget: HTMLInputElement }) => {
+      setDraft(name);
+      e.currentTarget.select();
+    },
+    [name]
+  );
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setDraft(e.currentTarget.value),
+    []
+  );
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.currentTarget.blur();
+    } else if (e.key === "Escape") {
+      reverting.current = true;
+      e.currentTarget.blur();
+    }
+  }, []);
+  const onBlur = useCallback(() => {
+    const next = draft?.trim();
+    // biome-ignore lint/suspicious/noUnnecessaryConditions: onKeyDown sets reverting just before this blur
+    if (!reverting.current && next && next !== name) {
+      onRename(next);
+    }
+    reverting.current = false;
+    setDraft(null);
+  }, [draft, name, onRename]);
+
+  return (
+    <input
+      aria-label="Board name"
+      className="board-name"
+      maxLength={120}
+      onBlur={onBlur}
+      onChange={onChange}
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
+      size={Math.max(4, value.length)}
+      spellCheck={false}
+      title="Rename board"
+      value={value}
+    />
   );
 }
 
@@ -95,6 +179,7 @@ export default function Editor({ boardId }: { boardId: string }) {
   );
   const [name, setName] = useState("");
   const [status, setStatus] = useState<SyncState>("saved");
+  const [theme, setTheme] = useState<Theme>(currentTheme);
   const [error, setError] = useState<string | null>(null);
 
   const s = useRef<SyncBook>({
@@ -106,6 +191,8 @@ export default function Editor({ boardId }: { boardId: string }) {
     getUrl: "",
     headUrl: "",
     pollExpiresAt: 0,
+    prefsPending: null,
+    prefsTimer: 0 as unknown as SyncBook["prefsTimer"],
     synced: new Map<string, number>(),
     uploaded: new Set<string>(),
   });
@@ -144,17 +231,22 @@ export default function Editor({ boardId }: { boardId: string }) {
           }
         }
         setName(doc.name);
+        const view = loadView(boardId);
         setInitial({
-          appState: { viewBackgroundColor: s.current.background },
+          appState: {
+            ...loadDrawingPrefs(),
+            ...view,
+            viewBackgroundColor: s.current.background,
+          },
           elements: restoreElements(doc.elements, null, {
             refreshDimensions: true,
             repairBindings: true,
           }),
-          scrollToContent: true,
+          scrollToContent: !view,
         });
       })
       .catch((e) => setError(e.message));
-  }, [fetchBoard]);
+  }, [boardId, fetchBoard]);
 
   useEffect(() => {
     if (name) {
@@ -251,10 +343,23 @@ export default function Editor({ boardId }: { boardId: string }) {
     }
   }, [api, boardId]);
 
-  const onChange = useCallback(() => {
-    clearTimeout(s.current.flushTimer);
-    s.current.flushTimer = setTimeout(() => flush(), FLUSH_DELAY_MS);
-  }, [flush]);
+  const onChange = useCallback(
+    (_elements: unknown, appState: AppState) => {
+      clearTimeout(s.current.flushTimer);
+      s.current.flushTimer = setTimeout(() => flush(), FLUSH_DELAY_MS);
+      if (appState.theme !== theme) {
+        setTheme(appState.theme);
+        saveTheme(appState.theme);
+      }
+      s.current.prefsPending = appState;
+      clearTimeout(s.current.prefsTimer);
+      s.current.prefsTimer = setTimeout(() => {
+        s.current.prefsPending = null;
+        savePrefs(boardId, appState);
+      }, PREFS_DELAY_MS);
+    },
+    [boardId, flush, theme]
+  );
 
   // Poll for changes made by agents. In production this sends HEAD requests
   // straight to R2 with presigned URLs and fetches the board only when its ETag changes.
@@ -348,6 +453,33 @@ export default function Editor({ boardId }: { boardId: string }) {
     return () => window.removeEventListener("pagehide", onHide);
   }, [flush]);
 
+  // Write preferences still waiting on their debounce when the editor goes away.
+  useEffect(() => {
+    const onHide = () => {
+      const pending = s.current.prefsPending;
+      // biome-ignore lint/suspicious/noUnnecessaryConditions: onChange sets prefsPending between renders
+      if (pending) {
+        clearTimeout(s.current.prefsTimer);
+        s.current.prefsPending = null;
+        savePrefs(boardId, pending);
+      }
+    };
+    window.addEventListener("pagehide", onHide);
+    return () => {
+      window.removeEventListener("pagehide", onHide);
+      // Client-side navigation away unmounts the editor without a pagehide.
+      onHide();
+    };
+  }, [boardId]);
+
+  // Excalidraw copies the name prop into its state once and exports under that,
+  // so a rename has to reach the state too.
+  useEffect(() => {
+    if (api && name) {
+      api.updateScene({ appState: { name } });
+    }
+  }, [api, name]);
+
   // Page-only WebMCP tools that need the live editor (selection, mermaid, focus).
   useEffect(() => {
     if (!api) {
@@ -356,21 +488,48 @@ export default function Editor({ boardId }: { boardId: string }) {
     return registerPageTools(api, boardId, () => name);
   }, [api, boardId, name]);
 
+  const rename = useCallback(
+    async (next: string) => {
+      const prev = name;
+      setName(next);
+      const res = await fetch(`/api/boards/${boardId}`, {
+        body: JSON.stringify({ name: next }),
+        headers: { "content-type": "application/json" },
+        method: "PATCH",
+      }).catch(() => null);
+      if (!res?.ok) {
+        setName(prev);
+      }
+    },
+    [boardId, name]
+  );
+
+  // Phones have no room beside the toolbar; rename from the board list there.
   const renderTopRightUI = useCallback(
-    () => <SyncStatus status={status} />,
-    [status]
+    (isMobile: boolean) =>
+      isMobile ? (
+        <SyncStatus compact status={status} />
+      ) : (
+        <div className="top-right">
+          <BoardName name={name} onRename={rename} />
+          <SyncStatus status={status} />
+        </div>
+      ),
+    [name, rename, status]
   );
 
   if (error) {
     return (
-      <main className="page">
+      <main className="status-page">
         <p>{error}</p>
-        <a href="/">All boards</a>
+        <a className="btn ghost" href="/">
+          All boards
+        </a>
       </main>
     );
   }
   if (!initial) {
-    return null;
+    return <OpeningBoard />;
   }
 
   return (
@@ -381,6 +540,8 @@ export default function Editor({ boardId }: { boardId: string }) {
         name={name}
         onChange={onChange}
         renderTopRightUI={renderTopRightUI}
+        theme={theme}
+        UIOptions={UI_OPTIONS}
       >
         <MainMenu>
           <MainMenu.Item onSelect={goHome}>All boards</MainMenu.Item>

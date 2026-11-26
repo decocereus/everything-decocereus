@@ -4,18 +4,38 @@
   --muted: #78716c;
   --line: #e7e5e4;
   --card: #ffffff;
+  --hover: #f5f5f4;
   --accent: #6965db;
-  color-scheme: light dark;
+  --on-accent: #ffffff;
+  --danger: #e03131;
+  color-scheme: light;
 }
+/* No saved choice: follow the OS. A saved choice sets data-theme on <html>. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #121212;
     --fg: #e7e5e4;
     --muted: #a8a29e;
     --line: #2c2a28;
     --card: #1b1a19;
+    --hover: #1f1e1d;
     --accent: #a8a5ff;
+    --on-accent: #121212;
+    --danger: #ff8787;
+    color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --fg: #e7e5e4;
+  --muted: #a8a29e;
+  --line: #2c2a28;
+  --card: #1b1a19;
+  --hover: #1f1e1d;
+  --accent: #a8a5ff;
+  --on-accent: #121212;
+  --danger: #ff8787;
+  color-scheme: dark;
 }
 * {
   box-sizing: border-box;
@@ -75,12 +95,23 @@ input {
 .btn {
   padding: 9px 14px;
   font-weight: 500;
-  color: #fff;
+  color: var(--on-accent);
   white-space: nowrap;
   cursor: pointer;
   background: var(--accent);
   border: 1px solid transparent;
   border-radius: 8px;
+  transition: opacity 150ms ease;
+}
+.btn:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.btn:focus-visible,
+.text-btn:focus-visible,
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .btn.ghost {
   color: var(--muted);
@@ -90,24 +121,91 @@ input {
 .btn.ghost:hover {
   color: var(--fg);
 }
-.btn.danger:hover {
-  color: #e03131;
-  border-color: #e03131;
+.btn.danger-solid {
+  color: #fff;
+  background: #e03131;
+}
+.text-btn {
+  padding: 6px 8px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+}
+.text-btn:hover {
+  color: var(--fg);
+  background: var(--hover);
+}
+.text-btn.danger:hover {
+  color: var(--danger);
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--muted);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.icon-btn:hover {
+  color: var(--fg);
+}
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+/* Show the icon for the theme a click switches to. */
+.theme-toggle .sun {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle .sun {
+  display: block;
+}
+:root[data-theme="dark"] .theme-toggle .moon {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-toggle .moon {
+    display: none;
+  }
+}
+.grow {
+  flex: 1;
+  min-width: 0;
 }
 .list {
   padding: 0;
-  margin: 24px 0 0;
+  /* Row text lines up with the input text above; hover fills bleed past it. */
+  margin: 24px -12px 0;
   list-style: none;
   border-top: 1px solid var(--line);
 }
-.list li {
+.board-row {
+  position: relative;
   display: flex;
   gap: 12px;
   align-items: center;
-  padding: 12px 0;
+  min-height: 60px;
+  padding: 8px 8px 8px 12px;
   border-bottom: 1px solid var(--line);
 }
-.list .name {
+.board-row:not([data-mode]):hover,
+.board-row:not([data-mode]):focus-within {
+  background: var(--hover);
+}
+.board-row .name {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -116,14 +214,85 @@ input {
   white-space: nowrap;
   text-decoration: none;
 }
-.list .name:hover {
-  color: var(--accent);
+/* The whole row opens the board; the actions sit above that link. */
+.board-row .name::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
 }
-.list .meta {
+.board-row .name:focus-visible {
+  outline: none;
+}
+.board-row .name:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.board-row .meta {
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
   white-space: nowrap;
+}
+.board-row .actions {
+  position: relative;
+  display: flex;
+  gap: 2px;
+}
+/* With a mouse, actions cover the time on hover or focus; touch screens always show them. */
+@media (hover: hover) {
+  .board-row .meta {
+    padding-right: 4px;
+  }
+  .board-row .actions {
+    position: absolute;
+    right: 8px;
+    padding-left: 12px;
+    background: var(--hover);
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  .board-row:hover .actions,
+  .board-row:focus-within .actions {
+    opacity: 1;
+  }
+}
+.confirm-text {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* Phones: the time moves under the name so the actions don't squeeze it. */
+@media (max-width: 520px) {
+  .board-row:not([data-mode]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 12px;
+  }
+  .board-row .meta {
+    grid-row: 2;
+    font-size: 12px;
+  }
+  .board-row .actions {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+  }
+}
+.confirm-text strong {
+  font-weight: 600;
+}
+.count {
+  margin-left: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.head-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 .empty {
   padding: 32px 0;
@@ -132,7 +301,41 @@ input {
 .error {
   margin-top: 8px;
   font-size: 14px;
-  color: #e03131;
+  color: var(--danger);
+}
+.status-page {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  gap: 16px;
+  place-content: center;
+  justify-items: center;
+  padding: 16px;
+  color: var(--muted);
+  text-align: center;
+}
+.status-page p {
+  margin: 0;
+}
+.status-page .btn {
+  text-decoration: none;
+}
+/* Shows only if loading takes long enough to notice. */
+.loading {
+  font-size: 14px;
+  animation: fade-in 200ms ease-out 400ms both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading,
+  .board-row .actions {
+    transition: none;
+    animation: none;
+  }
 }
 
 .login {
@@ -172,6 +375,18 @@ input {
 }
 .sync-status[data-state="offline"] i {
   background: #e03131;
+}
+/* Phones: just the dot; the label stays for screen readers. */
+.sync-status[data-compact] {
+  padding: 0 4px;
+}
+.sync-status[data-compact] .label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
 }
 
 .connect > p,
@@ -231,7 +446,7 @@ input {
 .page-head {
   display: flex;
   gap: 12px;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
 }
@@ -282,4 +497,42 @@ input {
 }
 .copy:hover {
   color: var(--fg);
+}
+@media (hover: none) {
+  .text-btn {
+    min-height: 40px;
+  }
+}
+
+/* Sits in Excalidraw's top bar, so it uses Excalidraw's theme variables. */
+.top-right {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  min-width: 0;
+}
+.board-name {
+  min-width: 0;
+  max-width: min(260px, 40vw);
+  height: 36px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary-color);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background-color 120ms ease;
+}
+.board-name:hover {
+  background: var(--color-surface-low);
+}
+.board-name:focus {
+  text-overflow: clip;
+  outline: none;
+  background: var(--island-bg-color);
+  border-color: var(--color-primary);
 }
